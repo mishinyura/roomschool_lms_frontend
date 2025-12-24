@@ -1,0 +1,245 @@
+[
+    {
+        "id": 1,
+        "name": "Команда маркетинга",
+        "type": "group",
+        "image": "",
+        "participants": [
+            {
+                "id": 101,
+                "name": "Анна"
+            },
+            {
+                "id": 102,
+                "name": "Иван"
+            },
+            {
+                "id": 103,
+                "name": "Сергей"
+            }
+        ],
+        "lastMessage": "Готовим презентацию для клиента",
+        "datetimeLastMessage": "2025-10-27T19:59:59Z",
+        "messages": [
+            {
+                "id": 1,
+                "chatId": 1,
+                "senderId": 101,
+                "recipientIds": [
+                    102,
+                    103
+                ],
+                "time": "09:45",
+                "text": "Коллеги, утвердила финальные слайды."
+            },
+            {
+                "id": 2,
+                "chatId": 1,
+                "senderId": 103,
+                "recipientIds": [
+                    101,
+                    102
+                ],
+                "time": "09:52",
+                "text": "Отлично! Загружу их в общую папку."
+            },
+            {
+                "id": 3,
+                "chatId": 1,
+                "senderId": 102,
+                "recipientIds": [
+                    101,
+                    103
+                ],
+                "time": "10:05",
+                "text": "Не забудьте добавить блок с кейсами."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Учителя математики",
+        "type": "group",
+        "image": "",
+        "participants": [
+            {
+                "id": 201,
+                "name": "Мария"
+            },
+            {
+                "id": 202,
+                "name": "Олег"
+            },
+            {
+                "id": 203,
+                "name": "Екатерина"
+            }
+        ],
+        "lastMessage": "Новые материалы для 7 класса",
+        "datetimeLastMessage": "2025-10-27T23:59:59Z",
+        "messages": [
+            {
+                "id": 1,
+                "chatId": 2,
+                "senderId": 201,
+                "recipientIds": [
+                    202,
+                    203
+                ],
+                "time": "08:15",
+                "text": "Поделилась обновлённым планом урока."
+            },
+            {
+                "id": 2,
+                "chatId": 2,
+                "senderId": 203,
+                "recipientIds": [
+                    201,
+                    202
+                ],
+                "time": "08:40",
+                "text": "Спасибо! Проверю и добавлю упражнения."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Иван Иванов",
+        "type": "private",
+        "image": "",
+        "participants": [
+            {
+                "id": 301,
+                "name": "Алексей"
+            },
+            {
+                "id": 302,
+                "name": "Дарья"
+            }
+        ],
+        "lastMessage": "Подтвердили расписание на месяц",
+        "datetimeLastMessage": "2024-10-27T23:59:59Z",
+        "messages": [
+            {
+                "id": 1,
+                "chatId": 3,
+                "senderId": 302,
+                "recipientIds": [
+                    301
+                ],
+                "time": "11:30",
+                "text": "Расписание готово, отправила в отдел продаж."
+            },
+            {
+                "id": 2,
+                "chatId": 3,
+                "senderId": 301,
+                "recipientIds": [
+                    302
+                ],
+                "time": "11:45",
+                "text": "Получил, проверю актуальность ссылок."
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "AI ментор",
+        "type": "private",
+        "image": "logo-adm.png",
+        "participants": [
+            {
+                "id": 301,
+                "name": "Алексей"
+            },
+            {
+                "id": 302,
+                "name": "Дарья"
+            }
+        ],
+        "lastMessage": "Подтвердили расписание на месяц",
+        "datetimeLastMessage": "2024-10-27T23:59:59Z",
+        "messages": [
+            {
+                "id": 1,
+                "chatId": 4,
+                "senderId": 302,
+                "recipientIds": [
+                    301
+                ],
+                "time": "11:30",
+                "text": "Расписание готово, отправила в отдел продаж."
+            },
+            {
+                "id": 2,
+                "chatId": 4,
+                "senderId": 301,
+                "recipientIds": [
+                    302
+                ],
+                "time": "11:45",
+                "text": "Получил, проверю актуальность ссылок."
+            },
+            {
+                "id": 1,
+                "chatId": 4,
+                "senderId": 302,
+                "recipientIds": [
+                    301
+                ],
+                "time": "11:30",
+                "text": "Расписание готово, отправила в отдел продаж."
+            },
+            {
+                "id": 2,
+                "chatId": 4,
+                "senderId": 301,
+                "recipientIds": [
+                    302
+                ],
+                "time": "11:45",
+                "text": "Получил, проверю актуальность ссылок."
+            },
+            {
+                "id": 1,
+                "chatId": 4,
+                "senderId": 302,
+                "recipientIds": [
+                    301
+                ],
+                "time": "11:30",
+                "text": "Расписание готово, отправила в отдел продаж."
+            },
+            {
+                "id": 2,
+                "chatId": 4,
+                "senderId": 301,
+                "recipientIds": [
+                    302
+                ],
+                "time": "11:45",
+                "text": "Получил, проверю актуальность ссылок."
+            },
+            {
+                "id": 1,
+                "chatId": 4,
+                "senderId": 302,
+                "recipientIds": [
+                    301
+                ],
+                "time": "11:30",
+                "text": "Расписание готово, отправила в отдел продаж."
+            },
+            {
+                "id": 2,
+                "chatId": 4,
+                "senderId": 301,
+                "recipientIds": [
+                    302
+                ],
+                "time": "11:45",
+                "text": "Получил, проверю актуальность ссылок."
+            }
+        ]
+    }
+]

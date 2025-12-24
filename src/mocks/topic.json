@@ -1,0 +1,99 @@
+{
+    "meta": {
+        "breadcrumbs": [
+            {
+                "id": 1,
+                "title": "8 класс - Основная программа",
+                "link": "/education/grade-8"
+            },
+            {
+                "id": 2,
+                "title": "Математика",
+                "link": "/education/math"
+            }
+        ]
+    },
+    "progress": {
+        "completed": 2,
+        "total": 4
+    },
+    "current": {
+        "id": 101,
+        "title": "Введение в квадратные уравнения!",
+        "isViewed": true,
+        "video": {
+            "src": "/assets/media/videos/lesson1.mp4",
+            "poster": "/assets/media/posters/lesson1.jpg",
+            "mimeType": "video/mp4"
+        },
+        "description": "<h3>Описание урока</h3><p>В этом уроке мы изучим основы квадратных уравнений...</p>",
+        "navigation": {
+            "prev": null,
+            "next": 102
+        }
+    },
+    "lessons": [
+        {
+            "id": 101,
+            "title": "Введение в квадратные уравнения",
+            "duration": 764,
+            "isViewed": true,
+            "isCurrent": false,
+            "isLocked": false
+        },
+        {
+            "id": 102,
+            "title": "Теорема Виета",
+            "duration": 764,
+            "isViewed": false,
+            "isCurrent": true,
+            "isLocked": false
+        },
+        {
+            "id": 103,
+            "title": "Практическое задание",
+            "duration": 940,
+            "isViewed": false,
+            "isCurrent": false,
+            "isLocked": true
+        }
+    ],
+    "attachments": {
+        "materials": [
+            {
+                "name": "Введение в квадратные уравнения",
+                "size": "2411724.8",
+                "url": "/api/download/material/1"
+            },
+            {
+                "name": "Теорема Виета",
+                "size": "2411724.8",
+                "url": "/api/download/material/2"
+            },
+            {
+                "name": "Практическое задание",
+                "size": "241134.8",
+                "url": "/api/download/material/3"
+            }
+        ],
+        "links": [
+            {
+                "name": "Статья о том, как решать квадратные уравнения",
+                "url": "https://google.com"
+            }
+        ]
+    },
+    "quiz": {
+        "id": 505,
+        "questionsCount": 10,
+        "userResult": {
+            "isCompleted": false,
+            "score": 5
+        }
+    },
+    "feedback": {
+        "isSubmitted": false,
+        "currentRating": 0,
+        "comment": ""
+    }
+}

@@ -1,0 +1,158 @@
+{
+    "programs": [
+        {
+            "title": "Средняя школа",
+            "block": "Общеобразовательный",
+            "slug": "srednyaya-shkola",
+            "completed": 16,
+            "total": 24,
+            "modules": [
+                {
+                    "title": "Математика",
+                    "slug": "matematika",
+                    "completed": 4,
+                    "total": 6,
+                    "topics": [
+                        {
+                            "title": "Линейные уравнения",
+                            "slug": "linieynye-uravneniya",
+                            "progress": 8,
+                            "videos": 5,
+                            "tests": 3,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Квадратные уравнения",
+                            "slug": "kvadratnye-uravneniya",
+                            "progress": 1,
+                            "videos": 3,
+                            "tests": 2,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Системы уравнений",
+                            "slug": "sistemy-uravnenij",
+                            "progress": 0,
+                            "videos": 6,
+                            "tests": 1,
+                            "isBlock": true
+                        },
+                        {
+                            "title": "Числительная система",
+                            "slug": "chislitelnaya-sistemy",
+                            "progress": 0,
+                            "videos": 6,
+                            "tests": 1,
+                            "isBlock": true
+                        }
+                    ]
+                },
+                {
+                    "title": "Математика",
+                    "slug": "matematika",
+                    "completed": 4,
+                    "total": 6,
+                    "topics": [
+                        {
+                            "title": "Линейные уравнения", 
+                            "slug": "linieynye-uravneniya",
+                            "progress": 8,
+                            "videos": 5,
+                            "tests": 3,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Квадратные уравнения",
+                            "slug": "kvadratnye-uravneniya",
+                            "progress": 1,
+                            "videos": 3,
+                            "tests": 2,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Системы уравнений",
+                            "slug": "sistemy-uravnenij",
+                            "progress": 0,
+                            "videos": 6,
+                            "tests": 1,
+                            "isBlock": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Технический",
+            "block": "Факультатив",
+            "slug": "tehnicheskij",
+            "completed": 8,
+            "total": 24,
+            "modules": [
+                {
+                    "title": "Математика",
+                    "slug": "matematika",
+                    "completed": 4,
+                    "total": 2,
+                    "topics": [
+                        {
+                            "title": "Линейные уравнения",
+                            "slug": "linieynye-uravneniya",
+                            "progress": 8,
+                            "videos": 5,
+                            "tests": 3,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Квадратные уравнения",
+                            "slug": "kvadratnye-uravneniya",
+                            "progress": 1,
+                            "videos": 3,
+                            "tests": 2,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Системы уравнений",
+                            "slug": "sistemy-uravnenij",
+                            "progress": 0,
+                            "videos": 6,
+                            "tests": 1,
+                            "isBlock": true
+                        }
+                    ]
+                },
+                {
+                    "title": "Математика",
+                    "slug": "matematika",
+                    "completed": 4,
+                    "total": 2,
+                    "topics": [
+                        {
+                            "title": "Линейные уравнения",
+                            "slug": "linieynye-uravneniya",
+                            "progress": 8,
+                            "videos": 5,
+                            "tests": 3,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Квадратные уравнения",
+                            "slug": "kvadratnye-uravneniya",
+                            "progress": 1,
+                            "videos": 3,
+                            "tests": 2,
+                            "isBlock": false
+                        },
+                        {
+                            "title": "Системы уравнений",
+                            "slug": "sistemy-uravnenij",
+                            "progress": 0,
+                            "videos": 6,
+                            "tests": 1,
+                            "isBlock": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
