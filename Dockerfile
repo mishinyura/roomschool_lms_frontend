@@ -1,15 +1,12 @@
-FROM node:22-alpine
-
+FROM node:22-alpine AS build-stage
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm install
-
 COPY . .
-RUN npm run build
+RUN npm run build  # Это создаст папку dist
 
-ENV HOST=0.0.0.0
-ENV PORT=3000
-EXPOSE 3000
+FROM nginx:stable-alpine
 
-CMD ["node", ".output/server/index.mjs"]
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
