@@ -3,19 +3,30 @@
     <div class="sidebar__control">
       <button class="sidebar__btn" @click="$emit('toggleSidebar')"></button>
 
-      <TheSelect
-        v-if="roles.length"
-        v-model:activeAccount="activeAccount"
-        :options="roles"
-      />
+      <template v-if="availableRolesOptions.length > 1">
+        <TheSelect
+          key="role-select"
+          v-model:activeAccount="currentRole"
+          :options="availableRolesOptions"
+        />
+      </template>
+      
+      <div 
+        v-else-if="currentRole" 
+        key="role-single" 
+        class="sidebar__single-role"
+      >
+         {{ getRoleDisplayName(currentRole) }}
+      </div>
     </div>
+
     <nav class="sidebar__nav">
       <ul class="sidebar__menu">
-        <li v-for="link in links" :key="link.name" class="sidebar__item">
+        <li v-for="link in currentLinks" :key="link.name" class="sidebar__item">
           <RouterLink
             :class="[
               'sidebar__link',
-              link.class,
+              link.class, 
               { sidebar__link_active: $route.name === link.name },
             ]"
             :to="{ name: link.name }"
@@ -29,77 +40,54 @@
   </aside>
 </template>
 
-<script>
-import { computed, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import TheSelect from "@/components/ui/TheSelect.vue";
+<script setup>
+import { computed, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useRoleStore } from "@/stores/roleStore";
+import TheSelect from "@/components/ui/TheSelect.vue";
 
-export default {
-  name: "SideBar",
-  components: {
-    TheSelect,
-  },
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const roleStore = useRoleStore();
+const router = useRouter();
+const roleStore = useRoleStore();
 
-    const roles = computed(() =>
-      roleStore.state.availableRoles.map((roleName) => ({
-        name: roleName,
-        display: roleStore.getDisplayNameForRole(roleName),
-      }))
-    );
+// Локальное состояние выбранной роли
+const currentRole = ref(null);
 
-    const links = computed(() => {
-      const roleName = roleStore.state.activeRole;
-      return roleName ? roleStore.getNavigationForRole(roleName) : [];
-    });
+// 1. Список ролей для Селекта (берем из геттера стора)
+const availableRolesOptions = computed(() => roleStore.myRolesList);
 
-    const activeAccount = computed({
-      get: () => roleStore.state.activeRole,
-      set: (roleName) => roleStore.setActiveRole(roleName),
-    });
+// 2. Меню для текущей роли
+const currentLinks = computed(() => {
+  if (!currentRole.value) return [];
+  // Используем твой конфиг через стор
+  return roleStore.getRoleMenu(currentRole.value);
+});
 
-    const ensureRouteAllowed = (roleName) => {
-      if (!roleName || !route.name) {
-        return;
+// 3. Инициализация: Если роль не выбрана, выбираем первую доступную
+watch(() => roleStore.activeRoles, (newRoles) => {
+  // Если currentRole пуст, или текущей роли больше нет в списке доступных
+  if (newRoles.length > 0) {
+      if (!currentRole.value || !newRoles.includes(currentRole.value)) {
+          currentRole.value = newRoles[0];
       }
+  }
+}, { immediate: true });
 
-      if (roleStore.isRouteAllowed(route.name, roleName)) {
-        return;
-      }
-
-      const fallback = roleStore.getDefaultRoute(roleName);
-
-      if (fallback && fallback !== route.name) {
-        router.replace({ name: fallback });
-      }
-    };
-
-    watch(
-      () => roleStore.state.activeRole,
-      (roleName) => {
-        ensureRouteAllowed(roleName);
-      },
-      { immediate: true }
-    );
-
-    watch(
-      () => route.name,
-      () => {
-        ensureRouteAllowed(roleStore.state.activeRole);
-      }
-    );
-
-    return {
-      roles,
-      links,
-      activeAccount,
-    };
-  },
-};
+// 4. Умный редирект при смене роли
+watch(currentRole, (newRole, oldRole) => {
+  // Срабатывает только при явной смене пользователем (когда была старая и стала новая)
+  if (newRole && oldRole && newRole !== oldRole) {
+    // Берем дефолтный роут из твоего конфига (например, 'webinars' для учителя)
+    const defaultRoute = roleStore.getRoleDefaultRoute(newRole);
+    
+    if (defaultRoute) {
+      router.push({ name: defaultRoute });
+    } else {
+        // Фоллбэк, если дефолтного нет - берем первый пункт меню
+        const links = roleStore.getRoleMenu(newRole);
+        if (links.length > 0) router.push({ name: links[0].name });
+    }
+  }
+});
 </script>
 
 

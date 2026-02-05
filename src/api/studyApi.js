@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from "@/configs/api.config.js";
+import { API_ENDPOINTS } from "@/configs/api.endpoints.js";
 import { apiClient } from "./httpClient.js";
 
 export async function getStudies() {

@@ -1,7 +1,7 @@
 <template>
-  <label v-if="label" class="auth__label input">
+  <!-- <label v-if="label" class="auth__label input">
     <span class="input__name">{{ label }}</span>
-    <span class="input__message">Неверный пароль</span>
+    <span class="input__message" v-if="error_message">{{ error_message }}</span>
     <input
       :type="type"
       v-model="innerValue"
@@ -9,33 +9,70 @@
       :name="name"
       class="input__item"
     />
+  </label> -->
+  <label v-if="label" class="auth__label input" :class="{ 'input--error': errorMessage }">
+    <span class="input__name">{{ label }}</span>
+    <span v-if="errorMessage" class="input__message">{{ errorMessage }}</span>
+    
+    <input
+      :type="type"
+      v-model="value" 
+      :placeholder="placeholder"
+      :name="name"
+      class="input__item"
+      @blur="handleBlur"
+    />
   </label>
 </template>
 
-<script>
-export default {
-  name: "FormInput",
-  props: {
-    label: String,
-    modelValue: String,
-    placeholder: String,
-    name: String,
-    type: {
-      type: String,
-      default: "text",
-    },
-  },
-  computed: {
-    innerValue: {
-      get() {
-        return this.modelValue;
-      },
-      set(value) {
-        this.$emit("update:modelValue", value);
-      },
-    },
-  },
-};
+<script setup>
+import { useField } from 'vee-validate';
+import { toRef } from 'vue';
+
+const props = defineProps({
+  name: { type: String, required: true },
+  label: String,
+  placeholder: String,
+  type: { type: String, default: "text" },
+});
+
+// useField магиески связывает этот инпут с правилами валидации формы
+// value — это само значение (v-model)
+// errorMessage — текст ошибки, если валидация не прошла
+const { value, errorMessage, handleBlur } = useField(toRef(props, 'name'));
+
+// export default {
+//   name: "FormInput",
+//   props: {
+//     label: String,
+//     modelValue: String,
+//     placeholder: String,
+//     name: String,
+//     type: {
+//       type: String,
+//       default: "text",
+//     },
+//     error_message: {
+//       type: String,
+//       default: null
+//     }
+//   },
+//   data() {
+//     return {
+      
+//     };
+//   },
+//   computed: {
+//     innerValue: {
+//       get() {
+//         return this.modelValue;
+//       },
+//       set(value) {
+//         this.$emit("update:modelValue", value);
+//       },
+//     },
+//   },
+// };
 </script>
 
 <style scoped>

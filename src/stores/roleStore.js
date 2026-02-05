@@ -1,107 +1,56 @@
-// import { reactive } from "vue";
-// import {
-//   ROLE_DEFINITIONS,
-//   ROUTE_ACCESS_MAP,
-//   getDefaultRouteForRole,
-//   getDisplayNameForRole,
-//   getNavigationForRole,
-// } from "../configs/roles";
-
-// const state = reactive({
-//   availableRoles: [],
-//   activeRole: null,
-// });
-
-// const normalizeRoles = (roleNames = []) => {
-//   const seen = new Set();
-
-//   return roleNames.filter((roleName) => {
-//     if (!ROLE_DEFINITIONS[roleName]) {
-//       return false;
-//     }
-
-//     if (seen.has(roleName)) {
-//       return false;
-//     }
-
-//     seen.add(roleName);
-//     return true;
-//   });
-// };
-
-// function assignRoles(roleNames = []) {
-//   const normalized = normalizeRoles(roleNames);
-
-//   state.availableRoles.splice(0, state.availableRoles.length, ...normalized);
-
-//   if (!normalized.length) {
-//     state.activeRole = null;
-//     return;
-//   }
-
-//   if (!normalized.includes(state.activeRole)) {
-//     state.activeRole = normalized[0];
-//   }
-// }
-
-// function setActiveRole(roleName) {
-//   if (state.availableRoles.includes(roleName) && state.activeRole !== roleName) {
-//     state.activeRole = roleName;
-//   }
-// }
-
-// function getActiveRole() {
-//   return state.activeRole;
-// }
-
-// function getDefaultRoute(roleName = state.activeRole) {
-//   return getDefaultRouteForRole(roleName);
-// }
-
-// function isRouteAllowed(routeName, roleName = state.activeRole) {
-//   if (!routeName || !roleName) {
-//     return false;
-//   }
-
-//   const allowedRolesForRoute = ROUTE_ACCESS_MAP[routeName];
-
-//   return allowedRolesForRoute ? allowedRolesForRoute.includes(roleName) : false;
-// }
-
-// export function useRoleStore() {
-//   return {
-//     state,
-//     assignRoles,
-//     setActiveRole,
-//     getActiveRole,
-//     getDefaultRoute,
-//     isRouteAllowed,
-//     getDisplayNameForRole,
-//     getNavigationForRole,
-//   };
-// }
-
-
 import { defineStore } from 'pinia';
+// Импортируем твои функции и константы
+import {
+  getDefaultRouteForRole,
+  getDisplayNameForRole,
+  getNavigationForRole,
+  ROUTE_ACCESS_MAP
+} from '@/configs/roles.js'; // <-- Проверь путь к файлу
 
 export const useRoleStore = defineStore('roles', {
   state: () => ({
     activeRoles: [],
   }),
-  
+
   getters: {
-    // Хелпер: проверка на админа
-    isAdmin: (state) => state.activeRoles.includes('admin'),
+    // 1. Список доступных ролей для переключателя (Select)
+    // Возвращает массив объектов { name: 'student', display: 'Ученик' }
+    myRolesList: (state) => {
+      return state.activeRoles.map(role => ({
+        name: role,
+        display: getDisplayNameForRole(role)
+      }));
+    },
+
+    // 2. Получить меню для конкретной роли
+    // Мы просто проксируем вызов к твоей функции getNavigationForRole
+    getRoleMenu: () => (roleName) => {
+      return getNavigationForRole(roleName);
+    },
+
+    // 3. Получить дефолтный роут (куда кидать при смене роли)
+    getRoleDefaultRoute: () => (roleName) => {
+      return getDefaultRouteForRole(roleName);
+    },
     
-    // Хелпер: проверка прав
-    hasRole: (state) => (roleName) => state.activeRoles.includes(roleName),
+    // 4. Проверка доступа (используем твой ROUTE_ACCESS_MAP)
+    hasAccess: (state) => (routeRolesOrName) => {
+        // Если передали массив ролей (старый вариант)
+        if (Array.isArray(routeRolesOrName)) {
+             if (routeRolesOrName.length === 0) return true;
+             return state.activeRoles.some(r => routeRolesOrName.includes(r));
+        }
+        // Если передали имя роута (новый вариант, используя твою map)
+        const allowedRoles = ROUTE_ACCESS_MAP[routeRolesOrName];
+        if (!allowedRoles) return true; // Если роута нет в карте, считаем его публичным? Или наоборот закрытым.
+        return state.activeRoles.some(r => allowedRoles.includes(r));
+    }
   },
 
   actions: {
     assignRoles(rolesArray) {
-      // Записываем массив, который пришел из authStore
-      this.activeRoles = rolesArray;
-      console.log('Роли обновлены:', this.activeRoles);
+      // Защита от дурака: если пришло null, делаем пустой массив
+      this.activeRoles = Array.isArray(rolesArray) ? rolesArray : [];
     }
   }
 });
