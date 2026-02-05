@@ -84,6 +84,12 @@ const routes = [
     ]
   },
   {
+    path: '/forbidden',
+    name: 'forbidden',
+    component: () => import('@/views/ForbiddenView.vue'),
+    meta: { public: true }
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("@/views/NotFoundView.vue"),
     props: true,

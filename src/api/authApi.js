@@ -1,14 +1,19 @@
-import { API_ENDPOINTS } from '@/configs/api.config.js';
+import { API_ENDPOINTS } from '@/configs/api.endpoints.js';
 import { TokenResponseSchema } from '@/schemas/authSchema.js';
-import axios from 'axios';
 import apiClient from './httpClient.js';
 
 export const authApi = {
+    async check() {
+        const url = process.env.VUE_APP_API_URL + API_ENDPOINTS.AUTH.CHECK;
+        return apiClient.get(url);
+    },
+
     async login({ username, password }) {
         const payload = new URLSearchParams({ username, password });
         const url = process.env.VUE_APP_API_URL + API_ENDPOINTS.AUTH.LOGIN;
 
         const { data } = await apiClient.post(url, payload, {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -18,8 +23,8 @@ export const authApi = {
     },
 
     async refreshToken() {
-        let url = process.env.VUE_APP_API_URL + API_ENDPOINTS.AUTH.GET;
-        const { data } = await axios.get(
+        let url = process.env.VUE_APP_API_URL + API_ENDPOINTS.AUTH.REFRESH;
+        const { data } = await apiClient.get(
             url,
             {},
             { withCredentials: true}
@@ -29,6 +34,6 @@ export const authApi = {
 
     async logout() {
         let url = process.env.VUE_APP_API_URL + API_ENDPOINTS.AUTH.LOGOUT;
-        return apiClient.post(url);
+        return apiClient.get(url);
     }
 };

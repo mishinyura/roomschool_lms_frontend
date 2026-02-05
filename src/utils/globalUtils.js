@@ -3,3 +3,7 @@ export const pluralize = (num, one, few, many) => {
     if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) return `${num} ${few}`;
     return `${num} ${many}`;
 };
+
+export function print(section=null, ...data) {
+    console.log(`DEBUG INGO: ${section}\n\n`, ...data);
+} 

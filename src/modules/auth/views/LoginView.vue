@@ -16,80 +16,77 @@
         </symbol>
       </svg>
       <TheLoader v-if="loading" />
-      <form v-else @submit.prevent="handleLogin" class="auth__form">
+      <form @submit="onSubmit" class="auth__form">
         <h1 class="auth__title">Вход в личный кабинет</h1>
+        
         <div class="auth__inputs">
           <FormInput
-            v-model.trim="email"
-            label="Email, логин или телефон"
-            type="text"
             name="username"
-            placeholder="example@mail.com"
+            label="Email, логин или телефон"
+            placeholder="Имя пользователя"
           />
+          
           <FormInput
-            v-model="password"
+            name="password"
             label="Пароль"
             type="password"
-            name="password"
             placeholder="Введите пароль"
           />
         </div>
-        <button class="auth__btn auth__btn_login" @click="handleLogin">Войти</button>
-        <button class="auth__btn auth__btn_forgot" @click="$router.push({ name: 'forgot' })">
+
+        <button 
+           class="auth__btn auth__btn_login" 
+           :disabled="isSubmitting"
+        >
+          {{ isSubmitting ? 'Вход...' : 'Войти' }}
+        </button>
+        
+        <button type="button" class="auth__btn auth__btn_forgot" @click="$router.push({ name: 'forgot' })">
           Забыли пароль?
         </button>
       </form>
-      <TheNotification v-if="list_errors.length > 0" v-model="list_errors"/>
+      
+      <TheNotification 
+        v-if="errors" 
+        v-model="errors"
+      />
     </div>
   </div>
 </template>
 
-<script>
-import FormInput from "@/components/ui/FormInput.vue";
-import TheLoader from "@/components/ui/TheLoader.vue";
-import TheNotification from "@/components/ui/TheNotification.vue";
+<script setup>
+import { ref } from 'vue';
+import { useForm } from 'vee-validate';
 import { useAuthStore } from "@/stores/authStore.js";
+import { useRouter } from 'vue-router';
+import FormInput from "@/components/ui/FormInput.vue";
+import TheNotification from "@/components/ui/TheNotification.vue";
+import { validationSchema } from "@/schemas/formSchemas.js";
 
-export default {
-  props: ['listErrorModel'],
-  components: { FormInput, TheLoader, TheNotification },
-  data() {
-    return {
-      email: "",
-      password: "",
-      loading: true,
-      list_errors: [],
-    };
-  },
-  methods: {
-    async handleLogin() {
-      if (this.loading) {
-        return;
-      }
-      this.loading = true;
-      try {
-        const authStore = useAuthStore();
-        await authStore.login({
-          username: this.email,
-          password: this.password,
-        });
-        this.$router.push({ name: "study" });
-      } catch (e) {
-        console.error("Ошибка входа:", e);
-        alert("Ошибка входа. Проверь логин или пароль.");
-        this.loading = false;
-      }
-    },
-  },
-  async mounted() {
-    const authStore = useAuthStore();
-    const data = await authStore.checkAuth();
-    if (data) {
-      this.$router.push({ name: "study" });
+const authStore = useAuthStore();
+const router = useRouter();
+const errors = ref([]);
+
+const { handleSubmit, isSubmitting, setErrors } = useForm({
+  validationSchema,
+});
+
+const onSubmit = handleSubmit(async (values) => {
+  errors.value = [];
+  try {
+    // Логин проходит, стор обновляется
+    await authStore.login(values);
+    // Редирект на учебу
+    router.push({ name: "study" });
+  } catch (e) {
+    if (e.response?.data?.errors) {
+      setErrors(e.response.data.errors); 
+    } else {
+      const message = e.response?.data?.message || "Ошибка сервера";
+      errors.value = [message];
     }
-    this.loading = false;
-  },
-};
+  }
+});
 </script>
 
 <style scoped>

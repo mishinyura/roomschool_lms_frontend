@@ -1,71 +1,80 @@
-import { API_ENDPOINTS } from "@/configs/api.config.js";
-import { Config } from '@/configs/base.js';
+import router from '@/router'; // Нужен для редиректа при полном вылете
 import { useAuthStore } from '@/stores/authStore.js';
 import axios from 'axios';
 
+// 1. Создаем инстанс
 const apiClient = axios.create({
-  baseURL: Config.API_BASE_URL,
+  baseURL: process.env.VUE_APP_API_URL || 'http://api.roomschool.ru', // Лучше брать из .env
+  withCredentials: true, // ВАЖНО: разрешает куки (для Refresh Token)
   headers: {
-    'x-api-key': Config.API_KEY
-  },
-  withCredentials: true,
-  // validateStatus: status => status < 500
-})
+    'Content-Type': 'application/json',
+  }
+});
 
+// 2. Request Interceptor (Вставка токена)
+// Его задача только одна: если есть ключик - вставь в замок.
 apiClient.interceptors.request.use(config => {
+  // ВАЖНО: вызываем стор ВНУТРИ интерцептора, чтобы не было ошибки инициализации Pinia
   const authStore = useAuthStore();
 
-  console.log(authStore)
-  
   if (authStore.accessToken) {
     config.headers.Authorization = `Bearer ${authStore.accessToken}`;
-  } else {
-    authStore.checkAuth()
   }
+  
+  // УБРАЛИ else { checkAuth() } - это была ошибка!
+  // Если токена нет, мы просто шлем запрос анонимно. 
+  // Если бэкенду это не понравится, он вернет 401, и мы разберемся в response interceptor.
   
   return config;
 }, error => {
   return Promise.reject(error);
 });
 
+
+
+// 1. Вставка токена (если есть)
+apiClient.interceptors.request.use(config => {
+  const authStore = useAuthStore();
+  if (authStore.accessToken) {
+    config.headers.Authorization = `Bearer ${authStore.accessToken}`;
+  }
+  return config;
+}, error => Promise.reject(error));
+
+// 2. Обработка ошибок (Refresh Token)
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error)
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const response = await axios.post(
-            import.meta.env.VITE_API_URL + API_ENDPOINTS.AUTH,
-            {}, // Тело запроса (обычно пустое, если refresh token в куках)
-            { withCredentials: true }
+        const refreshUrl = (process.env.VUE_APP_API_URL || 'http://api.roomschool.ru') + '/auth/refresh';
+        
+        // --- ИСПРАВЛЕНИЕ: БЫЛО POST, СТАЛО GET ---
+        const { data } = await axios.get(
+            refreshUrl, 
+            { withCredentials: true } 
         );
 
-        const newAccessToken = response.data.access_token;
-
-        // 1. Сохраняем новый токен в Store
+        const newAccessToken = data.accessToken || data.access_token;
+        
         const authStore = useAuthStore();
-        authStore.setToken(newAccessToken);
+        authStore.accessToken = newAccessToken;
 
-        // 2. Меняем заголовок в старом (упавшем) запросе
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-        // 3. Повторяем старый запрос с новым токеном
         return apiClient(originalRequest);
 
       } catch (refreshError) {
-        // Если даже обновить токен не вышло (например, refresh token протух)
-        console.error('Refresh token failed', refreshError);
+        console.error('Сессия истекла:', refreshError);
         const authStore = useAuthStore();
-        authStore.logout(); // Полный выход
+        authStore.logout();
+        router.push({ name: 'auth' }); // Редирект на логин
         return Promise.reject(refreshError);
       }
     }
-
-    // Если ошибка не 401 или уже пробовали — просто выкидываем её дальше
     return Promise.reject(error);
   }
 );

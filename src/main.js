@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/authStore';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -9,10 +10,18 @@ import '@/assets/styles/reset.css';
 import '@/assets/styles/variables.css';
 
 
+
 const app = createApp(App);
 const pinia = createPinia();
 
 app.use(pinia);
 app.use(router);
+
+const authStore = useAuthStore();
+const tokenFromStorage = localStorage.getItem('access_token');
+
+if (tokenFromStorage) {
+  authStore.processToken(tokenFromStorage);
+}
 
 app.mount('#app');
