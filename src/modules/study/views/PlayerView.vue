@@ -23,7 +23,7 @@
       <div class="main__main player">
         <div class="player__content">
           <div class="player__video">
-            <video controls > <!-- poster="@/assets/media/posters/lesson1.jpg" -->
+            <video controls poster="@/assets/media/poster.png">
               <source src="@/assets/media/video.mp4" type="video/mp4" />
               Ваш браузер не поддерживает видео.
             </video>
