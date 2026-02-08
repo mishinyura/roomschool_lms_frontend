@@ -6,18 +6,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ThePlan from "../components/ThePlan.vue";
 import TheCourses from "../components/TheCourses.vue";
-
-export default {
-  components: { ThePlan, TheCourses },
-};
 </script>
 
-<style>
+<style lang="scss" scoped>
 .main__title {
-  font-size: var(--font-size-title-lg);
-  margin-bottom: 20px;
+  @include page-title
 }
 </style>
