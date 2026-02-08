@@ -91,13 +91,13 @@ watch(currentRole, (newRole, oldRole) => {
 </script>
 
 
-<style>
+<style lang="scss" scoped>
 /* Sidebar */
 .sidebar {
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-classic);
-  background-color: var(--color-bg-white);
+  box-shadow: $shadow-classic;
+  background-color: $color-bg-white;
 }
 
 .sidebar__control {
@@ -105,7 +105,7 @@ watch(currentRole, (newRole, oldRole) => {
   flex-direction: column;
 
   padding: 1em;
-  border-bottom: var(--border-blue);
+  border-bottom: $border-blue;
 }
 .main_collapsed .sidebar__control {
   /* gap: 8px; */
@@ -123,7 +123,7 @@ watch(currentRole, (newRole, oldRole) => {
   mask: url("@/assets/media/icons/logo.svg") no-repeat center/contain;
   width: 100%;
   height: 100%;
-  background-color: var(--color-icon-blue);
+  background-color: $color-icon-blue;
 }
 
 .sidebar__btn {
@@ -133,7 +133,7 @@ watch(currentRole, (newRole, oldRole) => {
   width: 25px;
   height: 25px;
   margin-bottom: 10px;
-  border-radius: var(--radius-lg);
+  border-radius: $radius-lg;
   transition: background-color 0.1s;
 }
 
@@ -147,11 +147,11 @@ watch(currentRole, (newRole, oldRole) => {
 }
 
 .sidebar__btn:hover {
-  background-color: var(--color-action-blue);
+  background-color: $color-action-blue;
 }
 
 .sidebar__btn:hover::before {
-  background-color: var(--color-action-white);
+  background-color: $color-action-white;
 }
 
 /* Nav */
@@ -180,11 +180,11 @@ watch(currentRole, (newRole, oldRole) => {
   flex-grow: 1;
   gap: 15px;
   padding: 0.5em 1.1em;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-xs);
+  font-family: $font-family-montserrat;
+  font-size: $font-size-title-xs;
   font-weight: 400;
   transition: background-color 0.1s, color 0.1s, width 0.1s, padding 0.1s;
-  cursor: var(--cursor-point);
+  cursor: $cursor-point;
 }
 .sidebar__link::before {
   flex-shrink: 0;
@@ -219,13 +219,13 @@ watch(currentRole, (newRole, oldRole) => {
   mask: url("@/assets/media/icons/profile.svg") no-repeat center/contain;
 }
 .sidebar__link_active {
-  background-color: var(--color-action-blue);
-  color: var(--color-action-white);
+  background-color: $color-action-blue;
+  color: $color-action-white;
 }
 .sidebar__link_active::before {
-  background-color: var(--color-action-white);
+  background-color: $color-action-white;
 }
 .sidebar__link:not(.sidebar__link_active):hover {
-  background-color: var(--color-action-light-blue);
+  background-color: $color-action-light-blue;
 }
 </style>

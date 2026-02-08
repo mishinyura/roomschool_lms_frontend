@@ -1,9 +1,9 @@
 <template>
-  <div class="main__container">
+  <article class="main__content">
     <h1 class="main__title">Обучение</h1>
     <ThePlan />
     <TheCourses />
-  </div>
+  </article>
 </template>
 
 <script setup>
@@ -12,7 +12,10 @@ import TheCourses from "../components/TheCourses.vue";
 </script>
 
 <style lang="scss" scoped>
+.main__content{
+  @include content-view;
+}
 .main__title {
-  @include page-title
+  @include page-title;
 }
 </style>

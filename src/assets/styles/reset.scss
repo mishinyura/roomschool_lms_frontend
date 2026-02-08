@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('@/assets/fonts/montserrat/Montserrat-Light.woff2') format('woff2'),
+        url('@/assets/fonts/montserrat/Montserrat-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('@/assets/fonts/montserrat/Montserrat-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/montserrat/Montserrat-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('@/assets/fonts/montserrat/Montserrat-Medium.woff2') format('woff2'),
+        url('@/assets/fonts/montserrat/Montserrat-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('@/assets/fonts/montserrat/Montserrat-Bold.woff2') format('woff2'),
+        url('@/assets/fonts/montserrat/Montserrat-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('@/assets/fonts/nunito/Nunito-Light.woff2') format('woff2'),
+        url('@/assets/fonts/nunito/Nunito-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('@/assets/fonts/nunito/Nunito-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/nunito/Nunito-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: $color-text-black;
+    outline: none;
+    cursor: $cursor-point;
+}
+
+button {
+    padding: 0;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: $cursor-point;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: $font-family-montserrat;
+}
+
+p {
+    margin: 0;
+    font-family: $font-family-nunito;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+body {
+    min-width: 320px;
+    height: 100vh;
+    overflow: hidden;
+    background-color: $color-bg-grey;
+    cursor: $cursor-select;
+}
+
+.icons {
+    display: none;
+}

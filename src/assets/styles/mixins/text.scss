@@ -1,0 +1,44 @@
+@mixin page-title {
+    margin-bottom: 20px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-lg;
+    font-weight: 600;
+    color: $color-text-black;
+}
+
+@mixin section-title {
+    margin-bottom: 20px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-md;
+    font-weight: 500;
+    color: $color-text-black;
+}
+
+@mixin card-title {
+    margin-bottom: 10px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
+    font-weight: 400;
+    color: $color-text-black;
+}
+
+@mixin note-title {
+    font-family: $font-family-nunito;
+    font-size: $font-size-title-xs;
+    font-weight: 400;
+    color: $color-text-grey;
+}
+
+@mixin note-text {
+    font-family: $font-family-nunito;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    color: $color-text-grey;
+}
+
+@mixin counter-blue {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 500;
+    color: $color-text-blue;
+}

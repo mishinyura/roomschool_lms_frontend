@@ -56,23 +56,23 @@ $color-text-green: #267d2e;
 /* hover, active, focus эффекты */
 
 
-/* 
+
 $color-action-white: #fff;
-$color-action-grey: #e3e3e3;
-$color-action-dark-grey: #7c7c7c;
+// $color-action-grey: #e3e3e3;
+// $color-action-dark-grey: #7c7c7c;
 $color-action-blue: #0AA6D7;
-$color-action-dark-blue: #0080a7;
+// $color-action-dark-blue: #0080a7;
 $color-action-light-blue: #ddf2ff;
-$color-action-purpure: #9436ff;
-$color-action-light-blue: #ddf2ff;
-$color-action-blue: #0AA6D7;
-$color-action-dark-blue: #0080a7;
-$color-action-green: #37d144;
-$color-action-grey: #e3e3e3;
-$color-action-dark-grey: #7c7c7c;
-$color-action-light-grey: #f5f7fa;
-$color-action-white: #fff; 
-*/
+// $color-action-purpure: #9436ff;
+// $color-action-light-blue: #ddf2ff;
+// $color-action-blue: #0AA6D7;
+// $color-action-dark-blue: #0080a7;
+// $color-action-green: #37d144;
+// $color-action-grey: #e3e3e3;
+// $color-action-dark-grey: #7c7c7c;
+// $color-action-light-grey: #f5f7fa;
+// $color-action-white: #fff; 
+
 
 
 /* Фоны для кнопок */
@@ -81,12 +81,12 @@ $color-btn-grey: #d0d0d0;
 $color-btn-blue: #ddf2ff;
 $color-btn-dark-blue: #0AA6D7;
 
-/* $color-btn-black: #000;
-    $color-btn-grey: #d0d0d0;
-    $color-btn-blue: #ddf2ff;
-    $color-btn-dark-blue: #0AA6D7;
-    $color-btn-white: #fff;
-    $color-btn-white-transparent: rgba(255, 255, 255, 0.5); */
+// $color-btn-black: #000;
+// $color-btn-grey: #d0d0d0;
+// $color-btn-blue: #ddf2ff;
+// $color-btn-dark-blue: #0AA6D7;
+// $color-btn-white: #fff;
+// $color-btn-white-transparent: rgba(255, 255, 255, 0.5);
 
 
 /* Фон для лейблов, отметок (Новый, топ, продвинутый и тд) */
@@ -130,22 +130,19 @@ $color-card-grey: #f5f7fa;
 
 /* Фоны или цвета для иконок */
 
+// $color-icon-black: #000;
+// $color-icon-white: #fff;
+$color-icon-blue: #34a7ee;
+// $color-icon-purpure: #946dff;
+// $color-icon-green: #37d144;
+// $color-icon-red: #de2d2d;
+// $color-icon-grey: #7c7c7c;
+// $color-icon-black: #000;
+// $color-icon-white: #fff;
 
-/* 
-$color-icon-black: #000;
-$color-icon-white: #fff;
-$color-icon-blue: #34a7ee;
-$color-icon-blue: #34a7ee;
-$color-icon-purpure: #946dff;
-$color-icon-green: #37d144;
-$color-icon-red: #de2d2d;
-$color-icon-grey: #7c7c7c;
-$color-icon-black: #000;
-$color-icon-white: #fff;
-$color-message-green: #7cffb9;
-$color-message-yellow: #fff6bd;
-$color-form-white-transparent: rgba(255, 255, 255, 0.2);
-*/
+// $color-message-green: #7cffb9;
+// $color-message-yellow: #fff6bd;
+// $color-form-white-transparent: rgba(255, 255, 255, 0.2);
 
 
 /* ____________
@@ -193,22 +190,24 @@ ______________*/
 $radius-sm: 5px;
 // $radius-md: 10px;
 $radius-lg: 15px;
-// $radius-max: 30px;
+$radius-max: 30px;
 
-// $border-blue: 1px solid var($color-btn-blue);
+$border-blue: 1px solid #ddf2ff;
 // $border-dark-blue: 1px solid var($color-btn-dark-blue);
 // $border-black: 1px solid var($color-btn-black);
-// $border-grey: 1px solid var($color-btn-grey);
+$border-grey: 1px solid #d0d0d0;
 
-/* $border-blue: 1px solid var($color-btn-blue);
-    $border-dark-blue: 1px solid var($color-btn-dark-blue);
-    $border-black: 1px solid var($color-btn-black);
-    $border-grey: 1px solid var($color-btn-grey);
-    $border-red: 1px solid var($color-btn-red);
-    $border-white: 1px solid var($color-btn-white); */
+/* 
+$border-blue: 1px solid var($color-btn-blue);
+$border-dark-blue: 1px solid var($color-btn-dark-blue);
+$border-black: 1px solid var($color-btn-black);
+$border-grey: 1px solid var($color-btn-grey);
+$border-red: 1px solid var($color-btn-red);
+$border-white: 1px solid var($color-btn-white); 
+*/
 
-// $shadow-classic: 0 0 15px 0 rgba(0, 0, 0, 0.2);
-/* $shadow-podium: 0 5px 10px 0 rgba(0, 0, 0, 0.1); */
+$shadow-classic: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+$shadow-podium: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
 
 /* Шрифты */
 $font-family-montserrat: 'Montserrat', Arial, sans-serif;

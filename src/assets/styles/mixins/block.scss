@@ -1,0 +1,8 @@
+@mixin content-view {
+    width: 100%;
+    max-width: 2500px;
+    margin: 0 auto;
+    padding: 1.5em;
+    box-sizing: border-box;
+    background-color: $color-bg-grey;
+}

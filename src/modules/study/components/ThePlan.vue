@@ -44,72 +44,71 @@ const progressBarStyle = computed(() => {
   margin-bottom: 20px;
   border-radius: $radius-lg;
   background-color: $color-section-blue;
-}
 
-.plan__progressbar {
-  padding: 1em;
-}
+  &__progressbar {
+    padding: 1em;
+  }
 
-.plan__title {
-  margin-bottom: 20px;
-  font-weight: 400;
-}
+  &__title {
+    @include section-title;
+  }
 
-.plan__counter {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 40px;
-}
+  &__counter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 40px;
+  }
 
-.plan__count {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  font-family: $font-family-montserrat;
-  font-size: $font-size-text-xs;
-  font-weight: 500;
-  color: $color-text-blue;
-}
+  &__count {
+    @include counter-blue;
+    position: relative;
+    display: flex;
+    justify-content: center;
 
-.plan__count::before {
-  position: absolute;
-  top: 20px;
-  color: $color-text-grey;
-}
+    &::before {
+      @include note-title;
+      position: absolute;
+      top: 20px;
+    }
 
-.plan__count_total::before {
-  content: "Запланировано";
-}
+    &_total::before {
+      content: "Запланировано";
+    }
 
-.plan__count_end::before {
-  content: "Завершено";
-}
+    &_end::before {
+      content: "Завершено";
+    }
 
-.plan__count_percent::before {
-  content: "Прогресс недели";
-  white-space: nowrap;
-}
+    &_percent {
+      &::before {
+        content: "Прогресс недели";
+        white-space: nowrap;
+      }
 
-.plan__count_percent::after {
-  content: "%";
-}
-.plan__progress {
-  display: block;
-  height: 8px;
-  width: 100%;
-  margin-bottom: 10px;
-  border-radius: $radius-sm;
-}
-.plan__remains {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: $font-family-montserrat;
-  font-size: $font-size-text-xs;
-  font-weight: 500;
-}
-.plan__remains::before {
-  content: "До конца недели осталось:";
+      &::after {
+        content: "%";
+      }
+    }
+  }
+
+  &__progress {
+    display: block;
+    height: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: $radius-sm;
+  }
+
+  &__remains {
+    @include note-title;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &::before {
+      content: "До конца недели осталось:";
+    }
+  }
 }
 </style>
