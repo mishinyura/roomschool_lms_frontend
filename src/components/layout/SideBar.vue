@@ -49,22 +49,14 @@ import TheSelect from "@/components/ui/TheSelect.vue";
 const router = useRouter();
 const roleStore = useRoleStore();
 
-// Локальное состояние выбранной роли
-const currentRole = ref(null);
-
-// 1. Список ролей для Селекта (берем из геттера стора)
-const availableRolesOptions = computed(() => roleStore.myRolesList);
-
-// 2. Меню для текущей роли
+const currentRole = ref(null); //Текущая выбранная роль
+const availableRolesOptions = computed(() => roleStore.myRolesList); //Список достных ролей
 const currentLinks = computed(() => {
   if (!currentRole.value) return [];
-  // Используем твой конфиг через стор
   return roleStore.getRoleMenu(currentRole.value);
-});
+}); //Список доступных вкладок в меню
 
-// 3. Инициализация: Если роль не выбрана, выбираем первую доступную
 watch(() => roleStore.activeRoles, (newRoles) => {
-  // Если currentRole пуст, или текущей роли больше нет в списке доступных
   if (newRoles.length > 0) {
       if (!currentRole.value || !newRoles.includes(currentRole.value)) {
           currentRole.value = newRoles[0];
@@ -72,17 +64,13 @@ watch(() => roleStore.activeRoles, (newRoles) => {
   }
 }, { immediate: true });
 
-// 4. Умный редирект при смене роли
 watch(currentRole, (newRole, oldRole) => {
-  // Срабатывает только при явной смене пользователем (когда была старая и стала новая)
   if (newRole && oldRole && newRole !== oldRole) {
-    // Берем дефолтный роут из твоего конфига (например, 'webinars' для учителя)
     const defaultRoute = roleStore.getRoleDefaultRoute(newRole);
     
     if (defaultRoute) {
       router.push({ name: defaultRoute });
     } else {
-        // Фоллбэк, если дефолтного нет - берем первый пункт меню
         const links = roleStore.getRoleMenu(newRole);
         if (links.length > 0) router.push({ name: links[0].name });
     }
@@ -92,140 +80,144 @@ watch(currentRole, (newRole, oldRole) => {
 
 
 <style lang="scss" scoped>
-/* Sidebar */
 .sidebar {
   display: flex;
   flex-direction: column;
   box-shadow: $shadow-classic;
   background-color: $color-bg-white;
-}
 
-.sidebar__control {
-  display: flex;
-  flex-direction: column;
+  &__control {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border-bottom: $border-blue;
 
-  padding: 1em;
-  border-bottom: $border-blue;
-}
-.main_collapsed .sidebar__control {
-  /* gap: 8px; */
-  /* justify-content: center; */
-  align-items: center;
-  padding: 1em 0.3em;
-}
-.sidebar__logo {
-  width: 100%;
-  height: 40px;
-}
-.sidebar__logo::before {
-  display: block;
-  content: "";
-  mask: url("@/assets/media/icons/logo.svg") no-repeat center/contain;
-  width: 100%;
-  height: 100%;
-  background-color: $color-icon-blue;
-}
+    .main_collapsed & {
+      align-items: center;
+      padding: 1em 0.3em;
+    }
+  }
 
-.sidebar__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  margin-bottom: 10px;
-  border-radius: $radius-lg;
-  transition: background-color 0.1s;
-}
+  &__logo {
+    width: 100%;
+    height: 40px;
 
-.sidebar__btn::before {
-  width: 70%;
-  height: 70%;
-  background-color: #000000;
-  mask: url("@/assets/media/icons/pin.svg") no-repeat center/contain;
-  content: "";
-  transition: background-color 0.1s;
-}
+    &::before {
+      display: block;
+      content: "";
+      mask: url("@/assets/media/icons/logo.svg") no-repeat center/contain;
+      width: 100%;
+      height: 100%;
+      background-color: $color-icon-blue;
+    }
+  }
 
-.sidebar__btn:hover {
-  background-color: $color-action-blue;
-}
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    margin-bottom: 10px;
+    border-radius: $radius-lg;
+    transition: background-color 0.1s;
 
-.sidebar__btn:hover::before {
-  background-color: $color-action-white;
-}
+    &::before {
+      width: 70%;
+      height: 70%;
+      background-color: #000000;
+      mask: url("@/assets/media/icons/pin.svg") no-repeat center/contain;
+      content: "";
+      transition: background-color 0.1s;
+    }
 
-/* Nav */
-.sidebar__nav {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0;
-  overflow: hidden;
-}
+    &:hover {
+      background-color: $color-action-blue;
 
-.sidebar__menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+      &::before {
+        background-color: $color-action-white;
+      }
+    }
+  }
 
-.sidebar__item {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  box-sizing: border-box;
-}
-.sidebar__link {
-  display: flex;
-  flex-grow: 1;
-  gap: 15px;
-  padding: 0.5em 1.1em;
-  font-family: $font-family-montserrat;
-  font-size: $font-size-title-xs;
-  font-weight: 400;
-  transition: background-color 0.1s, color 0.1s, width 0.1s, padding 0.1s;
-  cursor: $cursor-point;
-}
-.sidebar__link::before {
-  flex-shrink: 0;
-  width: 15px;
-  height: 15px;
-  background-color: #262626;
-  content: "";
-  transition: background-color 0.1s;
-}
+  &__nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    overflow: hidden;
+  }
 
-.sidebar__link_study::before {
-  mask: url("@/assets/media/icons/my-courses.svg") no-repeat center/contain;
-}
+  &__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-.sidebar__link_webinars::before {
-  mask: url("@/assets/media/icons/schedule.svg") no-repeat center/contain;
-}
-.sidebar__link_analitics::before {
-  mask: url("@/assets/media/icons/analitics.svg") no-repeat center/contain;
-}
-.sidebar__link_tasks::before {
-  mask: url("@/assets/media/icons/tests.svg") no-repeat center/contain;
-}
-.sidebar__link_checks::before {
-  mask: url("@/assets/media/icons/tests.svg") no-repeat center/contain;
-}
-.sidebar__link_messages::before {
-  mask: url("@/assets/media/icons/messenger.svg") no-repeat center/contain;
-}
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-.sidebar__link_profile::before {
-  mask: url("@/assets/media/icons/profile.svg") no-repeat center/contain;
-}
-.sidebar__link_active {
-  background-color: $color-action-blue;
-  color: $color-action-white;
-}
-.sidebar__link_active::before {
-  background-color: $color-action-white;
-}
-.sidebar__link:not(.sidebar__link_active):hover {
-  background-color: $color-action-light-blue;
+  &__link {
+    display: flex;
+    flex-grow: 1;
+    gap: 15px;
+    padding: 0.5em 1.1em;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 400;
+    transition: background-color 0.1s, color 0.1s, width 0.1s, padding 0.1s;
+    cursor: $cursor-point;
+
+    &::before {
+      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      background-color: #262626;
+      content: "";
+      transition: background-color 0.1s;
+    }
+
+    &_study::before {
+      mask: url("@/assets/media/icons/my-courses.svg") no-repeat center/contain;
+    }
+
+    &_webinars::before {
+      mask: url("@/assets/media/icons/schedule.svg") no-repeat center/contain;
+    }
+
+    &_analitics::before {
+      mask: url("@/assets/media/icons/analitics.svg") no-repeat center/contain;
+    }
+
+    &_tasks::before,
+    &_checks::before {
+      mask: url("@/assets/media/icons/tests.svg") no-repeat center/contain;
+    }
+
+    &_messages::before {
+      mask: url("@/assets/media/icons/messenger.svg") no-repeat center/contain;
+    }
+
+    &_profile::before {
+      mask: url("@/assets/media/icons/profile.svg") no-repeat center/contain;
+    }
+
+    &_active {
+      background-color: $color-action-blue;
+      color: $color-action-white;
+
+      &::before {
+        background-color: $color-action-white;
+      }
+    }
+
+    &:not(&_active):hover {
+      background-color: $color-action-light-blue;
+    }
+  }
 }
 </style>

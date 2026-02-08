@@ -61,6 +61,8 @@ export const ROUTE_ACCESS_MAP = Object.entries(ROLE_DEFINITIONS).reduce(
   {}
 );
 
+console.log('R0', ROUTE_ACCESS_MAP)
+
 export const getNavigationForRole = (roleName) =>
   ROLE_DEFINITIONS[roleName]?.navigation ?? [];
 

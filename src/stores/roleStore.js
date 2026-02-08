@@ -1,11 +1,10 @@
-import { defineStore } from 'pinia';
-// Импортируем твои функции и константы
 import {
   getDefaultRouteForRole,
   getDisplayNameForRole,
   getNavigationForRole,
   ROUTE_ACCESS_MAP
-} from '@/configs/roles.js'; // <-- Проверь путь к файлу
+} from '@/configs/roles.js';
+import { defineStore } from 'pinia';
 
 export const useRoleStore = defineStore('roles', {
   state: () => ({
@@ -13,8 +12,6 @@ export const useRoleStore = defineStore('roles', {
   }),
 
   getters: {
-    // 1. Список доступных ролей для переключателя (Select)
-    // Возвращает массив объектов { name: 'student', display: 'Ученик' }
     myRolesList: (state) => {
       return state.activeRoles.map(role => ({
         name: role,
@@ -22,18 +19,14 @@ export const useRoleStore = defineStore('roles', {
       }));
     },
 
-    // 2. Получить меню для конкретной роли
-    // Мы просто проксируем вызов к твоей функции getNavigationForRole
     getRoleMenu: () => (roleName) => {
       return getNavigationForRole(roleName);
     },
 
-    // 3. Получить дефолтный роут (куда кидать при смене роли)
     getRoleDefaultRoute: () => (roleName) => {
       return getDefaultRouteForRole(roleName);
     },
     
-    // 4. Проверка доступа (используем твой ROUTE_ACCESS_MAP)
     hasAccess: (state) => (routeRolesOrName) => {
         // Если передали массив ролей (старый вариант)
         if (Array.isArray(routeRolesOrName)) {
@@ -49,7 +42,6 @@ export const useRoleStore = defineStore('roles', {
 
   actions: {
     assignRoles(rolesArray) {
-      // Защита от дурака: если пришло null, делаем пустой массив
       this.activeRoles = Array.isArray(rolesArray) ? rolesArray : [];
     }
   }
