@@ -1,15 +1,4 @@
 <template>
-  <!-- <label v-if="label" class="auth__label input">
-    <span class="input__name">{{ label }}</span>
-    <span class="input__message" v-if="error_message">{{ error_message }}</span>
-    <input
-      :type="type"
-      v-model="innerValue"
-      :placeholder="placeholder"
-      :name="name"
-      class="input__item"
-    />
-  </label> -->
   <label v-if="label" class="auth__label input" :class="{ 'input--error': errorMessage }">
     <span class="input__name">{{ label }}</span>
     <span v-if="errorMessage" class="input__message">{{ errorMessage }}</span>

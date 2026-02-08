@@ -19,4 +19,5 @@ export default {
 .main__title {
   font-size: var(--font-size-title-lg);
   margin-bottom: 20px;
-}</style>
+}
+</style>

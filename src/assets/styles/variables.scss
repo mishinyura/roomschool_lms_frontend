@@ -1,0 +1,237 @@
+/*$свойство-предмет-модификация*/
+
+/* ____________
+    Цвета 
+______________*/
+
+/* Основные фоны для блоков и страниц */
+$color-bg-white: #fff;
+$color-bg-grey: #f5f7fa;
+
+$color-section-blue: #bde6ff;
+
+/*
+$color-bg-blue-radial-gradient: radial-gradient(circle, rgba(0, 133, 255, 1) 0%, rgba(0, 52, 101, 1) 100%);
+
+
+$color-section-white: #fff;
+$color-section-black: #000;
+
+$color-bg-purpure-radial-gradient: radial-gradient(circle at center 200px, #FFE6E6 0%, #c3b9df92 53%);
+$color-bg-blue-linear-gradient: linear-gradient(236deg, rgba(189, 227, 252, 1) 0%, rgba(138, 209, 253, 1) 100%);
+$color-bg-purpure-linear-gradient: linear-gradient(236deg, rgba(255, 230, 230, 1) 0%, rgba(195, 185, 223, 1) 100%);
+$color-bg-blue-purpure-light-gradient: linear-gradient(318deg, rgb(213, 231, 255) 0%, rgb(238, 218, 255) 100%);
+
+$color-bg-blue-purpure-linear-gradient2: linear-gradient(135deg, rgb(138, 209, 253) 0%, rgb(195, 185, 223) 100%);
+
+$color-section-white: #fff;
+$color-section-grey: #f5f7fa;
+
+$color-section-purpure: #C3B9DF;
+$color-section-red: #ffb7b7;
+$color-section-black-transparent: rgba(0, 0, 0, 0.4);
+$color-section-green: #7cffb9;
+$color-section-light-green: #b3ffd6; */
+
+/* Сцет текста */
+$color-text-white: #fff;
+$color-text-black: #000;
+$color-text-grey: #7c7c7c;
+$color-text-blue: #0092be;
+
+
+/*
+$color-text-grey: #7c7c7c;
+$color-text-blue: #0092be;
+$color-text-green: #1e6425;
+$color-text-red: #c00000;
+$color-text-dark-grey: #4e4e4e;
+$color-text-white: #fff;
+$color-text-red: #de2d2d;
+$color-text-purpure: #9436ff;
+$color-text-green: #267d2e;
+*/
+
+
+/* hover, active, focus эффекты */
+
+
+/* 
+$color-action-white: #fff;
+$color-action-grey: #e3e3e3;
+$color-action-dark-grey: #7c7c7c;
+$color-action-blue: #0AA6D7;
+$color-action-dark-blue: #0080a7;
+$color-action-light-blue: #ddf2ff;
+$color-action-purpure: #9436ff;
+$color-action-light-blue: #ddf2ff;
+$color-action-blue: #0AA6D7;
+$color-action-dark-blue: #0080a7;
+$color-action-green: #37d144;
+$color-action-grey: #e3e3e3;
+$color-action-dark-grey: #7c7c7c;
+$color-action-light-grey: #f5f7fa;
+$color-action-white: #fff; 
+*/
+
+
+/* Фоны для кнопок */
+$color-btn-black: #000;
+$color-btn-grey: #d0d0d0;
+$color-btn-blue: #ddf2ff;
+$color-btn-dark-blue: #0AA6D7;
+
+/* $color-btn-black: #000;
+    $color-btn-grey: #d0d0d0;
+    $color-btn-blue: #ddf2ff;
+    $color-btn-dark-blue: #0AA6D7;
+    $color-btn-white: #fff;
+    $color-btn-white-transparent: rgba(255, 255, 255, 0.5); */
+
+
+/* Фон для лейблов, отметок (Новый, топ, продвинутый и тд) */
+
+
+/* 
+$color-label-blue: #9ad8ff;
+$color-label-dark-blue: #0AA6D7;
+$color-label-orange: #ffde00;
+$color-label-light-green: #e9fff5;
+$color-label-dark-green: #60c368;
+$color-label-grey: #d0d0d090;
+$color-label-dark-grey: #4e4e4e;
+$color-label-blue-purpure-gradient: linear-gradient(90deg, rgba(112, 174, 255, 1) 0%, rgba(191, 128, 255, 1) 100%);
+$color-label-green-blue-gradient: linear-gradient(90deg, rgba(0, 204, 10, 1) 0%, rgba(82, 235, 255, 1) 100%);
+$color-label-red-orange-gradient: linear-gradient(93deg, rgba(255, 84, 84, 1) 0%, rgba(255, 226, 5, 1) 100%);
+$color-label-red: #de2d2d;
+$color-label-dark-red: #a10000;
+$color-label-grey: #d0d0d090;
+$color-label-orange: #ffde00;
+$color-label-blue: #8ad1fd;
+$color-label-dark-blue: #0AA6D7;
+$color-label-green: #37d144;
+$color-label-dark-green: #60c368;
+$color-label-dark-grey: #4e4e4e; */
+
+
+/* Фон отдельных карточек или элементов списка */
+$color-card-grey: #f5f7fa;
+
+/*
+$color-card-purpure: #f9f4ff;
+$color-card-blue: #eff5fe;
+$color-card-orange: #fffdf2;
+$color-card-green: #e9fff5;
+$color-card-red: #ffefef;
+$color-card-white: #fff;
+$color-card-grey: #f5f7fa;
+*/
+
+
+/* Фоны или цвета для иконок */
+
+
+/* 
+$color-icon-black: #000;
+$color-icon-white: #fff;
+$color-icon-blue: #34a7ee;
+$color-icon-blue: #34a7ee;
+$color-icon-purpure: #946dff;
+$color-icon-green: #37d144;
+$color-icon-red: #de2d2d;
+$color-icon-grey: #7c7c7c;
+$color-icon-black: #000;
+$color-icon-white: #fff;
+$color-message-green: #7cffb9;
+$color-message-yellow: #fff6bd;
+$color-form-white-transparent: rgba(255, 255, 255, 0.2);
+*/
+
+
+/* ____________
+    Отступы 
+______________*/
+// $padding-lr-container-desktop: 1.25em; /* 20px */
+// $padding-lr-container-tablet: 1em; /* 16px */
+// $padding-lr-container-mobile: 0.625em; /* 10px */
+
+// $padding-tb-container-desktop: 6.25rem; /* 100px */
+// $padding-tb-container-tablet: 3.125rem; /* 50px */
+// $padding-tb-container-mobile: 1.875rem; /* 30px */
+
+// $margin-bottom-title-desktop: 20px;
+// $margin-bottom-title-mobile: 15px;
+
+// $margin-bottom-descr-desktop: 40px;
+// $margin-bottom-descr-mobile: 20px;
+
+// $margin-card: 20px;
+// $margin-item: 10px;
+
+// $padding-section: 2em;
+// $padding-card: 1.5em;
+// $padding-item: 0.5em 1em;
+
+
+/* ____________
+    Размеры 
+______________*/
+// $breakpoint-page-desktop: 87.5rem; /* 1400 px */
+// $breakpoint-page-laptop: 75rem; /* 1200 px */
+// $breakpoint-page-tablet: 62rem; /* 992 px */
+// $breakpoint-page-smartphone: 48rem; /* 768 px */
+// $breakpoint-page-mobile: 36rem; /* 576 px */
+
+// $max-width-container-desktop: 82.5rem; /* 1320px */
+// $max-width-container-laptop: 71.25rem; /* 1140 px */
+// $max-width-container-tablet: 60rem; /* 960 px */
+// $max-width-container-smartphone: 45rem; /* 720 px */
+// $max-width-container-mobile: 33.75rem; /* 540 px */
+
+
+/* Радиусы и рамка*/
+$radius-sm: 5px;
+// $radius-md: 10px;
+$radius-lg: 15px;
+// $radius-max: 30px;
+
+// $border-blue: 1px solid var($color-btn-blue);
+// $border-dark-blue: 1px solid var($color-btn-dark-blue);
+// $border-black: 1px solid var($color-btn-black);
+// $border-grey: 1px solid var($color-btn-grey);
+
+/* $border-blue: 1px solid var($color-btn-blue);
+    $border-dark-blue: 1px solid var($color-btn-dark-blue);
+    $border-black: 1px solid var($color-btn-black);
+    $border-grey: 1px solid var($color-btn-grey);
+    $border-red: 1px solid var($color-btn-red);
+    $border-white: 1px solid var($color-btn-white); */
+
+// $shadow-classic: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+/* $shadow-podium: 0 5px 10px 0 rgba(0, 0, 0, 0.1); */
+
+/* Шрифты */
+$font-family-montserrat: 'Montserrat', Arial, sans-serif;
+$font-family-nunito: 'Nunito', Arial, sans-serif;
+
+$font-size-text-min: 0.8125rem;/* 13px — самый мелкий (подписи, вспомогательные тексты) */
+$font-size-text-xs: 0.875rem;/* 14px — мелкий текст, подсказки, описания */
+$font-size-text-sm: 1rem;/* 16px — основной текст body */
+$font-size-text-md: 1.125rem;/* 18px — крупный текст (на карточках, кнопках) */
+$font-size-text-lg: 1.25rem;/* 20px — акцентный текст, CTA, цитаты */
+$font-size-text-max: 1.375rem;/* 22px — очень крупный текст, почти подзаголовок */
+
+$font-size-title-min: 0.875rem;/* 14px — h5/h6, мелкие заголовки карточек */
+$font-size-title-xs: 1rem;/* 16px — h4 */
+$font-size-title-sm: 1.375rem;/* 22px — h3 */
+$font-size-title-md: 1.5rem;/* 24px — h2 */
+$font-size-title-lg: 1.75rem;/* 28px — h1/h2 (основные разделы) */
+$font-size-title-max: 2rem;/* 32px — h1 (самый крупный, hero/основной заголовок) */
+
+
+/* $font-size-btn: 1rem; */
+
+
+/* Другое */
+$cursor-point: url('@/assets/media/icons/cursor.cur') 0 0, auto;
+$cursor-select: url('@/assets/media/icons/normal_select.cur') 0 0, auto;

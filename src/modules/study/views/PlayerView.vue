@@ -8,10 +8,10 @@
         >
           Назад
         </button>
-        <ul class="breadcrumbs__list">
+        <!-- <ul class="breadcrumbs__list">
           <li class="breadcrumbs__item">{{programTitle}}</li>
           <li class="breadcrumbs__item">{{moduleTitle}}</li>
-        </ul>
+        </ul> -->
       </div>
       <div class="main__progress progressbar">
         <h3 class="progressbar__title">Прогресс по теме</h3>
@@ -45,15 +45,15 @@
         </div>
         <div class="player__bar playbar">
           <div class="playbar__row lessons">
-            <span class="lessons__title"> Уроки темы </span>
-            <ul class="lessons__list">
+            <span class="lessons__title"> Уроки темы {{ topicObject }}</span>
+            <!-- <ul class="lessons__list">
               <TheLesson
-                v-for="(lesson, index) in topic.lessons"
+                v-for="(lesson, index) in topicObject.lessons"
                 :key="index"
                 :lesson="lesson"
                 @click="openLesson(lesson.id)"
               />
-            </ul>
+            </ul> -->
           </div>
           <div
             class="playbar__row materials"
@@ -149,7 +149,8 @@
 
 <script>
 import topicData from "@/mocks/topic.json";
-import TheLesson from "../components/TheLesson.vue";
+import topicList from "@/mocks/topics.json";
+// import TheLesson from "../components/TheLesson.vue";
 import TheMaterial from "../components/TheMaterial.vue";
 import TheLink from "../components/TheLink.vue";
 
@@ -158,8 +159,15 @@ export default {
   data() {
     return {
       topic: topicData,
+      topics: topicList,
       // programTitle: this.programTitle,
     };
+  },
+  computed: {
+    topicObject() {
+      console.log('sd', this.topics.find((topic) => topic.slug === 'kvadratnye-uravneniya'));
+      return this.topics.find((topic) => topic.slug === this.topicSlug);
+    },
   },
   methods: {
     openLesson(id) {
@@ -186,7 +194,7 @@ export default {
     },
   },
   components: {
-    TheLesson,
+    // TheLesson,
     TheMaterial,
     TheLink,
   },
