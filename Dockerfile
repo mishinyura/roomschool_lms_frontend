@@ -3,7 +3,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build  # Это создаст папку dist
+
+ARG VUE_APP_API_URL
+ENV VUE_APP_API_URL=$VUE_APP_API_URL
+
+RUN npm run build
 
 FROM nginx:stable-alpine
 
