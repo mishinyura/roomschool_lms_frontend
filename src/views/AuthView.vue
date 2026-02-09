@@ -1,21 +1,11 @@
 <template>
   <main class="main">
-    <TheLoader v-if="loading" />
     <RouterView />
-    <TheNotifications 
-      v-if="errors.length > 0" 
-      v-model="errors"
-    />
   </main>
 </template>
 
 <script setup>
-import { provide, ref } from "vue";
-import TheNotifications from "@/components/ui/TheNotifications.vue";
-let errors = ref([]);
-let loading = ref(false);
-provide("errors", errors);
-provide("loading", loading);
+
 </script>
 
 <style lang="scss" scoped>
