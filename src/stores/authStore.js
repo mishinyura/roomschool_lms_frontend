@@ -53,35 +53,28 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     async login(credentials) {
-      // 1. Отправляем запрос
-      // Важно: authApi.login должен возвращать объект, где лежит token
+      const roleStore = useRoleStore();
       const response = await authApi.login(credentials);
-
-      // 2. ДОСТАЕМ И СОХРАНЯЕМ ТОКЕН
-      // Бэкенд может вернуть его как accessToken или access_token, проверь консоль!
-      const token = response.accessToken || response.access_token || response.token;
+      const token = response.access_token;
       
       if (!token) {
         console.error("Токен не пришел с бэкенда!", response);
         throw new Error("Ошибка входа: нет токена");
       }
 
-      this.accessToken = token; // <--- ВОТ ЭТО ГЛАВНОЕ
-      
-      // 3. Сохраняем юзера (если он есть в ответе)
+      this.accessToken = token;
+      const decoded = jwtDecode(token);
+      localStorage.setItem('access_token', token);
+
       if (response.user) {
         this.user = response.user;
       }
 
-      // 4. Обновляем роли (если они есть)
-      if (response.roles) {
-         const roleStore = useRoleStore();
-         roleStore.assignRoles(response.roles);
+      if (decoded.roles) {
+         roleStore.assignRoles(decoded.roles);
+      } else {
+         roleStore.assignRoles([]);
       }
-
-      const roleStore = useRoleStore();
-
-      print('login', roleStore.assignRoles(["student", "parent", "teacher"]));
     },
     async refreshToken() {
       const response = await authApi.refreshToken();

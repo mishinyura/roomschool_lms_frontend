@@ -10,16 +10,7 @@
           :options="availableRolesOptions"
         />
       </template>
-      
-      <div 
-        v-else-if="currentRole" 
-        key="role-single" 
-        class="sidebar__single-role"
-      >
-         {{ getRoleDisplayName(currentRole) }}
-      </div>
     </div>
-
     <nav class="sidebar__nav">
       <ul class="sidebar__menu">
         <li v-for="link in currentLinks" :key="link.name" class="sidebar__item">
@@ -52,6 +43,7 @@ const roleStore = useRoleStore();
 const currentRole = ref(null); //Текущая выбранная роль
 const availableRolesOptions = computed(() => roleStore.myRolesList); //Список достных ролей
 const currentLinks = computed(() => {
+  console.log('currentRole.value', roleStore.getRoleMenu(currentRole.value));
   if (!currentRole.value) return [];
   return roleStore.getRoleMenu(currentRole.value);
 }); //Список доступных вкладок в меню
