@@ -1,10 +1,10 @@
 <template>
-  <div :class="['topics__item', modClassName('topics__item')]">
-    <div :class="['topics__info', modClassName('topics__info')]">
-      <h4 class="topics__name topics__name_topic">
+  <div :class="['topic', modClassName('topic')]">
+    <div :class="['topic__info', modClassName('topic__info')]">
+      <h4 class="topic__name topic__name_topic">
         {{ topic.title }}
       </h4>
-      <span :class="['topics__status', modClassName('topics__status')]">
+      <span :class="['topic__status', modClassName('topic__status')]">
         {{
           topic.isBlock
             ? "Заблокировано"
@@ -13,24 +13,24 @@
             : "Текущая"
         }}
       </span>
-      <span class="topics__amount-topics">
+      <span class="topic__amount-topic">
         Прогресс: {{ topic.progress }}/{{ topic.videos + topic.tests }}
       </span>
     </div>
-    <div class="topics__control">
-      <span class="topics__amount topics__amount_videos">
+    <div class="topic__control">
+      <span class="topic__amount topic__amount_videos">
         {{ topic.videos }} видео
       </span>
-      <span class="topics__amount topics__amount_tests">
+      <span class="topic__amount topic__amount_tests">
         {{ amountTestsFormat(topic.tests) }}
       </span>
       <button
         :class="[
-          'topics__btn topics__btn_classic',
+          'topic__btn topic__btn_classic',
           {
-            topics__btn_current:
+            topic__btn_current:
               !topic.isBlock && topic.progress !== topic.videos + topic.tests,
-            topics__btn_end: topic.progress === topic.videos + topic.tests,
+            topic__btn_end: topic.progress === topic.videos + topic.tests,
           },
         ]"
         v-if="!topic.isBlock"
@@ -105,201 +105,201 @@ export default {
 };
 </script>
 
-<style>
-/* Темы */
-.topics {
-  height: 0;
-  overflow: hidden;
-  padding: 0 0.5em;
-  transition: height 0.2s ease;
-}
-
-.topics__item {
+<style lang="scss" scoped>
+.topic {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1em 2em;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-bg-grey);
-}
+  border-radius: $radius-lg;
+  background-color: $color-bg-grey;
 
-.topics__item_block {
-  pointer-events: none;
-  filter: opacity(0.5);
-}
+  &:not(:last-child) {
+    margin-bottom: $margin-item;
+  }
 
-.topics__item::before {
-  position: absolute;
-  left: -8px;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  border-radius: var(--radius-lg);
-  content: "";
-}
+  // Состояние блокировки
+  &_block {
+    pointer-events: none;
+    filter: opacity(0.5);
 
-.topics__item::after {
-  position: absolute;
-  left: -4px;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  border-radius: var(--radius-lg);
-  content: "";
-}
+    &::before {
+      background-color: rgb(189, 189, 189);
+    }
+  }
 
-.topics__item::after {
-  background-color: var(--color-bg-grey);
-}
+  // Декоративные полосы слева
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    content: "";
+    border-radius: $radius-lg;
+  }
 
-.topics__item_end::before {
-  background-color: var(--color-label-dark-green);
-}
+  // Цветная полоса (индикатор)
+  &::before {
+    left: -8px;
+    width: 20px;
+  }
 
-.topics__item_current::before {
-  background-color: var(--color-label-dark-blue);
-}
+  // Маска/Фон, перекрывающая часть индикатора
+  &::after {
+    left: -4px;
+    width: 20px;
+    background-color: $color-bg-grey;
+  }
 
-.topics__item_block::before {
-  background-color: rgb(189, 189, 189);
-}
+  // Цвета индикаторов в зависимости от статуса
+  &_end::before {
+    background-color: $color-label-dark-green;
+  }
 
-.topics__item:not(:last-child) {
-  margin-bottom: var(--margin-item);
-}
+  &_current::before {
+    background-color: $color-label-dark-blue;
+  }
 
-.topics__info {
-  position: relative;
-  user-select: none;
-}
+  &__info {
+    position: relative;
+    user-select: none;
 
-.topics__info::before {
-  position: absolute;
-  left: -30px;
-  top: 30%;
-  z-index: 2;
-  width: 15px;
-  height: 15px;
-  border-radius: var(--radius-max);
-  content: "";
-}
+    // Кружок чекбокса
+    &::before {
+      position: absolute;
+      top: 30%;
+      left: -30px;
+      z-index: 2;
+      width: 15px;
+      height: 15px;
+      content: "";
+      border-radius: $radius-max;
+    }
 
-.topics__info_current::before {
-  background-color: var(--color-label-dark-blue);
-}
+    &_current::before {
+      background-color: $color-label-dark-blue;
+    }
 
-.topics__info_end::before {
-  border: 1px solid var(--color-label-dark-green);
-}
+    &_end {
+      &::before {
+        border: 1px solid $color-label-dark-green;
+      }
 
-.topics__info_block::before {
-  border: 1px solid rgb(189, 189, 189);
-}
+      // Галочка (только для завершенных)
+      &::after {
+        position: absolute;
+        top: 37%;
+        bottom: 0;
+        left: -23px;
+        z-index: 2;
+        width: 4px;
+        height: 8px;
+        content: "";
+        border-bottom: 1px solid $color-label-dark-green;
+        border-right: 1px solid $color-label-dark-green;
+        transform: rotate(45deg);
+      }
+    }
 
-.topics__info_end::after {
-  position: absolute;
-  left: -23px;
-  top: 37%;
-  bottom: 0;
-  z-index: 2;
-  width: 4px;
-  height: 8px;
-  border-bottom: 1px solid var(--color-label-dark-green);
-  border-right: 1px solid var(--color-label-dark-green);
-  content: "";
-  transform: rotate(45deg);
-}
+    &_block::before {
+      border: 1px solid rgb(189, 189, 189);
+    }
+  }
 
-.topics__name {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 2px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-xs);
-  font-weight: 500;
-}
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 500;
 
-.topics__name_topic::after {
-  content: "Тема";
-  display: inline-block;
-  padding: 0.2em 0.5em;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-label-grey);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-}
+    &_topic::after {
+      display: inline-block;
+      padding: 0.2em 0.5em;
+      border-radius: $radius-lg;
+      background-color: $color-label-grey;
+      font-family: $font-family-montserrat;
+      font-size: $font-size-text-xs;
+      font-weight: 400;
+      content: "Тема";
+    }
+  }
 
-.topics__status {
-  display: inline-block;
-  margin-right: 10px;
-  padding: 0.2em 0.5em;
-  border-radius: var(--radius-max);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 300;
-}
+  &__status {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 0.2em 0.5em;
+    border-radius: $radius-max;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 300;
 
-.topics__status_current {
-  color: var(--color-text-white);
-  background-color: var(--color-label-dark-blue);
-}
+    &_current {
+      color: $color-text-white;
+      background-color: $color-label-dark-blue;
+    }
 
-.topics__status_end {
-  color: var(--color-text-white);
-  background-color: var(--color-label-dark-green);
-}
+    &_end {
+      color: $color-text-white;
+      background-color: $color-label-dark-green;
+    }
 
-.topics__status_block {
-  color: var(--color-text-white);
-  background-color: var(--color-label-dark-grey);
-}
+    &_block {
+      color: $color-text-white;
+      background-color: $color-label-dark-grey;
+    }
+  }
 
-.topics__amount-topics {
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 300;
-}
+  &__amount-topics {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 300;
+  }
 
-.topics__amount {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-right: 10px;
-  padding: 0.2em 0.5em;
-  user-select: none;
-  border: var(--border-grey);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 300;
-}
+  &__amount {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
+    padding: 0.2em 0.5em;
+    user-select: none;
+    border: $border-grey;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 300;
 
-.topics__amount::before {
-  width: 10px;
-  height: 10px;
-  content: "";
-  background-color: var(--color-icon-black);
-}
+    &::before {
+      width: 10px;
+      height: 10px;
+      content: "";
+      background-color: $color-icon-black;
+    }
 
-.topics__amount_videos::before {
-  mask: url("@/assets/media/icons/mini-play.svg") no-repeat center/contain;
-}
+    &_videos::before {
+      mask: url("@/assets/media/icons/mini-play.svg") no-repeat center/contain;
+    }
 
-.topics__amount_tests::before {
-  mask: url("@/assets/media/icons/mini-test.svg") no-repeat center/contain;
-}
+    &_tests::before {
+      mask: url("@/assets/media/icons/mini-test.svg") no-repeat center/contain;
+    }
+  }
 
-.topics__btn_current {
-  color: var(--color-text-white);
-  background-color: var(--color-label-dark-blue);
-}
+  &__btn {
+    @include btn-classic;
+    &_current {
+      color: $color-text-white;
+      background-color: $color-label-dark-blue;
+    }
 
-.topics__btn_end {
-  color: var(--color-text-white);
-  background-color: var(--color-label-dark-green);
+    &_end {
+      color: $color-text-white;
+      background-color: $color-label-dark-green;
+    }
+  }
 }
 </style>

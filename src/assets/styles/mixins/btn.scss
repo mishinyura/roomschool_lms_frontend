@@ -1,7 +1,9 @@
+@use "@/assets/styles/variables.scss" as *;
+
 @mixin btn-classic {
     padding: 0.5em 1em;
     border: none;
-    border-radius: 5px;
+    border-radius: $radius-lg;
     font-family: $font-family-montserrat;
     font-size: $font-size-text-xs;
     font-weight: 500;

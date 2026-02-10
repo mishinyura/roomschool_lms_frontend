@@ -1,83 +1,75 @@
 [
-    {
-        "title": "Средняя школа",
-        "block": "Общеобразовательный",
-        "slug": "srednyaya-shkola",
-        "completed": 16,
-        "total": 24,
-        "modules": [
-            {
-                "title": "Математика",
-                "slug": "matematika",
-                "completed": 4,
-                "total": 6,
-                "topics": [
-                    {
-                        "title": "Линейные уравнения",
-                        "slug": "linieynye-uravneniya",
-                        "progress": 8,
-                        "videos": 5,
-                        "tests": 3,
-                        "isBlock": false
-                    },
-                    {
-                        "title": "Квадратные уравнения",
-                        "slug": "kvadratnye-uravneniya",
-                        "progress": 1,
-                        "videos": 3,
-                        "tests": 2,
-                        "isBlock": false
-                    },
-                    {
-                        "title": "Системы уравнений",
-                        "slug": "sistemy-uravnenij",
-                        "progress": 0,
-                        "videos": 6,
-                        "tests": 1,
-                        "isBlock": true
-                    },
-                    {
-                        "title": "Числительная система",
-                        "slug": "chislitelnaya-sistemy",
-                        "progress": 0,
-                        "videos": 6,
-                        "tests": 1,
-                        "isBlock": true
-                    }
-                ]
-            },
-            {
-                "title": "Математика",
-                "slug": "matematika",
-                "completed": 4,
-                "total": 6,
-                "topics": [
-                    {
-                        "title": "Линейные уравнения",
-                        "slug": "linieynye-uravneniya",
-                        "progress": 8,
-                        "videos": 5,
-                        "tests": 3,
-                        "isBlock": false
-                    },
-                    {
-                        "title": "Квадратные уравнения",
-                        "slug": "kvadratnye-uravneniya",
-                        "progress": 1,
-                        "videos": 3,
-                        "tests": 2,
-                        "isBlock": false
-                    },
-                    {
-                        "title": "Системы уравнений",
-                        "slug": "sistemy-uravnenij",
-                        "progress": 0,
-                        "videos": 6,
-                        "tests": 1,
-                        "isBlock": true
-                    }
-                ]
-            }
+  {
+    "title": "Социальный",
+    "block": "Факультатив",
+    "slug": "social",
+    "completed": 0,
+    "total": 1,
+    "modules": [
+      {
+        "title": "Тайм-менеджмент",
+        "slug": "time-management",
+        "completed": 0,
+        "total": 7,
+        "topics": [
+          {
+            "title": "Время - это не часы",
+            "slug": "vremya-eto-ne-chasy",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": false
+          },
+          {
+            "title": "Почему я ничего не делаю (и это не лень)",
+            "slug": "pochemu-ya-nichego-ne-delayu",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Как концентрироваться в мире отвлечений",
+            "slug": "kak-koncentrirovatsya",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Дела, которые не бесят",
+            "slug": "dela-kotorye-ne-besyat",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Планирование без занудства",
+            "slug": "planirovanie-bez-zanudstva",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Ты и твой ритм жизни",
+            "slug": "ty-i-tvoj-ritm-zhizni",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Я - хозяин своего времени",
+            "slug": "ya-hozyain-svoego-vremeni",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          }
         ]
-    }
+      }
+    ]
+  }
 ]

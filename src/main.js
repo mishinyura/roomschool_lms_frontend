@@ -6,6 +6,7 @@ import router from './router';
 
 // import '@/assets/styles/main.css';
 import '@/assets/styles/normalize.css';
+import "@/assets/styles/reset.scss";
 // import '@/assets/styles/reset.css';
 // import '@/assets/styles/variables.css';
 

@@ -5,12 +5,11 @@ module.exports = defineConfig({
     loaderOptions: {
       sass: {
         additionalData: `
-          @import "@/assets/styles/variables.scss"; 
-          @import "@/assets/styles/reset.scss";
-          @import "@/assets/styles/mixins/mixins.scss";
-          @import "@/assets/styles/mixins/block.scss";
-          @import "@/assets/styles/mixins/text.scss";
-          @import "@/assets/styles/mixins/btn.scss";
+          @use "@/assets/styles/variables.scss" as *;
+          @use "@/assets/styles/mixins/mixins.scss" as *;
+          @use "@/assets/styles/mixins/block.scss" as *;
+          @use "@/assets/styles/mixins/text.scss" as *;
+          @use "@/assets/styles/mixins/btn.scss" as *;
         `
       }
     }

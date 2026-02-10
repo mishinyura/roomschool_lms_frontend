@@ -1,3 +1,5 @@
+@use "@/assets/styles/variables.scss" as *;
+
 @mixin content-view {
     width: 100%;
     max-width: 2500px;
@@ -5,4 +7,24 @@
     padding: 1.5em;
     box-sizing: border-box;
     background-color: $color-bg-grey;
+
+    @media (max-width: $breakpoint-page-desktop) {
+
+    }
+
+    @media (max-width: $breakpoint-page-laptop) {
+
+    }
+
+    @media (max-width: $breakpoint-page-tablet) {
+
+    }
+
+    @media (max-width: $breakpoint-page-smartphone) {
+
+    }
+
+    @media (max-width: $breakpoint-page-mobile) {
+
+    }
 }

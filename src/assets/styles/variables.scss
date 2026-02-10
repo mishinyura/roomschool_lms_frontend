@@ -8,12 +8,13 @@ ______________*/
 $color-bg-white: #fff;
 $color-bg-grey: #f5f7fa;
 
+$color-section-white: #fff;
 $color-section-blue: #bde6ff;
 
 $color-bg-blue-radial-gradient: radial-gradient(circle, rgba(0, 133, 255, 1) 0%, rgba(0, 52, 101, 1) 100%);
 
 
-// $color-section-white: #fff;
+
 // $color-section-black: #000;
 
 // $color-bg-purpure-radial-gradient: radial-gradient(circle at center 200px, #FFE6E6 0%, #c3b9df92 53%);
@@ -91,26 +92,25 @@ $color-btn-dark-blue: #0AA6D7;
 /* Фон для лейблов, отметок (Новый, топ, продвинутый и тд) */
 
 
-/* 
-$color-label-blue: #9ad8ff;
-$color-label-dark-blue: #0AA6D7;
-$color-label-orange: #ffde00;
-$color-label-light-green: #e9fff5;
-$color-label-dark-green: #60c368;
 $color-label-grey: #d0d0d090;
 $color-label-dark-grey: #4e4e4e;
-$color-label-blue-purpure-gradient: linear-gradient(90deg, rgba(112, 174, 255, 1) 0%, rgba(191, 128, 255, 1) 100%);
-$color-label-green-blue-gradient: linear-gradient(90deg, rgba(0, 204, 10, 1) 0%, rgba(82, 235, 255, 1) 100%);
-$color-label-red-orange-gradient: linear-gradient(93deg, rgba(255, 84, 84, 1) 0%, rgba(255, 226, 5, 1) 100%);
-$color-label-red: #de2d2d;
-$color-label-dark-red: #a10000;
-$color-label-grey: #d0d0d090;
 $color-label-orange: #ffde00;
-$color-label-blue: #8ad1fd;
+$color-label-blue: #9ad8ff;
 $color-label-dark-blue: #0AA6D7;
-$color-label-green: #37d144;
 $color-label-dark-green: #60c368;
-$color-label-dark-grey: #4e4e4e; */
+// $color-label-dark-blue: #0AA6D7;
+
+// $color-label-light-green: #e9fff5;
+// $color-label-blue-purpure-gradient: linear-gradient(90deg, rgba(112, 174, 255, 1) 0%, rgba(191, 128, 255, 1) 100%);
+// $color-label-green-blue-gradient: linear-gradient(90deg, rgba(0, 204, 10, 1) 0%, rgba(82, 235, 255, 1) 100%);
+// $color-label-red-orange-gradient: linear-gradient(93deg, rgba(255, 84, 84, 1) 0%, rgba(255, 226, 5, 1) 100%);
+// $color-label-red: #de2d2d;
+// $color-label-dark-red: #a10000;
+
+
+// $color-label-green: #37d144;
+// $color-label-dark-green: #60c368;
+// $color-label-dark-grey: #4e4e4e;
 
 
 /* Фон отдельных карточек или элементов списка */
@@ -136,7 +136,7 @@ $color-icon-blue: #34a7ee;
 // $color-icon-green: #37d144;
 // $color-icon-red: #de2d2d;
 // $color-icon-grey: #7c7c7c;
-// $color-icon-black: #000;
+$color-icon-black: #000;
 // $color-icon-white: #fff;
 
 // $color-message-green: #7cffb9;
@@ -162,7 +162,7 @@ ______________*/
 // $margin-bottom-descr-mobile: 20px;
 
 // $margin-card: 20px;
-// $margin-item: 10px;
+$margin-item: 10px;
 
 // $padding-section: 2em;
 // $padding-card: 1.5em;
@@ -172,17 +172,17 @@ ______________*/
 /* ____________
     Размеры 
 ______________*/
-// $breakpoint-page-desktop: 87.5rem; /* 1400 px */
-// $breakpoint-page-laptop: 75rem; /* 1200 px */
-// $breakpoint-page-tablet: 62rem; /* 992 px */
-// $breakpoint-page-smartphone: 48rem; /* 768 px */
-// $breakpoint-page-mobile: 36rem; /* 576 px */
+$breakpoint-page-desktop: 87.5rem; /* 1400 px */
+$breakpoint-page-laptop: 75rem; /* 1200 px */
+$breakpoint-page-tablet: 62rem; /* 992 px */
+$breakpoint-page-smartphone: 48rem; /* 768 px */
+$breakpoint-page-mobile: 36rem; /* 576 px */
 
-// $max-width-container-desktop: 82.5rem; /* 1320px */
-// $max-width-container-laptop: 71.25rem; /* 1140 px */
-// $max-width-container-tablet: 60rem; /* 960 px */
-// $max-width-container-smartphone: 45rem; /* 720 px */
-// $max-width-container-mobile: 33.75rem; /* 540 px */
+$max-width-container-desktop: 82.5rem; /* 1320px */
+$max-width-container-laptop: 71.25rem; /* 1140 px */
+$max-width-container-tablet: 60rem; /* 960 px */
+$max-width-container-smartphone: 45rem; /* 720 px */
+$max-width-container-mobile: 33.75rem; /* 540 px */
 
 
 /* Радиусы и рамка*/
