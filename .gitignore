@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 nginx.conf
 nginx.app.conf
+
+video.mp4
+video2.mp4
+video3.mp4

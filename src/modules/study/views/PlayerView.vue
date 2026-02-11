@@ -1,207 +1,235 @@
-<template>
-  <div class="main__container">
-    <section class="main__section">
-      <div class="main__bullet breadcrumbs">
-        <button
-          class="breadcrumbs__btn"
-          @click="this.$router.push({ name: 'study' })"
-        >
-          Назад
-        </button>
-        <!-- <ul class="breadcrumbs__list">
-          <li class="breadcrumbs__item">{{programTitle}}</li>
-          <li class="breadcrumbs__item">{{moduleTitle}}</li>
-        </ul> -->
-      </div>
-      <div class="main__progress progressbar">
-        <h3 class="progressbar__title">Прогресс по теме</h3>
-        <span class="progressbar__count">
-          {{ topic.progress.completed }}/{{ topic.progress.total }}
-        </span>
-        <span class="progressbar__progress"></span>
-      </div>
-      <div class="main__main player">
-        <div class="player__content">
-          <div class="player__video">
-            <video controls poster="@/assets/media/poster.png">
-              <source src="@/assets/media/video.mp4" type="video/mp4" />
-              Ваш браузер не поддерживает видео.
-            </video>
-          </div>
-          <div class="player__info">
-            <div class="player__head">
-              <h2 class="player__title">{{ topic.current.title }}</h2>
-              <span class="player__status"> Завершено </span>
-            </div>
-            <div
-              class="player__description description_md"
-              v-html="topic.current.description"
-            ></div>
-          </div>
-          <div class="player__btns">
-            <button class="player__btn player__btn_prev" @click="openLesson(topic.current.navigation.prev)">Предыдущий</button>
-            <button class="player__btn player__btn_next" @click="openLesson(topic.current.navigation.next)">Следующий</button>
-          </div>
-        </div>
-        <div class="player__bar playbar">
-          <div class="playbar__row lessons">
-            <span class="lessons__title"> Уроки темы {{ topicObject }}</span>
-            <!-- <ul class="lessons__list">
-              <TheLesson
-                v-for="(lesson, index) in topicObject.lessons"
-                :key="index"
-                :lesson="lesson"
-                @click="openLesson(lesson.id)"
-              />
-            </ul> -->
-          </div>
-          <div
-            class="playbar__row materials"
-            v-if="topic.attachments.materials.length > 0"
-          >
-            <span class="materials__title"> Материалы </span>
-            <ul class="materials__list">
-              <TheMaterial
-                v-for="(material, index) in topic.attachments.materials"
-                :key="index"
-                :material="material"
-              />
-            </ul>
-          </div>
-          <div
-            class="playbar__row links"
-            v-if="topic.attachments.links.length > 0"
-          >
-            <span class="links__title"> Полезные ссылки </span>
-            <ul class="links__list">
-              <TheLink
-                v-for="(link, index) in topic.attachments.links"
-                :key="index"
-                :link="link"
-              />
-            </ul>
-          </div>
-          <div class="playbar__row test">
-            <span class="test__title"> Проверка знаний </span>
-            <div class="test__result" v-if="topic.quiz.userResult.isCompleted">
-              <span class="test__status"> Тестирование завершено </span>
-              <span class="test__score">
-                Оценка: {{ topic.quiz.userResult.score }}
-              </span>
-              <button
-                class="test__btn test__btn_repeat test__btn_mini"
-                tabindex="0"
-              >
-                Повторить
-              </button>
-            </div>
-            <div class="test__content" v-else>
-              <span class="test__amount"> 10 вопросов </span>
-              <p class="test__description">
-                Проверьте свои знания по теме: "{{ topic.current.title }}"
-              </p>
-              <button
-                class="test__btn test__btn_start test__btn_mini"
-                tabindex="0"
-              >
-                Пройти тест
-              </button>
-            </div>
-          </div>
-          <div class="playbar__row callback">
-            <span class="callback__title"> Оцените урок </span>
-            <form action="" method="post" @submit.prevent="sendReview">
-              <div class="callback__stars">
-                <button
-                  :class="[
-                    'callback__star',
-                    {
-                      callback__star_filled:
-                        topic.feedback.isSubmitted &&
-                        index <= topic.feedback.currentRating,
-                    },
-                  ]"
-                  type="button"
-                  :data-score="index"
-                  tabindex="0"
-                  v-for="index in 5"
-                  :key="index"
-                  @click="inputRating"
-                ></button>
-              </div>
-              <textarea
-                class="callback__textarea"
-                placeholder="Комментарий (Не обязательно)"
-                tabindex="0"
-                @input="autoResizeTextarea"
-              ></textarea>
-              <button class="callback__btn" data-submit="false" tabindex="0">
-                Отправить
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-</template>
-
-
-<script>
-import topicData from "@/mocks/topic.json";
+<script setup>
+import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
+// import topicData from "@/mocks/topic.json";
 import topicList from "@/mocks/topics.json";
-// import TheLesson from "../components/TheLesson.vue";
+import TheLesson from "../components/TheLesson.vue";
 import TheMaterial from "../components/TheMaterial.vue";
 import TheLink from "../components/TheLink.vue";
 
-export default {
-  inject: ["programSlug", "moduleSlug", "topicSlug", "programTitle", "moduleTitle"],
-  data() {
-    return {
-      topic: topicData,
-      topics: topicList,
-      // programTitle: this.programTitle,
-    };
-  },
-  computed: {
-    topicObject() {
-      console.log('sd', this.topics.find((topic) => topic.slug === 'kvadratnye-uravneniya'));
-      return this.topics.find((topic) => topic.slug === this.topicSlug);
-    },
-  },
-  methods: {
-    openLesson(id) {
-      this.$router.push({
-        name: "player",
-        params: {
-          program: this.programSlug,
-          module: this.moduleSlug,
-          topic: this.topicSlug,
-          lesson: id,
-        },
-      });
-    },
-    autoResizeTextarea(event) {
-      event.currentTarget.style.height = "auto";
-      event.currentTarget.style.height =
-        event.currentTarget.scrollHeight + "px";
-    },
-    sendReview() {
-      this.topic.feedback.isSubmitted = true;
-    },
-    inputRating(event) {
-      this.topic.feedback.currentRating = event.target.dataset.score;
-    },
-  },
-  components: {
-    // TheLesson,
-    TheMaterial,
-    TheLink,
-  },
+import { print } from "@/utils/globalUtils.js";
+
+let isActivePlayer = ref(false);
+
+const route = useRoute();
+const topics = topicList;
+const programSlug = route.params.program;
+const moduleSlug = route.params.module;
+const topicSlug = route.params.topic;
+print("programSlug", programSlug, moduleSlug, topicSlug);
+
+
+const getTopic = computed(() => {
+  return topics.find((topic) => topic.slug === topicSlug);
+});
+
+
+
+
+
+// const openLesson = (id) => {
+//   router.push({
+//     name: "player",
+//     params: {
+//       program: 'programSlug',
+//       module: 'moduleSlug',
+//       topic: topicSlug,
+//       lesson: id,
+//     },
+//   });
+// };
+
+const handlePlay = (event) => {
+  isActivePlayer.value = true;
+  const videoElement = event.target;
+
+  console.log("Видео запущено!");
+  
+  console.log("Текущее время:", videoElement.currentTime);
+  console.log("Длительность:", videoElement.duration);
+};
+
+// Обработка паузы (опционально)
+const handlePause = () => {
+  console.log("Видео на паузе");
+};
+
+const autoResizeTextarea = (event) => {
+  event.currentTarget.style.height = "auto";
+  event.currentTarget.style.height = event.currentTarget.scrollHeight + "px";
+};
+
+const sendReview = () => {
+  getTopic.value.feedback.isSubmitted = true;
+};
+
+const inputRating = (event) => {
+  getTopic.value.feedback.currentRating = event.target.dataset.score;
 };
 </script>
 
-<style>
+<template>
+  <section class="main__section">
+    <div class="main__bullet breadcrumbs">
+      <button
+        class="breadcrumbs__btn"
+        @click="this.$router.push({ name: 'study' })"
+      >
+        Назад
+      </button>
+      <ul class="breadcrumbs__list">
+        <li class="breadcrumbs__item">{{programTitle}}</li>
+        <li class="breadcrumbs__item">{{moduleTitle}}</li>
+      </ul>
+    </div>
+    <div class="main__progress progressbar">
+      <h3 class="progressbar__title">Прогресс по теме</h3>
+      <span class="progressbar__count">
+        {{ getTopic.progress.completed }}/{{ getTopic.progress.total }}
+      </span>
+      <span class="progressbar__progress"></span>
+    </div>
+    <div class="main__main player">
+      <div class="player__content">
+        <div :class="['player__video', isActivePlayer ? 'play' : '']">
+          <video
+            controls
+            poster="@/assets/media/poster.png"
+            @play="handlePlay"
+            @pause="handlePause"
+          >
+            <source src="@/assets/media/video.mp4" type="video/mp4" />
+            Ваш браузер не поддерживает видео.
+          </video>
+        </div>
+        <div class="player__info">
+          <div class="player__head">
+            <h2 class="player__title">{{ getTopic.current.title }}</h2>
+            <span class="player__status"> Завершено </span>
+          </div>
+          <div
+            class="player__description description_md"
+            v-html="getTopic.current.description"
+          ></div>
+        </div>
+        <div class="player__btns">
+          <button
+            class="player__btn player__btn_prev"
+            @click="openLesson(getTopic.current.navigation.prev)"
+          >
+            Предыдущий
+          </button>
+          <button
+            class="player__btn player__btn_next"
+            @click="openLesson(getTopic.current.navigation.next)"
+          >
+            Следующий
+          </button>
+        </div>
+      </div>
+      <div class="player__bar playbar">
+        <div class="playbar__row lessons" v-if="getTopic.lessons.length > 0">
+          <span class="lessons__title"> Уроки темы </span>
+          <ul class="lessons__list">
+            <TheLesson
+              v-for="(lesson, index) in getTopic.lessons"
+              :key="index"
+              :lesson="lesson"
+              @click="openLesson(lesson.id)"
+            />
+          </ul>
+        </div>
+        <div
+          class="playbar__row materials"
+          v-if="getTopic.attachments.materials.length > 0"
+        >
+          <span class="materials__title"> Материалы </span>
+          <ul class="materials__list">
+            <TheMaterial
+              v-for="(material, index) in getTopic.attachments.materials"
+              :key="index"
+              :material="material"
+            />
+          </ul>
+        </div>
+        <div
+          class="playbar__row links"
+          v-if="getTopic.attachments.links.length > 0"
+        >
+          <span class="links__title"> Полезные ссылки </span>
+          <ul class="links__list">
+            <TheLink
+              v-for="(link, index) in getTopic.attachments.links"
+              :key="index"
+              :link="link"
+            />
+          </ul>
+        </div>
+        <div class="playbar__row test">
+          <span class="test__title"> Проверка знаний </span>
+          <div class="test__result" v-if="getTopic.quiz.userResult.isCompleted">
+            <span class="test__status"> Тестирование завершено </span>
+            <span class="test__score">
+              Оценка: {{ getTopic.quiz.userResult.score }}
+            </span>
+            <button
+              class="test__btn test__btn_repeat test__btn_mini"
+              tabindex="0"
+            >
+              Повторить
+            </button>
+          </div>
+          <div class="test__content" v-else>
+            <span class="test__amount"> 10 вопросов </span>
+            <p class="test__description">
+              Проверьте свои знания по теме: "{{ getTopic.current.title }}"
+            </p>
+            <button
+              class="test__btn test__btn_start test__btn_mini"
+              tabindex="0"
+            >
+              Пройти тест
+            </button>
+          </div>
+        </div>
+        <div class="playbar__row callback">
+          <span class="callback__title"> Оцените урок </span>
+          <form action="" method="post" @submit.prevent="sendReview">
+            <div class="callback__stars">
+              <button
+                :class="[
+                  'callback__star',
+                  {
+                    callback__star_filled:
+                      getTopic.feedback.isSubmitted &&
+                      index <= getTopic.feedback.currentRating,
+                  },
+                ]"
+                type="button"
+                :data-score="index"
+                tabindex="0"
+                v-for="index in 5"
+                :key="index"
+                @click="inputRating"
+              ></button>
+            </div>
+            <textarea
+              class="callback__textarea"
+              placeholder="Комментарий (Не обязательно)"
+              tabindex="0"
+              @input="autoResizeTextarea"
+            ></textarea>
+            <button class="callback__btn" data-submit="false" tabindex="0">
+              Отправить
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<style lang="scss" scoped>
 .progressbar {
   display: flex;
   flex-wrap: wrap;
@@ -210,490 +238,411 @@ export default {
   gap: 5px;
   padding: 1em;
   margin-bottom: 20px;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-section-white);
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 500;
+
+    &::before {
+      width: 15px;
+      height: 15px;
+      content: "";
+      mask: url("@/assets/media/icons/my-courses.svg") no-repeat center/contain;
+      background-color: $color-icon-blue;
+    }
+  }
+
+  &__count {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 500;
+  }
+
+  &__progress {
+    display: block;
+    flex-basis: 100%;
+    height: 8px;
+    border-radius: $radius-max;
+    background: linear-gradient(
+      90deg,
+      rgba(10, 166, 215, 1) 59%,
+      rgba(222, 246, 255, 1) 59%
+    );
+  }
 }
 
-.progressbar__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-xs);
-  font-weight: 500;
-}
-
-.progressbar__title::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask: url("@/assets/media/icons/my-courses.svg") no-repeat center/contain;
-  background-color: var(--color-icon-blue);
-}
-
-.progressbar__count {
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-xs);
-  font-weight: 500;
-}
-
-.progressbar__progress {
-  flex-basis: 100%;
-  display: block;
-  height: 8px;
-  border-radius: var(--radius-max);
-  background: linear-gradient(
-    90deg,
-    rgba(10, 166, 215, 1) 59%,
-    rgba(222, 246, 255, 1) 59%
-  );
-}
-
+// --- Video Player Section ---
 .player {
   display: grid;
   grid-template-columns: 1fr 23em;
-  gap: var(--margin-item);
+  gap: $margin-item;
   transition: grid-template-columns 0.3s ease;
-}
-/* Левая секция с плеером */
-.player__content {
-  height: fit-content;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-section-white);
+
+  &__content {
+    height: fit-content;
+    border-radius: $radius-lg;
+    background-color: $color-section-white;
+  }
+
+  &__video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-classic;
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.6)
+      );
+    }
+
+    &.play::before {
+      background: none
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    padding: 0 2em;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5em 0;
+    border-bottom: $border-grey;
+  }
+
+  &__title {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-md;
+    font-weight: 500;
+  }
+
+  &__status {
+    padding: 0.5em 1.5em;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 500;
+    color: $color-text-white;
+    background-color: $color-label-dark-green;
+  }
+
+  &__description {
+    padding: 2em 0;
+    border-bottom: $border-grey;
+    font-weight: 400;
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 1.5em 0;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5em 2em;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 500;
+
+    // Previous Button
+    &_prev {
+      color: $color-text-black;
+      border: $border-blue;
+      background-color: $color-btn-blue;
+
+      &::before {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        content: "";
+        border-bottom: 1px solid $color-text-black;
+        border-left: 1px solid $color-text-black;
+        transform: rotate(45deg);
+        transition: transform 0.2s ease;
+      }
+
+      &:hover,
+      &:focus-visible {
+        &::before {
+          transform: rotate(45deg) translate(-10px, 10px);
+        }
+      }
+
+      &:active::before {
+        transform: rotate(45deg) translate(-10px, 10px) scale(0.8);
+      }
+    }
+
+    // Next Button
+    &_next {
+      color: $color-text-white;
+      background-color: $color-btn-dark-blue;
+
+      &::after {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        content: "";
+        border-bottom: 1px solid $color-text-white;
+        border-right: 1px solid $color-text-white;
+        transform: rotate(-45deg);
+        transition: transform 0.2s ease;
+      }
+
+      &:hover,
+      &:focus-visible {
+        &::after {
+          transform: rotate(-45deg) translate(10px, 10px);
+        }
+      }
+
+      &:active::after {
+        transform: rotate(-45deg) translate(10px, 10px) scale(0.8);
+      }
+    }
+  }
 }
 
-.player__video {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-classic);
-  background-color: var(--color-section-black);
-}
-
-.player__video::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.6)
-  );
-  pointer-events: none;
-}
-
-.player__video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: none;
-  outline: none;
-  display: block;
-}
-
-.player__info {
-  padding: 0 2em;
-}
-
-.player__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5em 0;
-  border-bottom: var(--border-grey);
-}
-
-.player__title {
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-md);
-  font-weight: 500;
-}
-
-.player__status {
-  padding: 0.5em 1.5em;
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-xs);
-  font-weight: 500;
-  background-color: var(--color-label-dark-green);
-  color: var(--color-text-white);
-}
-
-.player__description {
-  padding: 2em 0;
-  border-bottom: var(--border-grey);
-  font-weight: 400;
-}
-
-.player__btns {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 1.5em 0;
-}
-
-.player__btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0.5em 2em;
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-xs);
-  font-weight: 500;
-}
-
-.player__btn_prev::before {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  content: "";
-  border-bottom: 1px solid var(--color-text-black);
-  border-left: 1px solid var(--color-text-black);
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-}
-.player__btn_prev:hover::before {
-  transform: rotate(45deg) translate(-10px, 10px);
-}
-.player__btn_prev:focus-visible::before {
-  transform: rotate(45deg) translate(-10px, 10px);
-}
-.player__btn_prev:active::before {
-  transform: rotate(45deg) translate(-10px, 10px) scale(0.8);
-}
-.player__btn_prev {
-  border: var(--border-blue);
-  background-color: var(--color-btn-blue);
-  color: var(--color-text-black);
-}
-
-.player__btn_next {
-  background-color: var(--color-btn-dark-blue);
-  color: var(--color-text-white);
-}
-.player__btn_next::after {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  content: "";
-  border-bottom: 1px solid var(--color-text-white);
-  border-right: 1px solid var(--color-text-white);
-  transform: rotate(-45deg);
-  transition: transform 0.2s ease;
-}
-.player__btn_next:hover::after {
-  transform: rotate(-45deg) translate(10px, 10px);
-}
-.player__btn_next:focus-visible::after {
-  transform: rotate(-45deg) translate(10px, 10px);
-}
-.player__btn_next:active::after {
-  transform: rotate(-45deg) translate(10px, 10px) scale(0.8);
-}
-
-/* правая секция с информацией */
+// --- Right Sidebar Sections ---
 .playbar__row {
   height: fit-content;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-section-white);
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
+
+  &:not(:last-child) {
+    margin-bottom: $margin-item;
+  }
 }
 
-.playbar__row:not(:last-child) {
-  margin-bottom: var(--margin-item);
-}
-
-/* Список уроков */
 .lessons__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  @include player-title("@/assets/media/icons/study_topic.svg");
   padding: 1em;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-sm);
-  font-weight: 600;
+  margin-bottom: 0;
 }
 
-.lessons__title::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask-image: url("@/assets/media/icons/study_topic.svg");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  background-color: var(--color-icon-blue);
-}
-
-/* Список материалов */
 .materials {
   padding: 1em;
+
+  &__title {
+    @include player-title("@/assets/media/icons/tests.svg");
+  }
 }
 
-.materials__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-sm);
-  font-weight: 600;
-}
-
-.materials__title::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask-image: url("@/assets/media/icons/tests.svg");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  background-color: var(--color-icon-blue);
-}
-
-/* Список ссылками */
 .links {
   padding: 1em;
+
+  &__title {
+    @include player-title("@/assets/media/icons/tests.svg");
+  }
 }
 
-.links__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-sm);
-  font-weight: 600;
-}
-
-.links__title::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask-image: url("@/assets/media/icons/tests.svg");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  background-color: var(--color-icon-blue);
-}
-
-/* Блок с тестированием */
+// --- Test Section ---
 .test {
   padding: 1em;
+
+  &__title {
+    @include player-title("@/assets/media/icons/tests.svg");
+  }
+
+  &__result {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0.5em 1em;
+    margin-bottom: 10px;
+    border-radius: $radius-lg;
+    background-color: $color-label-light-green;
+  }
+
+  &__status,
+  &__score {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+    color: $color-text-green;
+  }
+
+  &__status {
+    flex-basis: 100%;
+  }
+
+  &__btn {
+    @include btn-blue-small;
+    
+    &_repeat {
+      color: $color-text-black;
+      background-color: $color-btn-grey;
+
+      &:hover,
+      &:focus-visible {
+        color: $color-text-white;
+        background-color: $color-action-dark-grey;
+      }
+
+      &:active {
+        color: $color-action-white;
+        background-color: $color-action-dark-grey;
+      }
+    }
+  }
+
+  &__amount {
+    display: inline-block;
+    padding: 0.2em 0.4em;
+    margin-bottom: 10px;
+    border: $border-blue;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+  }
+
+  &__description {
+    margin-bottom: 10px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    color: $color-text-grey;
+  }
 }
 
-.test__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-sm);
-  font-weight: 600;
-}
-
-.test__title::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask-image: url("@/assets/media/icons/tests.svg");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-  background-color: var(--color-icon-blue);
-}
-
-.test__result {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
-  padding: 0.5em 1em;
-  margin-bottom: 10px;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-label-light-green);
-}
-
-.test__status {
-  flex-basis: 100%;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-  color: var(--color-text-green);
-}
-
-.test__score {
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-  color: var(--color-text-green);
-}
-
-.test__btn {
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-min);
-  font-weight: 500;
-}
-
-.test__btn_repeat {
-  background-color: var(--color-btn-grey);
-  color: var(--color-text-black);
-}
-.test__btn_repeat:hover {
-  background-color: var(--color-action-dark-grey);
-  color: var(--color-text-white);
-}
-.test__btn_repeat:focus-visible {
-  background-color: var(--color-action-dark-grey);
-  color: var(--color-text-white);
-}
-.test__btn_repeat:active {
-  background-color: var(--color-action-dark-grey);
-  color: var(--color-action-white);
-}
-.test__amount {
-  display: inline-block;
-  padding: 0.2em 0.4em;
-  margin-bottom: 10px;
-  border: var(--border-blue);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 400;
-}
-
-.test__description {
-  margin-bottom: 10px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 400;
-  color: var(--color-text-grey);
-}
-
-/* Блок с тестированием */
+// --- Callback Section ---
 .callback {
   padding: 1em;
-}
 
-.callback__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-sm);
-  font-weight: 600;
-}
+  &__title {
+    @include player-title("@/assets/media/icons/tests.svg");
+    // Note: mask shorthand was used in CSS, replaced with mixin logic
+  }
 
-.callback__title::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask: url("@/assets/media/icons/tests.svg") no-repeat center/contain;
-  background-color: var(--color-icon-blue);
-}
+  &__stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 20px;
+  }
 
-.callback__stars {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-bottom: 20px;
-}
+  &__star {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.2s ease;
 
-.callback__star {
-  position: relative;
-  width: 25px;
-  height: 25px;
-  transition: transform 0.2s ease;
-}
-.callback__star:hover {
-  transform: scale(1.2);
-}
-.callback__star:focus-visible {
-  transform: scale(1.2);
-}
-.callback__star:active {
-  transform: scale(1.2);
-  background-color: var(--color-icon-blue);
-}
-.callback__star::before {
-  display: inline-block;
-  content: "";
-  width: 100%;
-  height: 100%;
-  mask: url("@/assets/media/icons/star-callback.svg") no-repeat center/contain;
-  background-color: var(--color-icon-blue);
-}
-.callback__star::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: inline-block;
-  content: "";
-  width: 100%;
-  height: 100%;
-  mask: url("@/assets/media/icons/star-callback.svg") no-repeat center/contain;
-  background-color: var(--color-icon-blue);
-}
-.callback__star_filled::after {
-  mask: url("@/assets/media/icons/star-callback-full.svg") no-repeat
-    center/contain;
-  background-color: var(--color-icon-blue);
-}
-.callback__textarea {
-  display: block;
-  width: 100%;
-  min-height: 60px;
-  margin-bottom: 10px;
-  padding: 0.5em;
-  resize: none;
-  overflow: hidden;
-  box-sizing: border-box;
-  outline: var(--border-blue);
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 400;
-  transition: outline-color 0.1s ease;
-}
-.callback__textarea::placeholder {
-  color: var(--color-text-blue);
-}
-.callback__textarea:hover {
-  outline-color: var(--color-btn-dark-blue);
-}
-.callback__textarea:focus-visible {
-  outline-color: var(--color-btn-dark-blue);
-}
-.callback__btn {
-  padding: 0.5em 1em;
-  border-radius: var(--radius-max);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 400;
-  background-color: var(--color-btn-blue);
-  color: var(--color-text-black);
-  transition: background-color 0.1s ease, color 0.1s ease;
-}
-.callback__btn:hover {
-  background-color: var(--color-action-blue);
-  color: var(--color-text-white);
-}
-.callback__btn:focus-visible {
-  background-color: var(--color-action-blue);
-  color: var(--color-text-white);
-}
-.callback__btn:active {
-  background-color: var(--color-action-dark-blue);
-  color: var(--color-text-white);
-}
+    &::before,
+    &::after {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      mask: url("@/assets/media/icons/star-callback.svg") no-repeat
+        center/contain;
+      background-color: $color-icon-blue;
+    }
 
-@media screen {
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &_filled::after {
+      mask: url("@/assets/media/icons/star-callback-full.svg") no-repeat
+        center/contain;
+    }
+
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(1.2);
+      background-color: $color-icon-blue;
+    }
+  }
+
+  &__textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 60px;
+    padding: 0.5em;
+    margin-bottom: 10px;
+    overflow: hidden;
+    resize: none;
+    border: none;
+    border-radius: $radius-sm;
+    outline: $border-blue; // Using variable for outline-color if applicable, or fallback
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    transition: outline-color 0.1s ease;
+
+    &::placeholder {
+      color: $color-text-blue;
+    }
+
+    &:hover,
+    &:focus-visible {
+      outline-color: $color-btn-dark-blue;
+    }
+  }
+
+  &__btn {
+    padding: 0.5em 1em;
+    border-radius: $radius-max;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    color: $color-text-black;
+    background-color: $color-btn-blue;
+    transition: background-color 0.1s ease, color 0.1s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $color-text-white;
+      background-color: $color-action-blue;
+    }
+
+    &:active {
+      color: $color-text-white;
+      background-color: $color-action-dark-blue;
+    }
+  }
 }
 </style>

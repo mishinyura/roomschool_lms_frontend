@@ -14,7 +14,6 @@ export const useRoleStore = defineStore('roles', {
 
   getters: {
     myRolesList: (state) => {
-      console.log('activeRoles', state.activeRoles)
       return state.activeRoles.map(role => ({
         name: role,
         display: getDisplayNameForRole(role)

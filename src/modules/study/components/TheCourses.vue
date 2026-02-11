@@ -24,94 +24,11 @@
 </template>
 
 
-<script>
-// import programsJson from "@/mocks/programs.json";
+<script setup>
+import programsJson from "@/mocks/programs.json";
 import ThePrograms from "./ThePrograms.vue";
 
-export default {
-  data() {
-    return {
-      programs: [
-        {
-          title: "Социальный",
-          block: "Факультатив",
-          slug: "social",
-          completed: 0,
-          total: 1,
-          modules: [
-            {
-              title: "Тайм-менеджмент",
-              slug: "time-management",
-              completed: 0,
-              total: 7,
-              topics: [
-                {
-                  title: "Время - это не часы",
-                  slug: "vremya-eto-ne-chasy",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: false,
-                },
-                {
-                  title: "Почему я ничего не делаю (и это не лень)",
-                  slug: "pochemu-ya-nichego-ne-delayu",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: true,
-                },
-                {
-                  title: "Как концентрироваться в мире отвлечений",
-                  slug: "kak-koncentrirovatsya",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: true,
-                },
-                {
-                  title: "Дела, которые не бесят",
-                  slug: "dela-kotorye-ne-besyat",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: true,
-                },
-                {
-                  title: "Планирование без занудства",
-                  slug: "planirovanie-bez-zanudstva",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: true,
-                },
-                {
-                  title: "Ты и твой ритм жизни",
-                  slug: "ty-i-tvoj-ritm-zhizni",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: true,
-                },
-                {
-                  title: "Я - хозяин своего времени",
-                  slug: "ya-hozyain-svoego-vremeni",
-                  progress: 0,
-                  videos: 3,
-                  tests: 1,
-                  isBlock: true,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
-  },
-  components: {
-    ThePrograms,
-  },
-};
+const programs = programsJson;
 </script>
 
 <style lang="scss">

@@ -12,10 +12,7 @@ import TheCourses from "../components/TheCourses.vue";
 </script>
 
 <style lang="scss" scoped>
-.main__content{
-  @include content-view;
-  overflow-y: auto;
-}
+
 .main__title {
   @include page-title;
 }

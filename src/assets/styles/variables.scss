@@ -8,6 +8,7 @@ ______________*/
 $color-bg-white: #fff;
 $color-bg-grey: #f5f7fa;
 
+// $color-section-black: #000;
 $color-section-white: #fff;
 $color-section-blue: #bde6ff;
 
@@ -15,7 +16,7 @@ $color-bg-blue-radial-gradient: radial-gradient(circle, rgba(0, 133, 255, 1) 0%,
 
 
 
-// $color-section-black: #000;
+// 
 
 // $color-bg-purpure-radial-gradient: radial-gradient(circle at center 200px, #FFE6E6 0%, #c3b9df92 53%);
 // $color-bg-blue-linear-gradient: linear-gradient(236deg, rgba(189, 227, 252, 1) 0%, rgba(138, 209, 253, 1) 100%);
@@ -38,12 +39,13 @@ $color-text-white: #fff;
 $color-text-black: #000;
 $color-text-grey: #7c7c7c;
 $color-text-blue: #0092be;
+$color-text-green: #1e6425;
 
 
 /*
 $color-text-grey: #7c7c7c;
 $color-text-blue: #0092be;
-$color-text-green: #1e6425;
+
 $color-text-red: #c00000;
 $color-text-dark-grey: #4e4e4e;
 $color-text-white: #fff;
@@ -59,18 +61,18 @@ $color-text-green: #267d2e;
 
 $color-action-white: #fff;
 // $color-action-grey: #e3e3e3;
-// $color-action-dark-grey: #7c7c7c;
+$color-action-dark-grey: #7c7c7c;
 $color-action-blue: #0AA6D7;
-// $color-action-dark-blue: #0080a7;
+$color-action-dark-blue: #0080a7;
 $color-action-light-blue: #ddf2ff;
 // $color-action-purpure: #9436ff;
 // $color-action-light-blue: #ddf2ff;
 // $color-action-blue: #0AA6D7;
 // $color-action-dark-blue: #0080a7;
 // $color-action-green: #37d144;
-// $color-action-grey: #e3e3e3;
+$color-action-grey: #e3e3e3;
 // $color-action-dark-grey: #7c7c7c;
-// $color-action-light-grey: #f5f7fa;
+$color-action-light-grey: #f5f7fa;
 // $color-action-white: #fff; 
 
 
@@ -100,7 +102,7 @@ $color-label-dark-blue: #0AA6D7;
 $color-label-dark-green: #60c368;
 // $color-label-dark-blue: #0AA6D7;
 
-// $color-label-light-green: #e9fff5;
+$color-label-light-green: #e9fff5;
 // $color-label-blue-purpure-gradient: linear-gradient(90deg, rgba(112, 174, 255, 1) 0%, rgba(191, 128, 255, 1) 100%);
 // $color-label-green-blue-gradient: linear-gradient(90deg, rgba(0, 204, 10, 1) 0%, rgba(82, 235, 255, 1) 100%);
 // $color-label-red-orange-gradient: linear-gradient(93deg, rgba(255, 84, 84, 1) 0%, rgba(255, 226, 5, 1) 100%);

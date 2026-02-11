@@ -1,110 +1,504 @@
 [
-    {    
-        "slug": "kvadratnye-uravneniya",
-        "progress": {
-            "completed": 2,
-            "total": 4
-        },
-        "current": {
-            "id": 101,
-            "title": "Введение в квадратные уравнения!",
-            "isViewed": true,
-            "video": {
-                "src": "/assets/media/videos/lesson1.mp4",
-                "poster": "/assets/media/posters/lesson1.jpg",
-                "mimeType": "video/mp4"
-            },
-            "description": "<h3>Описание урока</h3><p>В этом уроке мы изучим основы квадратных уравнений...</p>",
-            "navigation": {
-                "prev": null,
-                "next": 102
-            }
-        },
-        "lessons": [
-            {
-                "id": 101,
-                "title": "Введение в квадратные уравнения",
-                "duration": 764,
-                "isViewed": true,
-                "isCurrent": false,
-                "isLocked": false
-            },
-            {
-                "id": 102,
-                "title": "Теорема Виета",
-                "duration": 764,
-                "isViewed": false,
-                "isCurrent": true,
-                "isLocked": false
-            },
-            {
-                "id": 103,
-                "title": "Практическое задание",
-                "duration": 940,
-                "isViewed": false,
-                "isCurrent": false,
-                "isLocked": true
-            }
-        ],
-        "attachments": {
-            "materials": [
-                {
-                    "name": "Введение в квадратные уравнения",
-                    "size": "2411724.8",
-                    "url": "/api/download/material/1"
-                },
-                {
-                    "name": "Теорема Виета",
-                    "size": "2411724.8",
-                    "url": "/api/download/material/2"
-                },
-                {
-                    "name": "Практическое задание",
-                    "size": "241134.8",
-                    "url": "/api/download/material/3"
-                }
-            ],
-            "links": [
-                {
-                    "name": "Статья о том, как решать квадратные уравнения",
-                    "url": "https://google.com"
-                }
-            ]
-        },
-        "quiz": {
-            "id": 505,
-            "questionsCount": 10,
-            "userResult": {
-                "isCompleted": false,
-                "score": 5
-            }
-        },
-        "feedback": {
-            "isSubmitted": false,
-            "currentRating": 0,
-            "comment": ""
-        }
+  {
+    "slug": "vremya-eto-ne-chasy",
+    "progress": {
+      "completed": 0,
+      "total": 3
     },
-    {
-
-        "slug": "kvadratnye-uravneni",
-        "meta": {
-            "breadcrumbs": [
-                {
-                    "id": 1,
-                    "title": "8 класс - Основная программа",
-                    "link": "/education/grade-8"
-                },
-                {
-                    "id": 2,
-                    "title": "Математика",
-                    "link": "/education/math"
-                }
-            ]
-        },
-        "progress": {
-            "completed": 2,
-            "total": 4
+    "current": {
+      "id": 101,
+      "title": "Почему у всех 24 часа, а дни получаются разными",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m1/lesson1.mp4",
+        "poster": "/assets/media/posters/m1/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Этот урок не про то, как «успевать больше». Он про то, почему время ощущается так, как оно ощущается. Мы разберем, как внимание формирует ощущение времени и почему один час может пролететь как секунда, а другой — тянуться вечность.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 102
+      }
+    },
+    "lessons": [
+      {
+        "id": 101,
+        "title": "Почему у всех 24 часа, а дни получаются разными",
+        "duration": 600,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 102,
+        "title": "Где прячется мое время (и кто его ворует)",
+        "duration": 720,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 103,
+        "title": "Почему «потом» – это ловушка мозга",
+        "duration": 650,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Мое время под микроскопом",
+          "size": "150000",
+          "url": "/api/download/material/m1_hw"
         }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://google.com"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 501,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
     }
+  },
+  {
+    "slug": "pochemu-ya-nichego-ne-delayu",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 201,
+      "title": "Лень – миф: что происходит на самом деле",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m2/lesson1.mp4",
+        "poster": "/assets/media/posters/m2/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Слово «лень» — это ярлык, а не объяснение. Мы разберем 4 реальные причины, почему мозг отказывается выполнять задачи: непонимание с чего начать, слишком большой объем, далекий результат или банальный перегруз.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 202
+      }
+    },
+    "lessons": [
+      {
+        "id": 201,
+        "title": "Лень – миф: что происходит на самом деле",
+        "duration": 680,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 202,
+        "title": "Почему хочется залипать в телефоне",
+        "duration": 750,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 203,
+        "title": "Как понять, что со мной сейчас происходит",
+        "duration": 700,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Самостоятельная работа: Наблюдаю, а не оцениваю",
+          "size": "120000",
+          "url": "/api/download/material/m2_hw"
+        }
+      ],
+      "links": []
+    },
+    "quiz": {
+      "id": 502,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "kak-koncentrirovatsya",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 301,
+      "title": "Почему фокус – это не «держать внимание»",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m3/lesson1.mp4",
+        "poster": "/assets/media/posters/m3/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Фокус – это не напряжение и сила воли. Это результат условий, в которых мозгу проще оставаться в деле. Мы обсудим, почему попытки «просто не отвлекаться» проваливаются и как создавать ясность для мозга.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 302
+      }
+    },
+    "lessons": [
+      {
+        "id": 301,
+        "title": "Почему фокус – это не «держать внимание»",
+        "duration": 620,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 302,
+        "title": "«Выйди и зайди нормально» (Маленький вход)",
+        "duration": 580,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 303,
+        "title": "Чистота в голове и пространстве",
+        "duration": 600,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Мини-эксперимент с фокусом",
+          "size": "135000",
+          "url": "/api/download/material/m3_hw"
+        }
+      ],
+      "links": []
+    },
+    "quiz": {
+      "id": 503,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "dela-kotorye-ne-besyat",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 401,
+      "title": "Как отличать важное от «срочного, но бесполезного»",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m4/lesson1.mp4",
+        "poster": "/assets/media/posters/m4/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Срочные дела часто маскируются под важные. Мы разберем матрицу Эйзенхауэра и научимся понимать, какие задачи реально двигают нас к целям, а какие — просто воруют энергию.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 402
+      }
+    },
+    "lessons": [
+      {
+        "id": 401,
+        "title": "Как отличать важное от «срочного, но бесполезного»",
+        "duration": 710,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 402,
+        "title": "Почему большие дела пугают",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 403,
+        "title": "Идеально быть неидеальным",
+        "duration": 740,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Самостоятельная работа: Мой главный враг времени",
+          "size": "110000",
+          "url": "/api/download/material/m4_hw"
+        }
+      ],
+      "links": []
+    },
+    "quiz": {
+      "id": 504,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "planirovanie-bez-zanudstva",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 501,
+      "title": "Как сделать так, чтобы план хотелось выполнять",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m5/lesson1.mp4",
+        "poster": "/assets/media/posters/m5/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Мозг не любит планы, где есть только слово «надо». Мы поговорим про принцип «съесть лягушку», про награды, встроенные в план, и про разницу между быстрым и долгим дофамином.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 502
+      }
+    },
+    "lessons": [
+      {
+        "id": 501,
+        "title": "Как сделать так, чтобы план хотелось выполнять",
+        "duration": 800,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 502,
+        "title": "Чужие планы в моей жизни",
+        "duration": 760,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 503,
+        "title": "«Шеф, все пропало!» или как жить с непредсказуемостью",
+        "duration": 820,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Задание: Мой живой день",
+          "size": "140000",
+          "url": "/api/download/material/m5_hw"
+        }
+      ],
+      "links": []
+    },
+    "quiz": {
+      "id": 505,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "ty-i-tvoj-ritm-zhizni",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 601,
+      "title": "Жаворонок, сова или кто-то третий",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m6/lesson1.mp4",
+        "poster": "/assets/media/posters/m6/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Разбираем 4 хронотипа по Бреусу: Лев, Волк, Медведь и Дельфин. Узнаем, почему нет идеального режима для всех и как подстроить сложные задачи под свои биологические пики активности.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 602
+      }
+    },
+    "lessons": [
+      {
+        "id": 601,
+        "title": "Жаворонок, сова или кто-то третий",
+        "duration": 780,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 602,
+        "title": "Отдых – это тоже работа",
+        "duration": 700,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 603,
+        "title": "Как не выгореть",
+        "duration": 850,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Мой анти-выгоральный план на неделю",
+          "size": "160000",
+          "url": "/api/download/material/m6_hw"
+        }
+      ],
+      "links": []
+    },
+    "quiz": {
+      "id": 506,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "ya-hozyain-svoego-vremeni",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 701,
+      "title": "Собираем мою систему времени",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/m7/lesson1.mp4",
+        "poster": "/assets/media/posters/m7/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Самая эффективная система – это визуальная карта. Мы научимся делить дела на блоки (учеба, хобби, спорт), использовать цвета и определять Ключевой блок дня, вокруг которого строится всё остальное.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 702
+      }
+    },
+    "lessons": [
+      {
+        "id": 701,
+        "title": "Собираем мою систему времени",
+        "duration": 650,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 702,
+        "title": "Как адаптировать систему под школу, кружки и жизнь",
+        "duration": 720,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 703,
+        "title": "Что делать, когда все снова ломается (и это ок)",
+        "duration": 680,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Финальный проект: Моя система времени",
+          "size": "250000",
+          "url": "/api/download/material/m7_final_project"
+        }
+      ],
+      "links": []
+    },
+    "quiz": {
+      "id": 507,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  }
 ]

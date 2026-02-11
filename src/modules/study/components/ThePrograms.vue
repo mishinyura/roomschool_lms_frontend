@@ -25,7 +25,7 @@
 
     <div class="program__list" :style="{ height: moduleHeight + 'px' }">
       <TheModules
-        v-for="(module, index) in program.modules"
+        v-for="(module, index) in props.program.modules"
         :key="index"
         :module="module"
         @update-module-height="handleModuleHeight"
@@ -34,52 +34,56 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import {defineProps, provide, computed, ref} from "vue";
 import { pluralize } from "@/utils/globalUtils.js";
 import TheModules from "./TheModules.vue";
 
-export default {
-  props: ["program"],
-  provide() {
-    return {
-      programSlug: this.program.slug,
-      programTitle: `${this.program.title} - ${this.program.block}`,
-    };
+const props = defineProps({
+  program: {
+    type: Object,
+    required: true,
   },
-  components: { TheModules },
-  data() {
-    return { moduleHeight: 0 };
-  },
-  computed: {
-    progress() {
-      const percent = (this.program.completed / this.program.total) * 100;
-      return `linear-gradient(90deg, rgba(10,166,215,1) ${percent}%, rgba(222,246,255,1) ${percent}%)`;
-    },
-  },
-  methods: {
-    amountModulesFormat(amount) {
-      return pluralize(amount, "модуль", "модуля", "модулей");
-    },
+});
 
-    openModules(event) {
-      const list = event.currentTarget.nextElementSibling;
-      const fullHeight = list.scrollHeight;
+let moduleHeight = ref(0);
 
-      const isOpen = event.currentTarget.classList.toggle("open");
-      this.moduleHeight = isOpen ? fullHeight : 0;
-    },
-    handleModuleHeight(heightChange, isOpen) {
-      const delta = isOpen ? heightChange : -heightChange;
-      this.moduleHeight += delta;
+provide('programContext', {
+  programSlug: props.program.slug,
+  programTitle: `${props.program.title} - ${props.program.block}`,
+});
 
-      if (this.moduleHeight < 0) this.moduleHeight = 0;
-    },
-  },
+
+
+const progress = computed(() => {
+  const percent = (props.program.completed / props.program.total) * 100;
+  return `linear-gradient(90deg, rgba(10,166,215,1) ${percent}%, rgba(222,246,255,1) ${percent}%)`;
+});
+
+const amountModulesFormat = (amount) => {
+  return pluralize(amount, "модуль", "модуля", "модулей");
 };
+
+const openModules = (event) => {
+  const list = event.currentTarget.nextElementSibling;
+  const fullHeight = list.scrollHeight;
+
+  const isOpen = event.currentTarget.classList.toggle("open");
+  moduleHeight.value = isOpen ? fullHeight : 0;
+};
+
+const handleModuleHeight = (heightChange, isOpen) => {
+  const delta = isOpen ? heightChange : -heightChange;
+  moduleHeight.value += delta;
+
+  if (moduleHeight.value < 0) moduleHeight.value = 0;
+};
+
 </script>
 
 <style lang="scss" scoped>
 .program {
+  @include no-select;
   padding: 1em;
   border-radius: $radius-lg;
   background-color: $color-section-white;
@@ -112,13 +116,11 @@ export default {
   }
 
   &__name {
+    @include title;
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 2px;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-title-xs;
-    font-weight: 500;
 
     &_program::after {
       display: inline-block;

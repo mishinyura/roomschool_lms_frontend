@@ -1,13 +1,10 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useRoleStore } from "@/stores/roleStore";
-
-import { print } from "@/utils/globalUtils";
 import router from "./routes";
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   const roleStore = useRoleStore();
-  print('beforeEach', 'TO:\n', to, '\nFROM:\n', from);
 
   if (!authStore.isAuthenticated && !to.path.startsWith('/auth')) {
     await authStore.checkAuth(); 

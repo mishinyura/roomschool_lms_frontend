@@ -2,42 +2,42 @@
   <div :class="['topic', modClassName('topic')]">
     <div :class="['topic__info', modClassName('topic__info')]">
       <h4 class="topic__name topic__name_topic">
-        {{ topic.title }}
+        {{ props.topic.title }}
       </h4>
       <span :class="['topic__status', modClassName('topic__status')]">
         {{
-          topic.isBlock
+          props.topic.isBlock
             ? "Заблокировано"
-            : topic.progress === topic.videos + topic.tests
+            : props.topic.progress === props.topic.videos + props.topic.tests
             ? "Завершено"
             : "Текущая"
         }}
       </span>
       <span class="topic__amount-topic">
-        Прогресс: {{ topic.progress }}/{{ topic.videos + topic.tests }}
+        Прогресс: {{ props.topic.progress }}/{{ props.topic.videos + props.topic.tests }}
       </span>
     </div>
     <div class="topic__control">
       <span class="topic__amount topic__amount_videos">
-        {{ topic.videos }} видео
+        {{ props.topic.videos }} видео
       </span>
       <span class="topic__amount topic__amount_tests">
-        {{ amountTestsFormat(topic.tests) }}
+        {{ amountTestsFormat(props.topic.tests) }}
       </span>
       <button
         :class="[
           'topic__btn topic__btn_classic',
           {
             topic__btn_current:
-              !topic.isBlock && topic.progress !== topic.videos + topic.tests,
-            topic__btn_end: topic.progress === topic.videos + topic.tests,
+              !props.topic.isBlock && props.topic.progress !== props.topic.videos + props.topic.tests,
+            topic__btn_end: props.topic.progress === props.topic.videos + props.topic.tests,
           },
         ]"
-        v-if="!topic.isBlock"
-        @click="openPlayer(topic.slug)"
+        v-if="!props.topic.isBlock"
+        @click="openPlayer(props.topic.slug)"
       >
         {{
-          topic.progress === topic.videos + topic.tests
+          props.topic.progress === props.topic.videos + props.topic.tests
             ? "Посмотреть"
             : "Продолжить"
         }}
@@ -46,62 +46,49 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { pluralize } from "@/utils/globalUtils.js";
+import { defineProps, inject, provide } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  props: ["topic"],
-  inject: ["programSlug", "moduleSlug"],
-  provide() {
-    return {
-      topicSlug: this.topic.slug,
-    };
+const props = defineProps({
+  topic: {
+    type: Object,
+    required: true,
   },
-  data() {
-    return {};
-  },
-  conmputed: {},
-  methods: {
-    amountTestsFormat(amount) {
-      return pluralize(amount, "тест", "теста", "тестов");
-    },
-    amountTopicsFormat(amount) {
-      return pluralize(amount, "тема", "темы", "тем");
-    },
-    openTopics(event) {
-      const list = event.currentTarget.nextElementSibling; //Получает список с темами
-      const fullHeight = list.scrollHeight; //Получаем высоту скролла списка с темами
+});
 
-      const isOpen = event.currentTarget.classList.toggle("open"); // Добавляем класс open и возвращаем статус head
+const router = useRouter();
 
-      this.topicHeight = isOpen ? fullHeight : 0;
+const programContext = inject("programContext");
+const moduleContext = inject("moduleContext");
 
-      this.$emit("update-module-height", fullHeight, isOpen);
+provide("topicSlug", props.topic.slug);
+
+const amountTestsFormat = (amount) => {
+  return pluralize(amount, "тест", "теста", "тестов");
+};
+
+const openPlayer = (slug) => {
+  router.push({
+    name: "player",
+    params: {
+      program: programContext?.programSlug, 
+      module: moduleContext?.moduleSlug,
+      topic: slug,
+      lesson: 1,
     },
-    openPlayer(slug) {
-      this.$router.push({
-        name: "player",
-        params: {
-          program: this.programSlug,
-          module: this.moduleSlug,
-          topic: slug,
-          lesson: 1,
-        },
-      });
-    },
-    modClassName(prefix) {
-      if (this.topic.isBlock) {
-        return `${prefix}_block`;
-      } else if (this.topic.progress === this.topic.videos + this.topic.tests) {
-        return `${prefix}_end`;
-      } else {
-        return `${prefix}_current`;
-      }
-    },
-  },
-  components: {
-    // ThePlayer
-  },
+  });
+};
+
+const modClassName = (prefix) => {
+  if (props.topic.isBlock) {
+    return `${prefix}_block`;
+  } else if (props.topic.progress === props.topic.videos + props.topic.tests) {
+    return `${prefix}_end`;
+  } else {
+    return `${prefix}_current`;
+  }
 };
 </script>
 
@@ -163,10 +150,9 @@ export default {
   }
 
   &__info {
+    @include note-text;
     position: relative;
-    user-select: none;
 
-    // Кружок чекбокса
     &::before {
       position: absolute;
       top: 30%;
@@ -187,7 +173,6 @@ export default {
         border: 1px solid $color-label-dark-green;
       }
 
-      // Галочка (только для завершенных)
       &::after {
         position: absolute;
         top: 37%;
@@ -209,13 +194,11 @@ export default {
   }
 
   &__name {
+    @include title;
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 2px;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-title-xs;
-    font-weight: 500;
 
     &_topic::after {
       display: inline-block;
@@ -230,26 +213,20 @@ export default {
   }
 
   &__status {
+    @include label-classic;
     display: inline-block;
     margin-right: 10px;
-    padding: 0.2em 0.5em;
-    border-radius: $radius-max;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-text-min;
-    font-weight: 300;
+    color: $color-text-white;
 
     &_current {
-      color: $color-text-white;
       background-color: $color-label-dark-blue;
     }
 
     &_end {
-      color: $color-text-white;
       background-color: $color-label-dark-green;
     }
 
     &_block {
-      color: $color-text-white;
       background-color: $color-label-dark-grey;
     }
   }

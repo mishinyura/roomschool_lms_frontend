@@ -1,13 +1,15 @@
 <template>
   <main :class="['main', { main_collapsed: sidebarStatusCollapsed }]">
     <SideBar @toggle-sidebar="toggleSidebar" />
-    <RouterView v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <keep-alive>
-          <component :is="Component" :key="$route.fullPath" />
-        </keep-alive>
-      </transition>
-    </RouterView>
+    <article class="main__content">
+      <RouterView v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <keep-alive>
+            <component :is="Component" :key="$route.fullPath" />
+          </keep-alive>
+        </transition>
+      </RouterView>
+    </article>
   </main>
 </template>
 
@@ -49,9 +51,10 @@ export default {
   }
 }
 
-// .main .main__content {
-//   overflow-y: auto;
-// }
+.main__content{
+  @include content-view;
+  overflow-y: auto;
+}
 
 // .main .main__title {
 //   font-size: var(--font-size-title-lg);

@@ -3,11 +3,89 @@
 @mixin btn-classic {
     padding: 0.5em 1em;
     border: none;
-    border-radius: $radius-lg;
+    border-radius: $radius-max;
     font-family: $font-family-montserrat;
     font-size: $font-size-text-xs;
     font-weight: 500;
     background-color: $color-btn-dark-blue;
     color: $color-text-white;
+    transition: background-color 0.1s ease, color 0.1s ease;
     cursor: pointer;
 }
+
+@mixin btn-blue-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.3em 1em;
+    border-radius: $radius-max;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 300;
+    background-color: $color-btn-dark-blue;
+    color: $color-text-white;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    cursor: pointer;
+
+
+    &:hover {
+        background-color: $color-action-dark-blue;
+        color: $color-action-white;
+    }
+
+    &:focus-visible {
+        background-color: $color-action-blue;
+        color: $color-action-white;
+    }
+
+}
+
+@mixin label-classic {
+    padding: 0.2em 0.5em;
+    border-radius: $radius-max;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 300;
+}
+
+@mixin mini-blue-btn($icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: $radius-sm;
+    transition: background-color 0.1s;
+
+    &::before {
+        width: 80%;
+        height: 80%;
+        content: "";
+        mask-image: url($icon);
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+        background-color: $color-icon-blue;
+        transition: background-color 0.1s;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background-color: $color-action-blue;
+
+        &::before {
+            background-color: $color-action-white;
+        }
+    }
+
+    &:active {
+        background-color: $color-action-dark-blue;
+
+        &::before {
+            background-color: $color-action-white;
+        }
+    }
+}
+

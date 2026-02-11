@@ -257,28 +257,3 @@ _____________
   background-color: var(--color-action-blue);
   color: var(--color-action-white);
 }
-
-[class*="__btn_mini"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0.3em 1em;
-  border-radius: var(--radius-max);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 300;
-  background-color: var(--color-btn-dark-blue);
-  color: var(--color-text-white);
-  transition: background-color 0.1s ease, color 0.1s ease;
-}
-
-[class*="__btn_mini"]:hover {
-  background-color: var(--color-action-dark-blue);
-  color: var(--color-action-white);
-}
-
-[class*="__btn_mini"]:focus-visible {
-  background-color: var(--color-action-blue);
-  color: var(--color-action-white);
-}

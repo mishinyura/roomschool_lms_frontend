@@ -4,7 +4,7 @@
       <div class="module__info">
         <h4 class="module__name module__name_module">{{ module.title }}</h4>
         <span class="module__amount-topics">
-          {{ amountTopicsFormat(module.topics.length) }}
+          {{ amountTopicsFormat(props.module.topics.length) }}
         </span>
       </div>
       <div class="module__control">
@@ -15,7 +15,7 @@
 
     <div class="module__list" :style="{ height: topicHeight + 'px' }">
       <TheTopics
-        v-for="(topic, index) in module.topics"
+        v-for="(topic, index) in props.module.topics"
         :key="index"
         :topic="topic"
       />
@@ -23,44 +23,45 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, defineEmits, provide, computed, ref } from "vue";
 import { pluralize } from "@/utils/globalUtils.js";
 import TheTopics from "./TheTopics.vue";
 
-export default {
-  props: ["module"],
-  emits: ["update-module-height"],
-  provide() {
-    return {
-      moduleSlug: this.module.slug,
-      moduleTitle: this.module.title,
-    };
+const props = defineProps({
+  module: {
+    type: Object,
+    required: true,
   },
-  components: { TheTopics },
-  data() {
-    return { topicHeight: 0 };
-  },
-  computed: {
-    progress() {
-      const percent = (this.module.completed / this.module.total) * 100;
-      return `linear-gradient(90deg, rgba(10,166,215,1) ${percent}%, rgba(222,246,255,1) ${percent}%)`;
-    },
-  },
-  methods: {
-    amountTopicsFormat(amount) {
-      return pluralize(amount, "тема", "темы", "тем");
-    },
-    openTopics(event) {
-      const list = event.currentTarget.nextElementSibling;
-      const fullHeight = list.scrollHeight;
+});
 
-      const isOpen = event.currentTarget.classList.toggle("open");
+const emit = defineEmits(["update-module-height"]);
 
-      this.topicHeight = isOpen ? fullHeight : 0;
+let topicHeight = ref(0);
 
-      this.$emit("update-module-height", fullHeight, isOpen);
-    },
-  },
+provide('moduleContext', {
+  moduleSlug: props.module.slug,
+  moduleTitle: props.module.title,
+});
+
+const progress = computed(() => {
+  const percent = (props.module.completed / props.module.total) * 100;
+  return `linear-gradient(90deg, rgba(10,166,215,1) ${percent}%, rgba(222,246,255,1) ${percent}%)`;
+});
+
+const amountTopicsFormat = (amount) => {
+  return pluralize(amount, "тема", "темы", "тем");
+};
+
+const openTopics = (event) => {
+  const list = event.currentTarget.nextElementSibling;
+  const fullHeight = list.scrollHeight;
+
+  const isOpen = event.currentTarget.classList.toggle("open");
+
+  topicHeight.value = isOpen ? fullHeight : 0;
+
+  emit("update-module-height", fullHeight, isOpen);
 };
 </script>
 
@@ -93,13 +94,11 @@ export default {
   }
 
   &__name {
+    @include title;
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 2px;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-title-xs;
-    font-weight: 500;
 
     &_module::after {
       display: inline-block;
