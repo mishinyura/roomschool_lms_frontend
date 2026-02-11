@@ -1,39 +1,3 @@
-<template>
-  <div class="program">
-    <div class="program__head" @click="openModules">
-      <div class="program__info">
-        <h4
-          class="program__name program__name_program"
-          :data-block="program.block"
-        >
-          {{ program.title }}
-        </h4>
-        <span class="program__amount-module">
-          {{ amountModulesFormat(program.modules.length) }}
-        </span>
-      </div>
-      <div class="program__control">
-        <span class="program__amount-topics">
-          {{ program.completed }}/{{ program.total }}
-        </span>
-        <span
-          class="program__progress"
-          :style="{ background: progress }"
-        ></span>
-      </div>
-    </div>
-
-    <div class="program__list" :style="{ height: moduleHeight + 'px' }">
-      <TheModules
-        v-for="(module, index) in props.program.modules"
-        :key="index"
-        :module="module"
-        @update-module-height="handleModuleHeight"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import {defineProps, provide, computed, ref} from "vue";
 import { pluralize } from "@/utils/globalUtils.js";
@@ -80,6 +44,42 @@ const handleModuleHeight = (heightChange, isOpen) => {
 };
 
 </script>
+
+<template>
+  <div class="program">
+    <div class="program__head" @click="openModules">
+      <div class="program__info">
+        <h4
+          class="program__name program__name_program"
+          :data-block="program.block"
+        >
+          {{ program.title }}
+        </h4>
+        <span class="program__amount-module">
+          {{ amountModulesFormat(program.modules.length) }}
+        </span>
+      </div>
+      <div class="program__control">
+        <span class="program__amount-topics">
+          {{ program.completed }}/{{ program.total }}
+        </span>
+        <span
+          class="program__progress"
+          :style="{ background: progress }"
+        ></span>
+      </div>
+    </div>
+
+    <div class="program__list" :style="{ height: moduleHeight + 'px' }">
+      <TheModules
+        v-for="(module, index) in props.program.modules"
+        :key="index"
+        :module="module"
+        @update-module-height="handleModuleHeight"
+      />
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .program {

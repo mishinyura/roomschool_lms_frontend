@@ -1,20 +1,20 @@
+<script setup>
+import { defineProps } from "vue";
+
+const props = defineProps({
+  link: Object,
+});
+</script>
+
 <template>
   <li class="link">
     <div class="link__data">
-      <span class="link__name"> {{ link.name }} </span>
-      <span class="link__size"> {{ link.url }}</span>
+      <span class="link__name"> {{ props.link.name }} </span>
+      <span class="link__size"> {{ props.link.url }}</span>
     </div>
-    <a :href="link.url" class="link__btn" target="_blanck"></a>
+    <a :href="props.link.url" class="link__btn" target="_blanck"></a>
   </li>
 </template>
-
-<script>
-export default {
-  props: {
-    link: Object,
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 .link {

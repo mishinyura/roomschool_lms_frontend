@@ -1,33 +1,3 @@
-<template>
-  <div class="sidebar__select account" :class="{ active: isOpen }">
-    <div class="account__wrapper" :class="{ active: isOpen }" @click="toggle">
-      <span class="account__icon"></span>
-      <input
-        class="account__input"
-        name="role"
-        type="text"
-        :data-role="activeAccount"
-        readonly
-        :value="selectedLabel"
-      />
-    </div>
-    <ul class="account__list" :class="{ active: isOpen }">
-      <li
-        v-for="option in options"
-        :key="option.name"
-        :data-role="option.name"
-        :class="[
-          'account__item',
-          { selected: activeAccount === option.name },
-        ]"
-        @click="select(option)"
-      >
-        {{ option.display }}
-      </li>
-    </ul>
-  </div>
-</template>
-
 <script>
 export default {
   name: "TheSelect",
@@ -77,6 +47,36 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="sidebar__select account" :class="{ active: isOpen }">
+    <div class="account__wrapper" :class="{ active: isOpen }" @click="toggle">
+      <span class="account__icon"></span>
+      <input
+        class="account__input"
+        name="role"
+        type="text"
+        :data-role="activeAccount"
+        readonly
+        :value="selectedLabel"
+      />
+    </div>
+    <ul class="account__list" :class="{ active: isOpen }">
+      <li
+        v-for="option in options"
+        :key="option.name"
+        :data-role="option.name"
+        :class="[
+          'account__item',
+          { selected: activeAccount === option.name },
+        ]"
+        @click="select(option)"
+      >
+        {{ option.display }}
+      </li>
+    </ul>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .account {

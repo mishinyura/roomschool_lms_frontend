@@ -1,15 +1,3 @@
-<template>
-  <div
-    :class="['notification', iconClass]"
-    role="alert"
-    @mouseenter="pauseTimer"
-    @mouseleave="resumeTimer"
-  >
-    <button class="notification__btn" @click="$emit('close')"></button>
-    <p class="notification__descr">{{ error.message }}</p>
-  </div>
-</template>
-
 <script setup>
 import {
   onMounted,
@@ -71,6 +59,18 @@ onBeforeUnmount(() => {
   if (timerId) clearTimeout(timerId);
 });
 </script>
+
+<template>
+  <div
+    :class="['notification', iconClass]"
+    role="alert"
+    @mouseenter="pauseTimer"
+    @mouseleave="resumeTimer"
+  >
+    <button class="notification__btn" @click="$emit('close')"></button>
+    <p class="notification__descr">{{ error.message }}</p>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .notification {

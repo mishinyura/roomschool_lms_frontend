@@ -1,3 +1,33 @@
+<script setup>
+import {ref, computed} from "vue"
+import TheCheck from "../components/TheCheck.vue";
+import checksJson from "../../../mocks/check.json";
+
+const checks = ref(checksJson.tasks);
+const selectedModule = ref("all");
+const selectedStatus = ref("all");
+
+const modules = computed(() => {
+  // уникальные названия предметов
+  const all = checks.value.map((c) => c.module);
+  return [...new Set(all)];
+});
+
+const filteredChecks = computed(() => {
+  return checks.value.filter((check) => {
+    const byModule =
+      selectedModule.value === "all" || check.module === selectedModule.value;
+
+    const byStatus =
+      selectedStatus.value === "all" ||
+      (selectedStatus.value === "checked" && check.score !== null) ||
+      (selectedStatus.value === "unchecked" && check.score === null);
+
+    return byModule && byStatus;
+  });
+});
+</script>
+
 <template>
   <div class="main__container checks">
     <h1 class="checks__title">Проверка работ</h1>
@@ -25,65 +55,28 @@
   </div>
 </template>
 
-<script>
-import TheCheck from "../components/TheCheck.vue";
+<style lang="scss" scoped>
+.checks {
+  &__title {
+    margin-bottom: 20px;
+    font-size: $font-size-title-lg;
+  }
 
-import checksJson from "../../../mocks/check.json";
+  &__filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
 
-export default {
-  data() {
-    return {
-      checks: checksJson.tasks,
-      selectedModule: "all",
-      selectedStatus: "all",
-    };
-  },
-  components: {
-    TheCheck,
-  },
+    select {
+      padding: 0.5em 1em;
+      border-radius: $radius-lg;
+    }
+  }
 
-  computed: {
-    modules() {
-      // уникальные названия предметов
-      const all = this.checks.map((c) => c.module);
-      return [...new Set(all)];
-    },
-
-    filteredChecks() {
-      return this.checks.filter((check) => {
-        const byModule =
-          this.selectedModule === "all" || check.module === this.selectedModule;
-
-        const byStatus =
-          this.selectedStatus === "all" ||
-          (this.selectedStatus === "checked" && check.score !== null) ||
-          (this.selectedStatus === "unchecked" && check.score === null);
-
-        return byModule && byStatus;
-      });
-    },
-  },
-};
-</script>
-
-<style>
-.checks__title {
-  margin-bottom: 20px;
-  font-size: var(--font-size-title-lg);
-}
-
-.checks__filters {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-.checks__filters select {
-  padding: 0.5em 1em;
-  border-radius: var(--radius-lg);
-}
-.checks__not-found {
-  text-align: center;
-  font-size: var(--font-size-text-lg);
+  &__not-found {
+    text-align: center;
+    font-size: $font-size-text-lg;
+  }
 }
 </style>

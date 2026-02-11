@@ -1,4 +1,4 @@
-export async function send_message(message) {
+export async function get_answer(message) {
     let body = {
         "model": "qwen2.5:7b",
         "messages": [

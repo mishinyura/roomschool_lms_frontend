@@ -1,3 +1,10 @@
+<script setup>
+import programsJson from "@/mocks/programs.json";
+import ThePrograms from "./ThePrograms.vue";
+
+const programs = programsJson;
+</script>
+
 <template>
   <section class="main__section programs">
     <h3 class="programs__title" v-if="programs.length">Программы обучения</h3>
@@ -23,14 +30,6 @@
   </section>
 </template>
 
-
-<script setup>
-import programsJson from "@/mocks/programs.json";
-import ThePrograms from "./ThePrograms.vue";
-
-const programs = programsJson;
-</script>
-
 <style lang="scss">
 .programs__title {
   @include section-title;
@@ -39,6 +38,6 @@ const programs = programsJson;
   @include empty;
 }
 .programs__link {
-  @include btn-classic;
+  @include btn-blue-classic;
 }
 </style>

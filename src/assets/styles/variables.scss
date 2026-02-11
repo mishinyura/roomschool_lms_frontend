@@ -34,47 +34,19 @@ $color-bg-blue-radial-gradient: radial-gradient(circle, rgba(0, 133, 255, 1) 0%,
 // $color-section-green: #7cffb9;
 // $color-section-light-green: #b3ffd6;
 
-/* Сцет текста */
-$color-text-white: #fff;
-$color-text-black: #000;
-$color-text-grey: #7c7c7c;
-$color-text-blue: #0092be;
-$color-text-green: #1e6425;
+
+/* Фон отдельных карточек или элементов списка */
+$color-card-grey: #f5f7fa;
+$color-card-blue: #eff5fe;
 
 
-/*
-$color-text-grey: #7c7c7c;
-$color-text-blue: #0092be;
+// $color-card-purpure: #f9f4ff;
 
-$color-text-red: #c00000;
-$color-text-dark-grey: #4e4e4e;
-$color-text-white: #fff;
-$color-text-red: #de2d2d;
-$color-text-purpure: #9436ff;
-$color-text-green: #267d2e;
-*/
-
-
-/* hover, active, focus эффекты */
-
-
-
-$color-action-white: #fff;
-// $color-action-grey: #e3e3e3;
-$color-action-dark-grey: #7c7c7c;
-$color-action-blue: #0AA6D7;
-$color-action-dark-blue: #0080a7;
-$color-action-light-blue: #ddf2ff;
-// $color-action-purpure: #9436ff;
-// $color-action-light-blue: #ddf2ff;
-// $color-action-blue: #0AA6D7;
-// $color-action-dark-blue: #0080a7;
-// $color-action-green: #37d144;
-$color-action-grey: #e3e3e3;
-// $color-action-dark-grey: #7c7c7c;
-$color-action-light-grey: #f5f7fa;
-// $color-action-white: #fff; 
-
+$color-card-orange: #fffdf2;
+// $color-card-green: #e9fff5;
+// $color-card-red: #ffefef;
+$color-card-white: #fff;
+// $color-card-grey: #f5f7fa;
 
 
 /* Фоны для кнопок */
@@ -100,6 +72,45 @@ $color-label-orange: #ffde00;
 $color-label-blue: #9ad8ff;
 $color-label-dark-blue: #0AA6D7;
 $color-label-dark-green: #60c368;
+/* Фоны для кнопок */
+$color-btn-black: #000;
+$color-btn-grey: #d0d0d0;
+$color-btn-blue: #ddf2ff;
+$color-btn-dark-blue: #0AA6D7;
+
+// $color-btn-black: #000;
+// $color-btn-grey: #d0d0d0;
+// $color-btn-blue: #ddf2ff;
+// $color-btn-dark-blue: #0AA6D7;
+// $color-btn-white: #fff;
+// $color-btn-white-transparent: rgba(255, 255, 255, 0.5);
+
+
+/* Фон для лейблов, отметок (Новый, топ, продвинутый и тд) */
+
+
+$color-label-grey: #d0d0d090;
+$color-label-dark-grey: #4e4e4e;
+$color-label-orange: #ffde00;
+$color-label-blue: #9ad8ff;
+$color-label-dark-blue: #0AA6D7;
+$color-label-dark-green: #60c368;
+$color-label-green: #37d144;
+$color-label-dark-red: #a10000;
+$color-label-red: #de2d2d;
+// $color-label-dark-blue: #0AA6D7;
+
+$color-label-light-green: #e9fff5;
+// $color-label-blue-purpure-gradient: linear-gradient(90deg, rgba(112, 174, 255, 1) 0%, rgba(191, 128, 255, 1) 100%);
+// $color-label-green-blue-gradient: linear-gradient(90deg, rgba(0, 204, 10, 1) 0%, rgba(82, 235, 255, 1) 100%);
+// $color-label-red-orange-gradient: linear-gradient(93deg, rgba(255, 84, 84, 1) 0%, rgba(255, 226, 5, 1) 100%);
+
+
+
+
+
+// $color-label-dark-green: #60c368;
+// $color-label-dark-grey: #4e4e4e;
 // $color-label-dark-blue: #0AA6D7;
 
 $color-label-light-green: #e9fff5;
@@ -115,18 +126,48 @@ $color-label-light-green: #e9fff5;
 // $color-label-dark-grey: #4e4e4e;
 
 
-/* Фон отдельных карточек или элементов списка */
-$color-card-grey: #f5f7fa;
+/* Сцет текста */
+$color-text-white: #fff;
+$color-text-black: #000;
+$color-text-grey: #7c7c7c;
+$color-text-blue: #0092be;
+$color-text-green: #1e6425;
+$color-text-red: #c00000;
 
-/*
-$color-card-purpure: #f9f4ff;
-$color-card-blue: #eff5fe;
-$color-card-orange: #fffdf2;
-$color-card-green: #e9fff5;
-$color-card-red: #ffefef;
-$color-card-white: #fff;
-$color-card-grey: #f5f7fa;
-*/
+
+
+// $color-text-grey: #7c7c7c;
+// $color-text-blue: #0092be;
+
+
+// $color-text-dark-grey: #4e4e4e;
+// $color-text-white: #fff;
+// $color-text-red: #de2d2d;
+// $color-text-purpure: #9436ff;
+// $color-text-green: #267d2e;
+
+
+
+/* hover, active, focus эффекты */
+
+
+
+$color-action-white: #fff;
+// $color-action-grey: #e3e3e3;
+$color-action-dark-grey: #7c7c7c;
+$color-action-blue: #0AA6D7;
+$color-action-dark-blue: #0080a7;
+$color-action-light-blue: #ddf2ff;
+// $color-action-purpure: #9436ff;
+// $color-action-light-blue: #ddf2ff;
+// $color-action-blue: #0AA6D7;
+// $color-action-dark-blue: #0080a7;
+// $color-action-green: #37d144;
+$color-action-grey: #e3e3e3;
+// $color-action-dark-grey: #7c7c7c;
+$color-action-light-grey: #f5f7fa;
+// $color-action-white: #fff; 
+
 
 
 /* Фоны или цвета для иконок */
@@ -137,7 +178,7 @@ $color-icon-blue: #34a7ee;
 // $color-icon-purpure: #946dff;
 // $color-icon-green: #37d144;
 // $color-icon-red: #de2d2d;
-// $color-icon-grey: #7c7c7c;
+$color-icon-grey: #7c7c7c;
 $color-icon-black: #000;
 // $color-icon-white: #fff;
 
@@ -157,18 +198,18 @@ ______________*/
 // $padding-tb-container-tablet: 3.125rem; /* 50px */
 // $padding-tb-container-mobile: 1.875rem; /* 30px */
 
-// $margin-bottom-title-desktop: 20px;
+$margin-bottom-title-desktop: 20px;
 // $margin-bottom-title-mobile: 15px;
 
 // $margin-bottom-descr-desktop: 40px;
 // $margin-bottom-descr-mobile: 20px;
 
-// $margin-card: 20px;
+$margin-card: 20px;
 $margin-item: 10px;
 
-// $padding-section: 2em;
+$padding-section: 2em;
 // $padding-card: 1.5em;
-// $padding-item: 0.5em 1em;
+$padding-item: 0.5em 1em;
 
 
 /* ____________
@@ -189,7 +230,7 @@ $max-width-container-mobile: 33.75rem; /* 540 px */
 
 /* Радиусы и рамка*/
 $radius-sm: 5px;
-// $radius-md: 10px;
+$radius-md: 10px;
 $radius-lg: 15px;
 $radius-max: 30px;
 
@@ -198,14 +239,14 @@ $border-blue: 1px solid #ddf2ff;
 // $border-black: 1px solid var($color-btn-black);
 $border-grey: 1px solid #d0d0d0;
 
-/* 
-$border-blue: 1px solid var($color-btn-blue);
-$border-dark-blue: 1px solid var($color-btn-dark-blue);
-$border-black: 1px solid var($color-btn-black);
-$border-grey: 1px solid var($color-btn-grey);
-$border-red: 1px solid var($color-btn-red);
-$border-white: 1px solid var($color-btn-white); 
-*/
+
+// $border-blue: 1px solid var($color-btn-blue);
+$border-dark-blue: 1px solid #0AA6D7;
+$border-black: 1px solid #000;
+// $border-grey: 1px solid var($color-btn-grey);
+// $border-red: 1px solid var($color-btn-red);
+// $border-white: 1px solid var($color-btn-white); 
+
 
 $shadow-classic: 0 0 15px 0 rgba(0, 0, 0, 0.2);
 $shadow-podium: 0 5px 10px 0 rgba(0, 0, 0, 0.1);

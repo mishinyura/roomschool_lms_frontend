@@ -1,18 +1,3 @@
-<template>
-  <section class="main__section plan" v-if="plan.total">
-    <div class="plan__progressbar">
-      <h2 class="plan__title">План обучения</h2>
-      <div class="plan__counter">
-        <span class="plan__count plan__count_total">{{plan.total}}</span>
-        <span class="plan__count plan__count_end">{{plan.completed}}</span>
-        <span class="plan__count plan__count_percent">{{progress}}</span>
-      </div>
-      <span class="plan__progress" :style="progressBarStyle"></span>
-      <span class="plan__remains">{{remains}}</span>
-    </div>
-  </section>
-</template>
-
 <script setup>
 import { computed } from 'vue';
 import planData from "@/mocks/plan.json";
@@ -38,6 +23,21 @@ const progressBarStyle = computed(() => {
 })
 
 </script>
+
+<template>
+  <section class="main__section plan" v-if="plan.total">
+    <div class="plan__progressbar">
+      <h2 class="plan__title">План обучения</h2>
+      <div class="plan__counter">
+        <span class="plan__count plan__count_total">{{plan.total}}</span>
+        <span class="plan__count plan__count_end">{{plan.completed}}</span>
+        <span class="plan__count plan__count_percent">{{progress}}</span>
+      </div>
+      <span class="plan__progress" :style="progressBarStyle"></span>
+      <span class="plan__remains">{{remains}}</span>
+    </div>
+  </section>
+</template>
 
 <style lang="scss" scoped>
 .plan {

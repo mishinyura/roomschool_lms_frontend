@@ -1,36 +1,3 @@
-<template>
-  <aside class="main__aside sidebar">
-    <div class="sidebar__control">
-      <button class="sidebar__btn" @click="$emit('toggleSidebar')"></button>
-
-      <template v-if="availableRolesOptions.length > 1">
-        <TheSelect
-          key="role-select"
-          v-model:activeAccount="currentRole"
-          :options="availableRolesOptions"
-        />
-      </template>
-    </div>
-    <nav class="sidebar__nav">
-      <ul class="sidebar__menu">
-        <li v-for="link in currentLinks" :key="link.name" class="sidebar__item">
-          <RouterLink
-            :class="[
-              'sidebar__link',
-              link.class, 
-              { sidebar__link_active: $route.name === link.name },
-            ]"
-            :to="{ name: link.name }"
-          >
-            {{ link.label }}
-          </RouterLink>
-        </li>
-      </ul>
-    </nav>
-    <div class="sidebar__logo"></div>
-  </aside>
-</template>
-
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
@@ -69,6 +36,38 @@ watch(currentRole, (newRole, oldRole) => {
 });
 </script>
 
+<template>
+  <aside class="main__aside sidebar">
+    <div class="sidebar__control">
+      <button class="sidebar__btn" @click="$emit('toggleSidebar')"></button>
+
+      <template v-if="availableRolesOptions.length > 1">
+        <TheSelect
+          key="role-select"
+          v-model:activeAccount="currentRole"
+          :options="availableRolesOptions"
+        />
+      </template>
+    </div>
+    <nav class="sidebar__nav">
+      <ul class="sidebar__menu">
+        <li v-for="link in currentLinks" :key="link.name" class="sidebar__item">
+          <RouterLink
+            :class="[
+              'sidebar__link',
+              link.class, 
+              { sidebar__link_active: $route.name === link.name },
+            ]"
+            :to="{ name: link.name }"
+          >
+            {{ link.label }}
+          </RouterLink>
+        </li>
+      </ul>
+    </nav>
+    <div class="sidebar__logo"></div>
+  </aside>
+</template>
 
 <style lang="scss" scoped>
 .sidebar {

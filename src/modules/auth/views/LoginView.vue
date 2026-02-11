@@ -1,3 +1,38 @@
+<script setup>
+import { inject } from 'vue';
+import { useForm } from 'vee-validate';
+import { useAuthStore } from "@/stores/authStore.js";
+import { useRouter } from 'vue-router';
+import FormInput from "@/components/ui/FormInput.vue";
+import { validationSchema } from "@/schemas/formSchemas.js";
+
+const authStore = useAuthStore();
+const router = useRouter();
+const errors = inject("errors");
+const loading = inject("loading");
+
+const { handleSubmit, isSubmitting, setErrors } = useForm({
+  validationSchema,
+});
+
+const onSubmit = handleSubmit(async (values) => {
+  loading.value = true;
+  try {
+    await authStore.login(values);
+    router.push({ name: "study" });
+  } catch (e) {
+    if (e.response?.data?.errors) {
+      setErrors(e.response.data.errors); 
+    } else {
+      const message = e.response?.data?.message || "Не удалось войти. Попробуйте позже";
+      errors.value.push({ status: false, message });
+    }
+  } finally {
+    loading.value = false;
+  }
+});
+</script>
+
 <template>
   <div class="auth">
     <svg class="auth__icons">
@@ -45,41 +80,6 @@
     </form>
   </div>
 </template>
-
-<script setup>
-import { inject } from 'vue';
-import { useForm } from 'vee-validate';
-import { useAuthStore } from "@/stores/authStore.js";
-import { useRouter } from 'vue-router';
-import FormInput from "@/components/ui/FormInput.vue";
-import { validationSchema } from "@/schemas/formSchemas.js";
-
-const authStore = useAuthStore();
-const router = useRouter();
-const errors = inject("errors");
-const loading = inject("loading");
-
-const { handleSubmit, isSubmitting, setErrors } = useForm({
-  validationSchema,
-});
-
-const onSubmit = handleSubmit(async (values) => {
-  loading.value = true;
-  try {
-    await authStore.login(values);
-    router.push({ name: "study" });
-  } catch (e) {
-    if (e.response?.data?.errors) {
-      setErrors(e.response.data.errors); 
-    } else {
-      const message = e.response?.data?.message || "Не удалось войти. Попробуйте позже";
-      errors.value.push({ status: false, message });
-    }
-  } finally {
-    loading.value = false;
-  }
-});
-</script>
 
 <style lang="scss" scoped>
 .auth {

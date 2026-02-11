@@ -1,3 +1,70 @@
+<script setup>
+import { ref, computed, watch } from 'vue';
+// import { useRouter } from 'vue-router';
+import { formatDateWithTime } from "@/utils/dateUtils.js";
+
+// Инициализация роутера
+// const router = useRouter();
+
+// --- Состояние (Data) ---
+const isOpenDescription = ref(false);
+const score = ref(0);
+// Ссылка на DOM-элемент описания (замена querySelector)
+const descriptionRef = ref(null);
+
+const task = ref({
+  topic: "Квадратное уравнение",
+  module: "Математика",
+  description: "Тут какое-то описание в разметке markdown",
+  passed: "2025-11-16T23:59:59Z",
+  score: null,
+  maxScore: 20,
+  attachments: [
+    {
+      type: "file",
+      name: "Проверка_корней_Иванов_иван.pdf",
+      link: "http://yandex.ru",
+    },
+    {
+      type: "link",
+      name: "http://yandex.ru",
+      link: "http://yandex.ru",
+    },
+  ],
+});
+
+// --- Вычисляемые свойства (Computed) ---
+const getDate = computed(() => {
+  return formatDateWithTime(task.value.passed);
+});
+
+// --- Наблюдатели (Watch) ---
+watch(score, (newValue) => {
+  if (newValue > 100) score.value = 100;
+  if (newValue < 0) score.value = 0;
+});
+
+// --- Методы (Methods) ---
+const openDescription = () => {
+  // Обращаемся к элементу через ref.value
+  const element = descriptionRef.value;
+  
+  if (!element) return; // Защита от отсутствия элемента
+
+  if (isOpenDescription.value) {
+    element.style.height = "0px";
+  } else {
+    element.style.height = element.scrollHeight + "px";
+  }
+  
+  isOpenDescription.value = !isOpenDescription.value;
+};
+
+// const goBack = () => {
+//   router.push({ name: "checks" });
+// };
+</script>
+
 <template>
   <div class="main__container taskcheck">
     <div class="main__bullet breadcrumbs">
@@ -133,286 +200,240 @@
   </div>
 </template>
 
-<script>
-import { formatDateWithTime } from "@/utils/dateUtils.js";
-export default {
-  data() {
-    return {
-      isOpenDescription: false,
-      task: {
-        topic: "Квадратное уравнение",
-        module: "Математика",
-        description: "Тут какаое то описание в разметке markdown",
-        passed: "2025-11-16T23:59:59Z",
-        score: null,
-        maxScore: 20,
-        attachments: [
-          {
-            type: "file",
-            name: "Проверка_корней_Иванов_иван.pdf",
-            link: "http://yandex.ru",
-          },
-          {
-            type: "link",
-            name: "http://yandex.ru",
-            link: "http://yandex.ru",
-          },
-        ],
-      },
-      score: 0,
-    };
-  },
-  watch: {
-    score() {
-      if (this.score > 100) this.score = 100;
-      if (this.score < 0) this.score = 0;
-    },
-  },
-  computed: {
-    getDate() {
-      return formatDateWithTime(this.task.passed);
-    },
-  },
-  methods: {
-    openDescription() {
-      const description = document.querySelector(".description_md");
-      if (this.isOpenDescription) {
-        description.style.height = "0px";
-      } else {
-        description.style.height = description.scrollHeight + "px";
-      }
-      this.isOpenDescription = !this.isOpenDescription;
-    },
-    goBack() {
-      // Мы ЯВНО говорим: иди на страницу с именем 'checks'
-      this.$router.push({ name: "checks" });
-    },
-  },
-};
-</script>
+<style lang="scss" scoped>
+// Миксин для маски иконки (используется во вложениях)
+@mixin mask-icon($url, $size: 15px, $color: $color-text-white) {
+  position: relative;
+  
+  &::before {
+    width: $size;
+    height: $size;
+    content: '';
+    mask-image: url($url);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    background-color: $color;
+  }
+}
 
-<style>
-.taskcheck__back {
+// Блок навигации и заголовка
+.taskcheck {
+  &__back {
     display: flex;
     align-items: center;
     gap: 5px;
     padding: 0.5em 0;
     margin-bottom: 20px;
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-title);
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
     font-weight: 400;
-    color: var(--color-text-black);
+    color: $color-text-black;
+
+    // Стрелка назад
+    &::before {
+      width: 5px;
+      height: 5px;
+      content: '';
+      border-bottom: 1px solid $color-text-black;
+      border-left: 1px solid $color-text-black;
+      transform: rotate(45deg);
+    }
+  }
+
+  &__title {
+    margin-bottom: $margin-bottom-title-desktop;
+  }
 }
 
-.taskcheck__back::before {
-    content: '';
-    width: 5px;
-    height: 5px;
-    border-bottom: 1px solid var(--color-text-black);
-    border-left: 1px solid var(--color-text-black);
-    transform: rotate(45deg);
-}
-
-.taskcheck__title {
-    margin-bottom: var(--margin-bottom-title-desktop);
-}
-/* 
-_____________
-Блок с информацией о задании
-_____________
-*/
+// Блок с информацией о задании
 .about {
-    margin-bottom: 20px;
-    padding: var(--padding-section);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-section-white);
-}
+  margin-bottom: 20px;
+  padding: $padding-section;
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
 
-.about__title {
-    margin-bottom: var(--margin-bottom-title-desktop);
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-title);
+  &__title {
+    margin-bottom: $margin-bottom-title-desktop;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
     font-weight: 400;
-    color: var(--color-text-black);
-}
-.about__list{
+    color: $color-text-black;
+  }
+
+  &__list {
     margin-bottom: 20px;
-}
-.about__item {
+  }
+
+  &__item {
     display: flex;
     justify-content: space-between;
-}
 
-.about__item:not(:last-child) {
-    margin-bottom: 10px;
-}
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
 
-.about__name {
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-text);
+  &__name {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-sm;
     font-weight: 400;
-    color: var(--color-text-grey);
-}
+    color: $color-text-grey;
+  }
 
-.about__value {
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-text);
+  &__value {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-sm;
     font-weight: 400;
-    color: var(--color-text-black);
-}
-.about__description{
+    color: $color-text-black;
+  }
+
+  &__description {
     height: 0;
     overflow: hidden;
-    transition: height .3s;
-}
-.about__description.show{
-    height: auto;
-}
-.about__btn{
+    transition: height 0.3s;
+
+    &.show {
+      height: auto;
+    }
+  }
+
+  &__btn {
     margin-bottom: 0;
-    transition: margin-bottom .3s, background-color .3s;
-}
-.about__btn.active{
-    margin-bottom: 20px;
-    background-color: var(--color-action-dark-blue);
+    transition: margin-bottom 0.3s, background-color 0.3s;
+
+    &.active {
+      margin-bottom: 20px;
+      background-color: $color-action-dark-blue;
+    }
+  }
 }
 
-/* 
-_____________
-Блок с вложениями
-_____________
-*/
-.attachments{
-    margin-bottom: var(--margin-card);
-    padding: var(--padding-section);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-section-white);
-}
-.attachments__title {
-    margin-bottom: var(--margin-bottom-title-desktop);
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-title);
+// Блок с вложениями
+.attachments {
+  margin-bottom: $margin-card;
+  padding: $padding-section;
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
+
+  &__title {
+    margin-bottom: $margin-bottom-title-desktop;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
     font-weight: 400;
-    color: var(--color-text-black);
-}
-.attachments__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: var(--padding-item);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-card-grey);
-}
+    color: $color-text-black;
+  }
 
-.attachments__item:not(:last-child) {
-    margin-bottom: 10px;
-}
-.attachments__type{
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: $padding-item;
+    border-radius: $radius-lg;
+    background-color: $color-card-grey;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__type {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-text);
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-sm;
     font-weight: 400;
-    color: var(--color-text-grey);
-}
-.attachments__name {
+    color: $color-text-grey;
+  }
+
+  &__name {
     flex-grow: 1;
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-text);
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-sm;
     font-weight: 400;
-    color: var(--color-text-balck);
+    color: $color-text-black; // Исправлена опечатка balck -> black
+  }
+
+  // Кнопки с использованием миксина
+  &__btn {
+    &_download {
+      @include mask-icon('@/assets/media/icons/download.svg');
+    }
+
+    &_link {
+      @include mask-icon('@/assets/media/icons/open.svg');
+    }
+  }
 }
 
-.attachments__btn_download::before{
-    content: '';
-    width: 15px;
-    height: 15px;
-    mask-image: url('@/assets/media/icons/download.svg');
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: contain;
-    background-color: var(--color-text-white)
-}
+// Блок с оценкой
+.scoring {
+  margin-bottom: $margin-card;
+  padding: $padding-section;
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
 
-.attachments__btn_link::before{
-    content: '';
-    width: 15px;
-    height: 15px;
-    mask-image: url('@/assets/media/icons/open.svg');
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: contain;
-    background-color: var(--color-text-white)
-}
-/* 
-_____________
-Блок с оценкой
-_____________
-*/
-.scoring{
-    margin-bottom: var(--margin-card);
-    padding: var(--padding-section);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-section-white);
-}
-.scoring__title{
+  &__title {
     display: inline-block;
     margin-right: 20px;
-    margin-bottom: var(--margin-bottom-title-desktop);
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-title);
+    margin-bottom: $margin-bottom-title-desktop;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
     font-weight: 400;
-    color: var(--color-text-black);
-}
-.scoring__score{
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-title);
-    font-weight: 400;
-    color: var(--color-text-black);
-}
-.scoring__control input{
-    width: 100%;
-    margin-bottom: 20px;
-}
+    color: $color-text-black;
+  }
 
-.scoring__btns{
+  &__score {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
+    font-weight: 400;
+    color: $color-text-black;
+  }
+
+  &__control {
+    input {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__btns {
     display: flex;
     align-items: center;
     gap: 10px;
+  }
 }
 
-/* 
-_____________
-Блок с комментарием к заданию
-_____________
-*/
-.comment{
-    padding: var(--padding-section);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-section-white);
-}
-.comment__title{
+// Блок с комментарием
+.comment {
+  padding: $padding-section;
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
+
+  &__title {
     display: inline-block;
     margin-right: 20px;
-    margin-bottom: var(--margin-bottom-title-desktop);
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-title);
+    margin-bottom: $margin-bottom-title-desktop;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-sm;
     font-weight: 400;
-    color: var(--color-text-black);
-}
-.comment__textarea{
+    color: $color-text-black;
+  }
+
+  &__textarea {
     width: 100%;
     margin-bottom: 20px;
-    padding: var(--padding-item);
-    outline: none;
-    border: var(--border-blue);
-    border-radius: var(--radius-lg);
-    font-family: var(--font-family-montserrat);
-    font-size: var(--font-size-text-xs);
-    font-weight: 400;
-    color: var(--color-text-black);
+    padding: $padding-item;
     resize: none;
+    outline: none;
+    border: $border-blue;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-sm;
+    font-weight: 400;
+    color: $color-text-black;
+  }
 }
 </style>

@@ -1,25 +1,24 @@
+<script setup>
+import { defineProps, computed } from "vue";
+const props = defineProps({
+  material: Object,
+});
+
+const getSize = computed(() => {
+  return (props.material.size / 1024 / 1024).toFixed(1);
+});
+
+</script>
+
 <template>
   <li class="material">
     <div class="material__data">
-      <span class="material__name"> {{ material.name }} </span>
-      <span class="material__size"> {{ size }} MB</span>
+      <span class="material__name"> {{ props.material.name }} </span>
+      <span class="material__size"> {{ getSize }} MB</span>
     </div>
-    <a :href="material.url" class="material__btn" download></a>
+    <a :href="props.material.url" class="material__btn" download></a>
   </li>
 </template>
-
-<script>
-export default {
-  props: {
-    material: Object,
-  },
-  computed: {
-    size() {
-      return (this.material.size / 1024 / 1024).toFixed(1);
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .material {

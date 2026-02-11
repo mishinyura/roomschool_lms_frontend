@@ -1,3 +1,16 @@
+<script setup>
+import { ref } from 'vue';
+import webinarsJson from "../../../mocks/webinars.json";
+import { formatDateOnly } from "../../../utils/dateUtils.js";
+import WebinarCard from "../components/WebinarsCard.vue";
+
+// Реактивное состояние
+const webinars = ref(webinarsJson);
+
+// Метод для использования в шаблоне
+const date = (d) => formatDateOnly(d);
+</script>
+
 <template>
   <div class="main__container webinars">
     <div class="webinars__head">
@@ -34,127 +47,110 @@
   </div>
 </template>
 
-<script>
-import webinarsJson from "../../../mocks/webinars.json";
-import { formatDateOnly } from "../../../utils/dateUtils.js";
-import WebinarCard from "../components/WebinarsCard.vue";
+<style lang="scss" scoped>
+.webinars {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
 
-export default {
-  data() {
-    return {
-      webinars: webinarsJson,
-    };
-  },
-  methods: {
-    date(date) {
-      return formatDateOnly(date);
-    },
-  },
-  components: {
-    WebinarCard,
-  },
-};
-</script>
+  &__title {
+    font-size: $font-size-title-lg;
+  }
 
-<style>
-.webinars__head {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.webinars__title {
-  font-size: var(--font-size-title-lg);
-}
-.webinars__control {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.webinars__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: var(--border-dark-blue);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-}
-.webinars__btn_prev::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-left: var(--border-black);
-  border-bottom: var(--border-black);
-  transform: rotate(45deg);
-}
-.webinars__date {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 1em;
-  border: var(--border-dark-blue);
-  border-radius: var(--radius-lg);
-}
-.webinars__btn_next::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-right: var(--border-black);
-  border-bottom: var(--border-black);
-  transform: rotate(-45deg);
-}
-.webinars__section {
-  padding: 1.5em;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-bg-white);
-}
-.webinars__period {
-  margin-bottom: 10px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-  color: var(--color-text-grey);
-}
-.webinars__days {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.webinars__day {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1em;
-  border-radius: var(--radius-md);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-  background-color: var(--color-btn-grey);
-}
-.webinars__day:nth-child(1):before {
-  content: "ПН";
-}
-.webinars__day:nth-child(2):before {
-  content: "ВТ";
-}
-.webinars__day:nth-child(3):before {
-  content: "СР";
-}
-.webinars__day:nth-child(4):before {
-  content: "ЧТ";
-}
-.webinars__day:nth-child(5):before {
-  content: "ПТ";
-}
-.webinars__day:nth-child(6):before {
-  content: "СБ";
-}
-.webinars__day:nth-child(7):before {
-  content: "ВС";
+  &__control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: $border-dark-blue;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+
+    // Общие стили для стрелок внутри кнопок
+    &_prev,
+    &_next {
+      &::before {
+        width: 7px;
+        height: 7px;
+        content: "";
+      }
+    }
+
+    &_prev::before {
+      border-bottom: $border-black;
+      border-left: $border-black;
+      transform: rotate(45deg);
+    }
+
+    &_next::before {
+      border-right: $border-black;
+      border-bottom: $border-black;
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 1em;
+    border: $border-dark-blue;
+    border-radius: $radius-lg;
+  }
+
+  &__section {
+    padding: 1.5em;
+    border-radius: $radius-lg;
+    background-color: $color-bg-white;
+  }
+
+  &__period {
+    margin-bottom: 10px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+    color: $color-text-grey;
+  }
+
+  &__days {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em;
+    border-radius: $radius-md;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+    background-color: $color-btn-grey;
+
+    $week-days: "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС";
+
+    @each $day in $week-days {
+      $i: index($week-days, $day);
+
+      &:nth-child(#{$i})::before {
+        content: $day;
+      }
+    }
+  }
 }
 </style>

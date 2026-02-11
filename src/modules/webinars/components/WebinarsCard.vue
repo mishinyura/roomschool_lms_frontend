@@ -1,3 +1,15 @@
+<script setup>
+import {
+  getAmountOfDays,
+  formatDateWithTime,
+} from "@/utils/dateUtils.js";
+
+defineProps(['webinar']);
+
+const datetime = (dt) => formatDateWithTime(dt);
+const getAmountDays = (dt) => getAmountOfDays(dt);
+</script>
+
 <template>
   <div
     :class="[
@@ -45,162 +57,139 @@
   </div>
 </template>
 
-<script>
-import {
-  getAmountOfDays,
-  formatDateWithTime,
-} from "@/utils/dateUtils.js";
-export default {
-  props: ["webinar"],
-  methods: {
-    datetime(datetime) {
-      return formatDateWithTime(datetime);
-    },
-    getAmountDays(datetime) {
-      return getAmountOfDays(datetime);
-    },
-  },
-};
-</script>
+<style lang="scss" scoped>
+// Миксин для создания иконки через маску
+@mixin icon-mask($url, $color, $size: 15px) {
+  flex-shrink: 0;
+  width: $size;
+  height: $size;
+  content: "";
+  mask: url($url) no-repeat center/contain;
+  background-color: $color;
+}
 
-<style>
 .webinar {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   padding: 1em;
-  border: var(--border-blue);
-  border-radius: var(--radius-lg);
-}
-.webinar:not(:last-child) {
-  margin-bottom: 10px;
-}
-.webinar_now {
-  background-color: var(--color-card-blue);
-}
+  border: $border-blue;
+  border-radius: $radius-lg;
 
-.webinar_soon {
-  background-color: var(--color-card-orange);
-}
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
-.webinar__module {
-  margin-bottom: 5px;
-  font-size: var(--font-size-title-xs);
-  font-weight: 400;
-}
+  // Модификаторы состояния карточки
+  &_now {
+    background-color: $color-card-blue;
+  }
 
-.webinar__topic {
-  margin-bottom: 10px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-}
+  &_soon {
+    background-color: $color-card-orange;
+  }
 
-.webinars__datetime {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 10px;
-}
+  &__module {
+    margin-bottom: 5px;
+    font-size: $font-size-title-xs;
+    font-weight: 400;
+  }
 
-.webinar__timing {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 400;
-  color: var(--color-text-grey);
-}
+  &__topic {
+    margin-bottom: 10px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+  }
 
-.webinar__timing::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask: url("@/assets/media/icons/clock.svg") no-repeat center/contain;
-  background-color: var(--color-text-grey);
-}
+  &__datetime {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
 
-.webinar__start {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-min);
-  font-weight: 400;
-  color: var(--color-text-grey);
-}
+  // Группировка общих стилей для мета-данных
+  &__timing,
+  &__start,
+  &__teacher {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: $font-family-montserrat;
+    font-weight: 400;
+    color: $color-text-grey;
+  }
 
-.webinar__start::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  background-color: var(--color-text-grey);
-}
+  &__timing {
+    font-size: $font-size-text-min;
 
-.webinar__teacher {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-  color: var(--color-text-grey);
-}
+    &::before {
+      @include icon-mask("@/assets/media/icons/clock.svg", $color-text-grey);
+    }
+  }
 
-.webinar__teacher::before {
-  content: "";
-  width: 15px;
-  height: 15px;
-  mask: url("@/assets/media/icons/profile.svg") no-repeat center/contain;
-  background-color: var(--color-text-grey);
-}
+  &__start {
+    font-size: $font-size-text-min;
 
-.webinar__control {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 10px;
-}
+    &::before {
+      width: 5px;
+      height: 5px;
+      content: "";
+      border-radius: 50px;
+      background-color: $color-text-grey;
+    }
+  }
 
-.webinar__status {
-  padding: 0.5em 1em;
-  border: var(--border-blue);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-}
+  &__teacher {
+    font-size: $font-size-text-xs;
 
-.webinar__status_now {
-  background-color: var(--color-label-blue);
-}
+    &::before {
+      @include icon-mask("@/assets/media/icons/profile.svg", $color-text-grey);
+    }
+  }
 
-.webinar__status_soon {
-  background-color: var(--color-label-orange);
-}
+  &__control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+  }
 
-.webinar__btn {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 5px;
-  padding: 0.5em 1em;
-  border: var(--border-blue);
-  border-radius: var(--radius-lg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-xs);
-  font-weight: 400;
-  background-color: var(--color-btn-blue);
-}
+  &__status {
+    padding: 0.5em 1em;
+    border: $border-blue;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
 
-.webinar__btn::before {
-  content: "";
-  width: 18px;
-  height: 18px;
-  mask: url("@/assets/media/icons/camera.svg") no-repeat center/contain;
-  background-color: var(--color-icon-black);
+    &_now {
+      background-color: $color-label-blue;
+    }
+
+    &_soon {
+      background-color: $color-label-orange;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+    padding: 0.5em 1em;
+    border: $border-blue;
+    border-radius: $radius-lg;
+    background-color: $color-btn-blue;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+
+    &::before {
+      @include icon-mask("@/assets/media/icons/camera.svg", $color-icon-black, 18px);
+    }
+  }
 }
 </style>

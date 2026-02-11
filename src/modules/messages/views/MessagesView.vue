@@ -1,3 +1,33 @@
+<script setup>
+import { ref, computed } from "vue";
+import chatsJson from "@/mocks/chats.json";
+import ChatList from "../components/ChatList.vue";
+import ChatWindow from "../components/ChatWindow.vue";
+
+const chats = ref(chatsJson);
+const selectedChatId = ref(1);
+
+const selectedChat = computed(() => {
+  return chats.value.find((chat) => chat.id === selectedChatId.value);
+});
+
+const selectChat = (chatId) => {
+  this.selectedChatId = chatId;
+};
+
+// const getBgAvatar = (name) => {
+//   if (!name) return "";
+
+//   const words = name.trim().split(/\s+/);
+
+//   if (words.length === 1) {
+//     return words[0].slice(0, 1).toUpperCase();
+//   }
+
+//   return (words[0][0] + words[1][0]).toUpperCase();
+// };
+</script>
+
 <template>
   <div class="main__container messenger">
     <ChatList
@@ -12,48 +42,7 @@
   </div>
 </template>
 
-<script>
-import chatsJson from "@/mocks/chats.json";
-import ChatList from "../components/ChatList.vue";
-import ChatWindow from "../components/ChatWindow.vue";
-
-export default {
-  name: "MessagesView",
-  components: { ChatList, ChatWindow },
-
-  data() {
-    return {
-      chats: chatsJson,
-      selectedChatId: null,
-    };
-  },
-
-  computed: {
-    selectedChat() {
-      return this.chats.find((c) => c.id === this.selectedChatId);
-    },
-  },
-
-  methods: {
-    selectChat(chatId) {
-      this.selectedChatId = chatId;
-    },
-    getBgAvatar(name) {
-      if (!name) return "";
-
-      const words = name.trim().split(/\s+/);
-
-      if (words.length === 1) {
-        return words[0].slice(0, 1).toUpperCase();
-      }
-
-      return (words[0][0] + words[1][0]).toUpperCase();
-    },
-  },
-};
-</script>
-
-<style scoped>
+<style lang="scss" scoped>
 .messenger {
   display: grid;
   grid-template-columns: 20em 1fr;

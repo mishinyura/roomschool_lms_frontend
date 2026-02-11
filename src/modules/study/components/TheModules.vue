@@ -1,28 +1,3 @@
-<template>
-  <div class="module">
-    <div class="module__head" @click="openTopics">
-      <div class="module__info">
-        <h4 class="module__name module__name_module">{{ module.title }}</h4>
-        <span class="module__amount-topics">
-          {{ amountTopicsFormat(props.module.topics.length) }}
-        </span>
-      </div>
-      <div class="module__control">
-        <span class="module__amount-videos"> 4/6 </span>
-        <span class="module__progress" :style="{ background: progress }"></span>
-      </div>
-    </div>
-
-    <div class="module__list" :style="{ height: topicHeight + 'px' }">
-      <TheTopics
-        v-for="(topic, index) in props.module.topics"
-        :key="index"
-        :topic="topic"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { defineProps, defineEmits, provide, computed, ref } from "vue";
 import { pluralize } from "@/utils/globalUtils.js";
@@ -64,6 +39,31 @@ const openTopics = (event) => {
   emit("update-module-height", fullHeight, isOpen);
 };
 </script>
+
+<template>
+  <div class="module">
+    <div class="module__head" @click="openTopics">
+      <div class="module__info">
+        <h4 class="module__name module__name_module">{{ module.title }}</h4>
+        <span class="module__amount-topics">
+          {{ amountTopicsFormat(props.module.topics.length) }}
+        </span>
+      </div>
+      <div class="module__control">
+        <span class="module__amount-videos"> 4/6 </span>
+        <span class="module__progress" :style="{ background: progress }"></span>
+      </div>
+    </div>
+
+    <div class="module__list" :style="{ height: topicHeight + 'px' }">
+      <TheTopics
+        v-for="(topic, index) in props.module.topics"
+        :key="index"
+        :topic="topic"
+      />
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .module {

@@ -1,41 +1,43 @@
+<script setup>
+import {defineProps, computed} from "vue";
+import { convertSecondsIntoTime } from "@/utils/dateUtils.js";
+
+const props = defineProps({
+  lesson: {
+    type: Object,
+    required: true,
+  },
+});
+
+const classItem = computed(() => {
+  const mainClass = "lesson";
+  let classLst = [mainClass];
+  if (props.lesson.isViewed) {
+    classLst.push("lesson__topic_end");
+  }
+  if (props.lesson.isLocked) {
+    classLst.push("lesson__topic_block");
+  }
+  if (props.lesson.isCurrent) {
+    classLst.push("active");
+  }
+  return classLst;
+});
+
+const getDuration = (duration) => {
+  return convertSecondsIntoTime(duration);
+};
+</script>
+
 <template>
   <li
     :class="classItem"
-    @click="$router.push({ name: 'player', params: { slug: lesson.slug } })"
+    @click="$router.push({ name: 'player', params: { slug: props.lesson.slug } })"
   >
-    <h4 class="lesson__name">{{ lesson.title }}</h4>
-    <span class="lesson__timing"> {{ getDuration(lesson.duration) }} </span>
+    <h4 class="lesson__name">{{ props.lesson.title }}</h4>
+    <span class="lesson__timing"> {{ getDuration(props.lesson.duration) }} </span>
   </li>
 </template>
-
-<script>
-import { convertSecondsIntoTime } from "@/utils/dateUtils.js";
-
-export default {
-  props: ["lesson"],
-  computed: {
-    classItem() {
-      const mainClass = "lesson";
-      let classLst = [mainClass];
-      if (this.lesson.isViewed) {
-        classLst.push("lesson__topic_end");
-      }
-      if (this.lesson.isLocked) {
-        classLst.push("lesson__topic_block");
-      }
-      if (this.lesson.isCurrent) {
-        classLst.push("active");
-      }
-      return classLst;
-    },
-  },
-  methods: {
-    getDuration(duration) {
-      return convertSecondsIntoTime(duration);
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .lesson {

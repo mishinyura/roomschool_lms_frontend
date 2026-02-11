@@ -1,7 +1,31 @@
+<script setup>
+import {defineProps} from "vue";
+import { formatDateOrTime } from "@/utils/dateUtils.js";
+
+const props = defineProps({
+  chats: {
+    type: Array,
+    required: true,
+  },
+  selectedChatId: {
+    type: Number,
+    required: true,
+  },
+});
+
+const getDate = (datetime) => {
+  return formatDateOrTime(datetime);
+};
+
+const truncateText = (text, limit = 20) => {
+  return text.length > limit ? text.slice(0, limit) + "_" : text;
+};
+</script>
+
 <template>
   <div class="messanger__list">
     <div
-      v-for="chat in chats"
+      v-for="chat in props.chats"
       :key="chat.id"
       :class="['messenger__item', { active: chat.id === selectedChatId }]"
       @click="$emit('select-chat', chat.id)"
@@ -20,117 +44,108 @@
           {{ truncateText(chat.lastMessage) }}
         </p>
         <span class="messenger__datetime">{{
-          date(chat.datetimeLastMessage)
+          getDate(chat.datetimeLastMessage)
         }}</span>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { formatDateOrTime } from "@/utils/dateUtils.js";
+<style lang="scss" scoped>
+.messenger {
+  // Список сообщений
+  &__list {
+    padding: 1em 0.5em;
+    overflow-y: auto;
+    border-radius: $radius-lg;
+    background-color: $color-bg-white;
+  }
 
-export default {
-  name: "ChatList",
-  props: ["chats", "selectedChatId"],
-  methods: {
-    date(datetime) {
-      return formatDateOrTime(datetime);
-    },
-    truncateText(text, limit = 20) {
-      return text.length > limit ? text.slice(0, limit) + "…" : text;
-    },
-  },
-};
-</script>
+  // Элемент списка (чат)
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5em;
+    border-radius: $radius-lg;
+    cursor: pointer;
+    transition: background-color 0.1s;
 
-<style>
-.messanger__list {
-  padding: 1em 0.5em;
-  border-radius: var(--radius-lg);
-  overflow-y: auto;
-  background-color: var(--color-bg-white);
-}
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
 
-.messenger__item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0.5em;
-  border-radius: var(--radius-lg);
-  transition: background-color 0.1s;
-  cursor: pointer;
-}
-.messenger__item:not(:last-child) {
-  margin-bottom: 5px;
-}
-.messenger__item:hover {
-  background-color: #f1f1f1;
-}
+    &:hover {
+      background-color: #f1f1f1;
+    }
 
-.messenger__item.active {
-  background-color: #e8f0ff;
-}
+    &.active {
+      background-color: #e8f0ff;
+    }
+  }
 
-.messenger__avatar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 45px;
-  height: 45px;
-  overflow: hidden;
-  border: var(--border-blue);
-  border-radius: 100px;
-  background-color: var(--color-bg-white);
-}
+  // Аватар
+  &__avatar {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    border: $border-blue;
+    border-radius: 100px;
+    background-color: $color-bg-white;
 
-.messenger__avatar::before {
-  position: absolute;
-  content: attr(data-bg);
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-text-sm);
-  font-weight: 600;
-  color: var(--color-text-blue);
-}
+    // Инициалы (фоллбэк)
+    &::before {
+      position: absolute;
+      font-family: $font-family-montserrat;
+      font-size: $font-size-text-sm;
+      font-weight: 600;
+      color: $color-text-blue;
+      content: attr(data-bg);
+    }
 
-.messenger__avatar img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
+    img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
 
-.messenger__info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 5px;
-  flex-grow: 1;
-}
+  // Блок информации
+  &__info {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+  }
 
-.messenger__recipient {
-  flex-basis: 100%;
-  font-family: var(--font-family-montserrat);
-  font-size: var(--font-size-title-min);
-  font-weight: 500;
-}
+  &__recipient {
+    flex-basis: 100%;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-min;
+    font-weight: 500;
+  }
 
-.messenger__last-message {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: var(--font-family-nunito);
-  font-size: var(--font-size-text-min);
-  color: var(--color-text-grey);
-}
+  &__last-message {
+    overflow: hidden;
+    font-family: $font-family-nunito;
+    font-size: $font-size-text-min;
+    color: $color-text-grey;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-.messenger__datetime {
-  font-size: 12px;
-  color: #aaa;
-  float: right;
+  &__datetime {
+    font-size: 12px;
+    color: #aaa;
+  }
 }
 </style>

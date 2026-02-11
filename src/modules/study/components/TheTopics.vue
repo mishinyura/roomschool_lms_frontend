@@ -1,3 +1,49 @@
+<script setup>
+import { pluralize } from "@/utils/globalUtils.js";
+import { defineProps, inject, provide } from "vue";
+import { useRouter } from "vue-router";
+
+const props = defineProps({
+  topic: {
+    type: Object,
+    required: true,
+  },
+});
+
+const router = useRouter();
+
+const programContext = inject("programContext");
+const moduleContext = inject("moduleContext");
+
+provide("topicSlug", props.topic.slug);
+
+const amountTestsFormat = (amount) => {
+  return pluralize(amount, "тест", "теста", "тестов");
+};
+
+const openPlayer = (slug) => {
+  router.push({
+    name: "player",
+    params: {
+      program: programContext?.programSlug, 
+      module: moduleContext?.moduleSlug,
+      topic: slug,
+      lesson: 1,
+    },
+  });
+};
+
+const modClassName = (prefix) => {
+  if (props.topic.isBlock) {
+    return `${prefix}_block`;
+  } else if (props.topic.progress === props.topic.videos + props.topic.tests) {
+    return `${prefix}_end`;
+  } else {
+    return `${prefix}_current`;
+  }
+};
+</script>
+
 <template>
   <div :class="['topic', modClassName('topic')]">
     <div :class="['topic__info', modClassName('topic__info')]">
@@ -45,52 +91,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { pluralize } from "@/utils/globalUtils.js";
-import { defineProps, inject, provide } from "vue";
-import { useRouter } from "vue-router";
-
-const props = defineProps({
-  topic: {
-    type: Object,
-    required: true,
-  },
-});
-
-const router = useRouter();
-
-const programContext = inject("programContext");
-const moduleContext = inject("moduleContext");
-
-provide("topicSlug", props.topic.slug);
-
-const amountTestsFormat = (amount) => {
-  return pluralize(amount, "тест", "теста", "тестов");
-};
-
-const openPlayer = (slug) => {
-  router.push({
-    name: "player",
-    params: {
-      program: programContext?.programSlug, 
-      module: moduleContext?.moduleSlug,
-      topic: slug,
-      lesson: 1,
-    },
-  });
-};
-
-const modClassName = (prefix) => {
-  if (props.topic.isBlock) {
-    return `${prefix}_block`;
-  } else if (props.topic.progress === props.topic.videos + props.topic.tests) {
-    return `${prefix}_end`;
-  } else {
-    return `${prefix}_current`;
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 .topic {
@@ -267,7 +267,7 @@ const modClassName = (prefix) => {
   }
 
   &__btn {
-    @include btn-classic;
+    @include btn-blue-classic;
     &_current {
       color: $color-text-white;
       background-color: $color-label-dark-blue;
