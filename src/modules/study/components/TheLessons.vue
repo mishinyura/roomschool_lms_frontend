@@ -1,28 +1,28 @@
 <script setup>
-import {defineProps, computed} from "vue";
+import { defineProps } from "vue";
 import { convertSecondsIntoTime } from "@/utils/dateUtils.js";
 
 const props = defineProps({
-  lesson: {
-    type: Object,
+  lessons: {
+    type: Array,
     required: true,
   },
 });
 
-const classItem = computed(() => {
-  const mainClass = "lesson";
+const classItem = (lesson) => {
+  const mainClass = "lessons__item";
   let classLst = [mainClass];
-  if (props.lesson.isViewed) {
-    classLst.push("lesson__topic_end");
+  if (lesson.isViewed) {
+    classLst.push("lessons__topic_end");
   }
-  if (props.lesson.isLocked) {
-    classLst.push("lesson__topic_block");
+  if (lesson.isLocked) {
+    classLst.push("lessons__topic_block");
   }
-  if (props.lesson.isCurrent) {
+  if (lesson.isCurrent) {
     classLst.push("active");
   }
   return classLst;
-});
+};
 
 const getDuration = (duration) => {
   return convertSecondsIntoTime(duration);
@@ -30,56 +30,72 @@ const getDuration = (duration) => {
 </script>
 
 <template>
-  <li
-    :class="classItem"
-    @click="$router.push({ name: 'player', params: { slug: props.lesson.slug } })"
-  >
-    <h4 class="lesson__name">{{ props.lesson.title }}</h4>
-    <span class="lesson__timing"> {{ getDuration(props.lesson.duration) }} </span>
-  </li>
+  <div class="lessons" v-if="props.lessons.length > 0">
+    <span class="lessons__title"> Уроки темы {{ lessons.length }} </span>
+    <ul class="lessons__list">
+      <li
+        v-for="(lesson, index) in props.lessons"
+        :key="index"
+        @click="openLesson(lesson.id)"
+        :class="classItem(lesson)"
+      >
+        <h4 class="lessons__name">{{ lesson.title }}</h4>
+        <span class="lessons__timing">
+          {{ getDuration(lesson.duration) }}
+        </span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.lesson {
-  position: relative;
-  padding: 1em 1em 1em 2.5em;
-  cursor: $cursor-point;
-  border: 1px solid transparent;
-  transition: border-color 0.1s, background-color 0.1s;
-
-  &:last-child {
-    border-radius: 0 0 $radius-lg $radius-lg;
+.lessons {
+  &__title {
+    @include player-title("@/assets/media/icons/study_topic.svg");
+    padding: 1em;
+    margin-bottom: 0;
   }
 
-  // Синяя полоска слева (активный индикатор)
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    content: "";
-    background-color: $color-action-blue;
-    opacity: 0;
-    transition: opacity 0.1s;
-  }
+  &__item {
+    position: relative;
+    padding: 1em 1em 1em 2.5em;
+    cursor: $cursor-point;
+    border: 1px solid transparent;
+    transition: border-color 0.1s, background-color 0.1s;
 
-  // Состояние: Активен (выбран)
-  &.active {
-    cursor: $cursor-select;
-    background-color: $color-action-grey;
+    &:last-child {
+      border-radius: 0 0 $radius-lg $radius-lg;
+    }
 
+    // Синяя полоска слева (активный индикатор)
     &::before {
-      opacity: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      content: "";
+      background-color: $color-action-blue;
+      opacity: 0;
+      transition: opacity 0.1s;
     }
 
-    // Состояние: Ховер
-    &:not(.active):hover {
-      background-color: $color-action-light-grey;
-      border-color: $color-action-grey;
+    // Состояние: Активен (выбран)
+    &.active {
+      cursor: $cursor-select;
+      background-color: $color-action-grey;
+
+      &::before {
+        opacity: 1;
+      }
+
+      // Состояние: Ховер
+      &:not(.active):hover {
+        background-color: $color-action-light-grey;
+        border-color: $color-action-grey;
+      }
     }
   }
-
   // --- Название темы ---
   &__name {
     position: relative;

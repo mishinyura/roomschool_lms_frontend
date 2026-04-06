@@ -3,9 +3,9 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 // import topicData from "@/mocks/topic.json";
 import topicList from "@/mocks/topics.json";
-// import TheLesson from "../components/TheLesson.vue";
+import TheLessons from "../components/TheLessons.vue";
 import TheMaterials from "../components/TheMaterials.vue";
-// import TheLink from "../components/TheLink.vue";
+import TheLinks from "../components/TheLinks.vue";
 import ViewContent from "../components/ViewContent.vue";
 
 import { print } from "@/utils/globalUtils.js";
@@ -82,31 +82,10 @@ const inputRating = (event) => {
     <ViewContent :type="lesson" />
 
     <div class="player__bar playbar">
-      <div class="playbar__row lessons" v-if="getTopic.lessons.length > 0">
-        <span class="lessons__title"> Уроки темы </span>
-        <ul class="lessons__list">
-          <TheLesson
-            v-for="(lesson, index) in getTopic.lessons"
-            :key="index"
-            :lesson="lesson"
-            @click="openLesson(lesson.id)"
-          />
-        </ul>
-      </div>
+      <TheLessons class="playbar__row" :lessons="getTopic.lessons"/>
       <TheMaterials class="playbar__row" :materials="getTopic.attachments.materials" />
-      <div
-        class="playbar__row links"
-        v-if="getTopic.attachments.links.length > 0"
-      >
-        <span class="links__title"> Полезные ссылки </span>
-        <ul class="links__list">
-          <TheLink
-            v-for="(link, index) in getTopic.attachments.links"
-            :key="index"
-            :link="link"
-          />
-        </ul>
-      </div>
+      <TheLinks class="playbar__row" :links="getTopic.attachments.links" />
+      
       <div class="playbar__row test">
         <span class="test__title"> Проверка знаний </span>
         <div class="test__result" v-if="getTopic.quiz.userResult.isCompleted">
@@ -540,20 +519,6 @@ const inputRating = (event) => {
 
   &:not(:last-child) {
     margin-bottom: $margin-item;
-  }
-}
-
-.lessons__title {
-  @include player-title("@/assets/media/icons/study_topic.svg");
-  padding: 1em;
-  margin-bottom: 0;
-}
-
-.links {
-  padding: 1em;
-
-  &__title {
-    @include player-title("@/assets/media/icons/tests.svg");
   }
 }
 
