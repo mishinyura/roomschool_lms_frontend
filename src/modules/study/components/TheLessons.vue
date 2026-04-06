@@ -40,7 +40,7 @@ const getDuration = (duration) => {
         :class="classItem(lesson)"
       >
         <h4 class="lessons__name">{{ lesson.title }}</h4>
-        <span class="lessons__timing">
+        <span class="lessons__timing" v-if="lesson.duration">
           {{ getDuration(lesson.duration) }}
         </span>
       </li>
