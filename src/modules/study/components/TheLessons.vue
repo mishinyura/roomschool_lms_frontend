@@ -27,6 +27,17 @@ const classItem = (lesson) => {
 const getDuration = (duration) => {
   return convertSecondsIntoTime(duration);
 };
+
+const openView = (data) => {
+  switch (data.type) {
+    case "lesson":
+      console.log(data);
+      break;
+    case "aimentor":
+      console.log("aimentor");
+      break;
+  }
+};
 </script>
 
 <template>
@@ -36,7 +47,7 @@ const getDuration = (duration) => {
       <li
         v-for="(lesson, index) in props.lessons"
         :key="index"
-        @click="openLesson(lesson.id)"
+        @click="openView(lesson)"
         :class="classItem(lesson)"
       >
         <h4 class="lessons__name">{{ lesson.title }}</h4>
@@ -67,7 +78,6 @@ const getDuration = (duration) => {
       border-radius: 0 0 $radius-lg $radius-lg;
     }
 
-    // Синяя полоска слева (активный индикатор)
     &::before {
       position: absolute;
       top: 0;
@@ -80,7 +90,6 @@ const getDuration = (duration) => {
       transition: opacity 0.1s;
     }
 
-    // Состояние: Активен (выбран)
     &.active {
       cursor: $cursor-select;
       background-color: $color-action-grey;
@@ -89,11 +98,14 @@ const getDuration = (duration) => {
         opacity: 1;
       }
 
-      // Состояние: Ховер
-      &:not(.active):hover {
-        background-color: $color-action-light-grey;
-        border-color: $color-action-grey;
+      &.active:hover {
+        background-color: $color-action-grey;
       }
+    }
+
+    &:hover {
+      background-color: $color-action-light-grey;
+      border-color: $color-action-grey;
     }
   }
   // --- Название темы ---

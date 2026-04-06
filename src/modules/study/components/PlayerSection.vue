@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref} from "vue";
+import { defineProps, ref } from "vue";
 
 let isActivePlayer = ref(false);
 
@@ -7,7 +7,7 @@ const props = defineProps({
   data: {
     type: Object,
     required: true,
-  }
+  },
 });
 
 const handlePlay = (event) => {
@@ -50,13 +50,13 @@ const handlePause = () => {
     </div>
     <div class="player__btns">
       <button
-        class="player__btn view__btn_prev"
+        class="player__btn player__btn_prev"
         @click="openLesson(props.navigation.prev)"
       >
         Предыдущий
       </button>
       <button
-        class="player__btn view__btn_next"
+        class="player__btn player__btn_next"
         @click="openLesson(props.navigation.next)"
       >
         Следующий
@@ -67,11 +67,9 @@ const handlePause = () => {
 
 <style lang="scss" scoped>
 .player {
-  &__content {
-    height: fit-content;
-    border-radius: $radius-lg;
-    background-color: $color-section-white;
-  }
+  height: fit-content;
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
 
   &__video {
     position: relative;
@@ -159,7 +157,6 @@ const handlePause = () => {
     font-size: $font-size-title-xs;
     font-weight: 500;
 
-    // Previous Button
     &_prev {
       color: $color-text-black;
       border: $border-blue;

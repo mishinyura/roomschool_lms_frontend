@@ -24,6 +24,7 @@
       {
         "id": 101,
         "title": "Почему у всех 24 часа, а дни получаются разными",
+        "type": "lesson",
         "duration": 600,
         "isViewed": false,
         "isCurrent": true,
@@ -32,6 +33,7 @@
       {
         "id": 102,
         "title": "Где прячется мое время (и кто его ворует)",
+        "type": "lesson",
         "duration": 720,
         "isViewed": false,
         "isCurrent": false,
@@ -40,6 +42,7 @@
       {
         "id": 103,
         "title": "Почему «потом» – это ловушка мозга",
+        "type": "lesson",
         "duration": 650,
         "isViewed": false,
         "isCurrent": false,
@@ -48,6 +51,7 @@
       {
         "id": 104,
         "title": "Практика с AI ментором",
+        "type": "aimentor",
         "isViewed": false,
         "isCurrent": false,
         "isLocked": true

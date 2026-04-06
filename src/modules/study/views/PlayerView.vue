@@ -6,7 +6,8 @@ import topicList from "@/mocks/topics.json";
 import TheLessons from "../components/TheLessons.vue";
 import TheMaterials from "../components/TheMaterials.vue";
 import TheLinks from "../components/TheLinks.vue";
-import PlayerSection from "../components/PlayerSection.vue";
+// import PlayerSection from "../components/PlayerSection.vue";
+import MentorSection from "../components/MentorSection.vue";
 
 import { print } from "@/utils/globalUtils.js";
 
@@ -20,18 +21,6 @@ print("programSlug", programSlug, moduleSlug, topicSlug);
 const getTopic = computed(() => {
   return topics.find((topic) => topic.slug === topicSlug);
 });
-
-// const openLesson = (id) => {
-//   router.push({
-//     name: "player",
-//     params: {
-//       program: 'programSlug',
-//       module: 'moduleSlug',
-//       topic: topicSlug,
-//       lesson: id,
-//     },
-//   });
-// };
 
 const autoResizeTextarea = (event) => {
   event.currentTarget.style.height = "auto";
@@ -71,7 +60,8 @@ const inputRating = (event) => {
     </div>
 
     <div class="main__window">
-      <PlayerSection :typeView="'lesson'" :data="getTopic.current" />
+      <!-- <PlayerSection :typeView="'lesson'" :data="getTopic.current" /> -->
+      <MentorSection />
 
       <div class="playbar">
         <TheLessons class="playbar__row" :lessons="getTopic.lessons" />
