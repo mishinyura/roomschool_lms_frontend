@@ -1,5 +1,6 @@
 @use "@/assets/styles/variables.scss" as *;
 
+// Заголовок страницы
 @mixin page-title {
     margin-bottom: 20px;
     font-family: $font-family-montserrat;
@@ -7,7 +8,7 @@
     font-weight: 600;
     color: $color-text-black;
 }
-
+// Заголовок для секций на станице
 @mixin section-title {
     margin-bottom: 20px;
     font-family: $font-family-montserrat;
@@ -35,7 +36,7 @@
         
     }
 }
-
+// Заголовок для карточек или небольших разделов
 @mixin card-title {
     margin-bottom: 10px;
     font-family: $font-family-montserrat;
@@ -43,14 +44,14 @@
     font-weight: 400;
     color: $color-text-black;
 }
-
+// Текст для карточек или небольших разделов
 @mixin card-text {
     font-family: $font-family-nunito;
     font-size: $font-size-text-xs;
     font-weight: 400;
     color: $color-text-black;
 }
-
+// Стандартный заголовок
 @mixin title {
     font-family: $font-family-montserrat;
     font-size: $font-size-title-xs;
@@ -58,13 +59,14 @@
     color: $color-text-black;
 }
 
+// Заголовок в заметках или примечаниях
 @mixin note-title {
     font-family: $font-family-nunito;
     font-size: $font-size-title-xs;
     font-weight: 400;
     color: $color-text-grey;
 }
-
+// Описание в заметках или примечаниях
 @mixin note-text {
     font-family: $font-family-nunito;
     font-size: $font-size-text-min;
@@ -79,6 +81,7 @@
     color: $color-text-blue;
 }
 
+// Заголовки для плеера
 @mixin player-title($icon-url) {
   display: flex;
   align-items: center;

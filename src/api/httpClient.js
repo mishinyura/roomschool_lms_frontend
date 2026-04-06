@@ -1,38 +1,20 @@
-import router from '@/router'; // Нужен для редиректа при полном вылете
+// Базовый axios-клиент с настройками перехватчиклв
+
+import router from '@/router';
 import { useAuthStore } from '@/stores/authStore.js';
 import axios from 'axios';
 
-// 1. Создаем инстанс
+
 const apiClient = axios.create({
-  baseURL: process.env.VUE_APP_API_URL || 'http://api.roomschool.ru', // Лучше брать из .env
-  withCredentials: true, // ВАЖНО: разрешает куки (для Refresh Token)
+  baseURL: process.env.VUE_APP_API_URL || 'http://api.roomschool.ru',
+  withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
+    "Accept": "application/json",
+    "X-Client-App": "roomschool-web"
   }
 });
 
-// 2. Request Interceptor (Вставка токена)
-// Его задача только одна: если есть ключик - вставь в замок.
-apiClient.interceptors.request.use(config => {
-  // ВАЖНО: вызываем стор ВНУТРИ интерцептора, чтобы не было ошибки инициализации Pinia
-  const authStore = useAuthStore();
 
-  if (authStore.accessToken) {
-    config.headers.Authorization = `Bearer ${authStore.accessToken}`;
-  }
-  
-  // УБРАЛИ else { checkAuth() } - это была ошибка!
-  // Если токена нет, мы просто шлем запрос анонимно. 
-  // Если бэкенду это не понравится, он вернет 401, и мы разберемся в response interceptor.
-  
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-
-
-
-// 1. Вставка токена (если есть)
 apiClient.interceptors.request.use(config => {
   const authStore = useAuthStore();
   if (authStore.accessToken) {
@@ -41,7 +23,8 @@ apiClient.interceptors.request.use(config => {
   return config;
 }, error => Promise.reject(error));
 
-// 2. Обработка ошибок (Refresh Token)
+
+
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -53,7 +36,6 @@ apiClient.interceptors.response.use(
       try {
         const refreshUrl = (process.env.VUE_APP_API_URL || 'http://api.roomschool.ru') + '/auth/refresh';
         
-        // --- ИСПРАВЛЕНИЕ: БЫЛО POST, СТАЛО GET ---
         const { data } = await axios.get(
             refreshUrl, 
             { withCredentials: true } 
@@ -71,7 +53,7 @@ apiClient.interceptors.response.use(
         console.error('Сессия истекла:', refreshError);
         const authStore = useAuthStore();
         authStore.logout();
-        router.push({ name: 'auth' }); // Редирект на логин
+        router.push({ name: 'auth' });
         return Promise.reject(refreshError);
       }
     }

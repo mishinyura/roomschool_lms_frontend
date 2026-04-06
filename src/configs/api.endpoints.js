@@ -9,6 +9,9 @@ export const API_ENDPOINTS = {
   },
   PROFILE: {
     GET: '/profile',
+    GET_PERSONAL_INFO: '/profile/person',
+    GET_CONTACTS_INFO: '/profile/contacts',
+    GET_STUDY_INFO: '/profile/study',
     PASSWORD_UPDATE: '/profile/password/',
     USERNAME_UPDATE: '/profile/username/',
     AVATAR_UPDATE: '/profile/avatar/',

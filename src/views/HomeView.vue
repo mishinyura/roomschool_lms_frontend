@@ -1,7 +1,7 @@
 <template>
-  <main :class="['main', { main_collapsed: sidebarStatusCollapsed }]">
+  <div :class="['main', { main_collapsed: sidebarStatusCollapsed }]">
     <SideBar @toggle-sidebar="toggleSidebar" />
-    <article class="main__content">
+    <main class="main__content">
       <RouterView v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <keep-alive>
@@ -9,8 +9,8 @@
           </keep-alive>
         </transition>
       </RouterView>
-    </article>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -43,23 +43,13 @@ export default {
   &_collapsed {
     grid-template-columns: 3em 1fr;
   }
-
-  &__container {
-    max-width: 3500px;
-    margin: 0 auto;
-    padding: 1.5em;
-  }
 }
 
-.main__content{
+.main__content {
   @include content-view;
   overflow-y: auto;
 }
 
-// .main .main__title {
-//   font-size: var(--font-size-title-lg);
-//   margin-bottom: 20px;
-// }
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;

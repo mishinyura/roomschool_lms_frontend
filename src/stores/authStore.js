@@ -25,11 +25,11 @@ export const useAuthStore = defineStore('auth', {
         this.accessToken = token;
         localStorage.setItem('access_token', token);
         const roleStore = useRoleStore();
-        const roles = decoded.roles || []; 
+        const roles = decoded.roles || [];
         roleStore.assignRoles(roles);
-        
+
         this.user = {
-            username: decoded.sub || decoded.username,
+          username: decoded.sub || decoded.username,
         };
 
         return true;
@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
       const roleStore = useRoleStore();
       const response = await authApi.login(credentials);
       const token = response.access_token;
-      
+
       if (!token) {
         console.error("Токен не пришел с бэкенда!", response);
         throw new Error("Ошибка входа: нет токена");
@@ -71,9 +71,9 @@ export const useAuthStore = defineStore('auth', {
       }
 
       if (decoded.roles) {
-         roleStore.assignRoles(decoded.roles);
+        roleStore.assignRoles(decoded.roles);
       } else {
-         roleStore.assignRoles([]);
+        roleStore.assignRoles([]);
       }
     },
     async refreshToken() {
@@ -83,9 +83,10 @@ export const useAuthStore = defineStore('auth', {
     },
     async logout() {
       this.accessToken = null;
-       this.user = null;
-       useRoleStore().assignRoles([]);
-       authApi.logout().catch(() => {});
+      this.user = null;
+      localStorage.removeItem('access_token');
+      useRoleStore().assignRoles([]);
+      authApi.logout().catch(() => { });
     }
   }
 });

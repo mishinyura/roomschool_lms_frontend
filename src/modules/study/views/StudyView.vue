@@ -4,8 +4,8 @@ import TheCourses from "../components/TheCourses.vue";
 </script>
 
 <template>
-  <article class="main__content">
-    <h1 class="main__title">Обучение</h1>
+  <article class="study">
+    <h1 class="study__title">Обучение</h1>
     <ThePlan />
     <TheCourses />
   </article>
@@ -13,7 +13,7 @@ import TheCourses from "../components/TheCourses.vue";
 
 <style lang="scss" scoped>
 
-.main__title {
+.study__title {
   @include page-title;
 }
 </style>
