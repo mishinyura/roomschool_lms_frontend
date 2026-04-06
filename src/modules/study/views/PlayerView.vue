@@ -1,15 +1,16 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 // import topicData from "@/mocks/topic.json";
 import topicList from "@/mocks/topics.json";
-import TheLesson from "../components/TheLesson.vue";
-import TheMaterial from "../components/TheMaterial.vue";
-import TheLink from "../components/TheLink.vue";
+// import TheLesson from "../components/TheLesson.vue";
+import TheMaterials from "../components/TheMaterials.vue";
+// import TheLink from "../components/TheLink.vue";
+import ViewContent from "../components/ViewContent.vue";
 
 import { print } from "@/utils/globalUtils.js";
 
-let isActivePlayer = ref(false);
+// let isActivePlayer = ref(false);
 
 const route = useRoute();
 const topics = topicList;
@@ -18,14 +19,9 @@ const moduleSlug = route.params.module;
 const topicSlug = route.params.topic;
 print("programSlug", programSlug, moduleSlug, topicSlug);
 
-
 const getTopic = computed(() => {
   return topics.find((topic) => topic.slug === topicSlug);
 });
-
-
-
-
 
 // const openLesson = (id) => {
 //   router.push({
@@ -39,20 +35,20 @@ const getTopic = computed(() => {
 //   });
 // };
 
-const handlePlay = (event) => {
-  isActivePlayer.value = true;
-  const videoElement = event.target;
+// const handlePlay = (event) => {
+//   isActivePlayer.value = true;
+//   const videoElement = event.target;
 
-  console.log("Видео запущено!");
-  
-  console.log("Текущее время:", videoElement.currentTime);
-  console.log("Длительность:", videoElement.duration);
-};
+//   console.log("Видео запущено!");
+
+//   console.log("Текущее время:", videoElement.currentTime);
+//   console.log("Длительность:", videoElement.duration);
+// };
 
 // Обработка паузы (опционально)
-const handlePause = () => {
-  console.log("Видео на паузе");
-};
+// const handlePause = () => {
+//   console.log("Видео на паузе");
+// };
 
 const autoResizeTextarea = (event) => {
   event.currentTarget.style.height = "auto";
@@ -69,7 +65,107 @@ const inputRating = (event) => {
 </script>
 
 <template>
-  <section class="main__section">
+  <div class="main__container">
+    <div class="main__bullet breadcrumbs">
+      <button
+        class="breadcrumbs__btn"
+        @click="this.$router.push({ name: 'study' })"
+      >
+        Назад
+      </button>
+      <ul class="breadcrumbs__list">
+        <li class="breadcrumbs__item">{{ programTitle }}</li>
+        <li class="breadcrumbs__item">{{ moduleTitle }}</li>
+      </ul>
+    </div>
+
+    <ViewContent :type="lesson" />
+
+    <div class="player__bar playbar">
+      <div class="playbar__row lessons" v-if="getTopic.lessons.length > 0">
+        <span class="lessons__title"> Уроки темы </span>
+        <ul class="lessons__list">
+          <TheLesson
+            v-for="(lesson, index) in getTopic.lessons"
+            :key="index"
+            :lesson="lesson"
+            @click="openLesson(lesson.id)"
+          />
+        </ul>
+      </div>
+      <TheMaterials class="playbar__row" :materials="getTopic.attachments.materials" />
+      <div
+        class="playbar__row links"
+        v-if="getTopic.attachments.links.length > 0"
+      >
+        <span class="links__title"> Полезные ссылки </span>
+        <ul class="links__list">
+          <TheLink
+            v-for="(link, index) in getTopic.attachments.links"
+            :key="index"
+            :link="link"
+          />
+        </ul>
+      </div>
+      <div class="playbar__row test">
+        <span class="test__title"> Проверка знаний </span>
+        <div class="test__result" v-if="getTopic.quiz.userResult.isCompleted">
+          <span class="test__status"> Тестирование завершено </span>
+          <span class="test__score">
+            Оценка: {{ getTopic.quiz.userResult.score }}
+          </span>
+          <button
+            class="test__btn test__btn_repeat test__btn_mini"
+            tabindex="0"
+          >
+            Повторить
+          </button>
+        </div>
+        <div class="test__content" v-else>
+          <span class="test__amount"> 10 вопросов </span>
+          <p class="test__description">
+            Проверьте свои знания по теме: "{{ getTopic.current.title }}"
+          </p>
+          <button class="test__btn test__btn_start test__btn_mini" tabindex="0">
+            Пройти тест
+          </button>
+        </div>
+      </div>
+      <div class="playbar__row callback">
+        <span class="callback__title"> Оцените урок </span>
+        <form action="" method="post" @submit.prevent="sendReview">
+          <div class="callback__stars">
+            <button
+              :class="[
+                'callback__star',
+                {
+                  callback__star_filled:
+                    getTopic.feedback.isSubmitted &&
+                    index <= getTopic.feedback.currentRating,
+                },
+              ]"
+              type="button"
+              :data-score="index"
+              tabindex="0"
+              v-for="index in 5"
+              :key="index"
+              @click="inputRating"
+            ></button>
+          </div>
+          <textarea
+            class="callback__textarea"
+            placeholder="Комментарий (Не обязательно)"
+            tabindex="0"
+            @input="autoResizeTextarea"
+          ></textarea>
+          <button class="callback__btn" data-submit="false" tabindex="0">
+            Отправить
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- <section class="main__section">
     <div class="main__bullet breadcrumbs">
       <button
         class="breadcrumbs__btn"
@@ -226,7 +322,7 @@ const inputRating = (event) => {
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 </template>
 
 <style lang="scss" scoped>
@@ -312,7 +408,7 @@ const inputRating = (event) => {
     }
 
     &.play::before {
-      background: none
+      background: none;
     }
 
     video {
@@ -453,14 +549,6 @@ const inputRating = (event) => {
   margin-bottom: 0;
 }
 
-.materials {
-  padding: 1em;
-
-  &__title {
-    @include player-title("@/assets/media/icons/tests.svg");
-  }
-}
-
 .links {
   padding: 1em;
 
@@ -503,7 +591,7 @@ const inputRating = (event) => {
 
   &__btn {
     @include btn-blue-small;
-    
+
     &_repeat {
       color: $color-text-black;
       background-color: $color-btn-grey;
