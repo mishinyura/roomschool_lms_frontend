@@ -89,3 +89,14 @@
     }
 }
 
+@mixin icon-mask($url, $color, $size: 15px) {
+    flex-shrink: 0;
+    width: $size;
+    height: $size;
+    content: "";
+    mask-image: url($url);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    background-color: $color;
+}

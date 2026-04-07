@@ -32,7 +32,6 @@ async function send_message() {
     );
   }
 }
-
 </script>
 
 <template>
