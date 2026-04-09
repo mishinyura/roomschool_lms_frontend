@@ -10,6 +10,8 @@ const props = defineProps({
   },
 });
 
+console.log(props.data);
+
 const handlePlay = (event) => {
   isActivePlayer.value = true;
   const videoElement = event.target;

@@ -511,5 +511,1103 @@
       "currentRating": 0,
       "comment": ""
     }
+  },
+  {
+    "slug": "zachem-lyudyam-voobsche-nuzhny-zakony",
+    "progress": {
+      "completed": 0,
+      "total": 2
+    },
+    "current": {
+      "id": 101,
+      "title": "Почему люди не могут жить совсем без правил",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m1/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m1/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>В этом уроке ученик знакомится с тем, зачем людям нужны правила и как из простых договоренностей появляются законы. Мы показываем, что право - это не набор страшных слов, а способ сделать жизнь предсказуемой и безопасной.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 102
+      }
+    },
+    "lessons": [
+      {
+        "id": 101,
+        "title": "Почему люди не могут жить совсем без правил",
+        "type": "lesson",
+        "duration": 540,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 102,
+        "title": "Как правила превращаются в законы",
+        "type": "lesson",
+        "duration": 620,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": false
+      },
+      {
+        "id": 103,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": false
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Найди правила вокруг себя",
+          "size": "142000",
+          "url": "/api/download/material/legal_m1_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m1"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 501,
+      "questionsCount": 10,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "pravila-doma-v-shkole-i-v-obschestve",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 201,
+      "title": "Почему правила дома и в школе не одинаковые",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m2/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m2/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Ученик разбирается, почему в разных местах действуют разные правила. Мы показываем разницу между личными границами, школьными нормами и правилами поведения в общественных местах.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 202
+      }
+    },
+    "lessons": [
+      {
+        "id": 201,
+        "title": "Почему правила дома и в школе не одинаковые",
+        "type": "lesson",
+        "duration": 610,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 202,
+        "title": "Что можно, нельзя и почему это важно",
+        "type": "lesson",
+        "duration": 680,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 203,
+        "title": "Как вести себя в общественных местах без конфликтов",
+        "type": "lesson",
+        "duration": 700,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 204,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Карта правил моей жизни",
+          "size": "151000",
+          "url": "/api/download/material/legal_m2_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m2"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 502,
+      "questionsCount": 12,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "kakie-prava-est-u-rebenka-uzhe-seichas",
+    "progress": {
+      "completed": 0,
+      "total": 4
+    },
+    "current": {
+      "id": 301,
+      "title": "Какие права есть у ребенка с самого начала",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m3/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m3/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>В этом блоке ученик узнает, что права ребенка - это не абстракция, а реальные вещи: право на имя, семью, обучение, защиту и уважение. Материал подается через повседневные ситуации, которые ребенок узнает в жизни.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 302
+      }
+    },
+    "lessons": [
+      {
+        "id": 301,
+        "title": "Какие права есть у ребенка с самого начала",
+        "type": "lesson",
+        "duration": 590,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 302,
+        "title": "Право на имя, семью и заботу",
+        "type": "lesson",
+        "duration": 660,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 303,
+        "title": "Право на учебу, мнение и уважение",
+        "type": "lesson",
+        "duration": 730,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 304,
+        "title": "Когда право нарушается и что это значит",
+        "type": "lesson",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 305,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Мои права в обычной жизни",
+          "size": "167000",
+          "url": "/api/download/material/legal_m3_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m3"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 503,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "ne-tolko-prava-no-i-otvetstvennost",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 401,
+      "title": "Почему права без ответственности не работают",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m4/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m4/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Ученик понимает, что свобода не означает делать все подряд. Мы обсуждаем последствия поступков, уважение к другим людям и то, как ответственность помогает защищать и свои, и чужие права.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 402
+      }
+    },
+    "lessons": [
+      {
+        "id": 401,
+        "title": "Почему права без ответственности не работают",
+        "type": "lesson",
+        "duration": 620,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 402,
+        "title": "Свобода выбора и последствия решений",
+        "type": "lesson",
+        "duration": 710,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 403,
+        "title": "Уважение к другим как часть закона",
+        "type": "lesson",
+        "duration": 640,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 404,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Ответственность в моих решениях",
+          "size": "149000",
+          "url": "/api/download/material/legal_m4_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m4"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 504,
+      "questionsCount": 11,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "chto-takoe-lichnye-dannye-i-pochemu-ih-nuzhno-berech",
+    "progress": {
+      "completed": 0,
+      "total": 5
+    },
+    "current": {
+      "id": 501,
+      "title": "Что вообще считается личными данными",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m5/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m5/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>В теме разбираются личные данные, цифровая осторожность и право на приватность. Ученик учится понимать, какие сведения нельзя раздавать всем подряд и почему это может быть опасно.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 502
+      }
+    },
+    "lessons": [
+      {
+        "id": 501,
+        "title": "Что вообще считается личными данными",
+        "type": "lesson",
+        "duration": 600,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 502,
+        "title": "Почему адрес, номер и фото не мелочи",
+        "type": "lesson",
+        "duration": 670,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 503,
+        "title": "Как данные попадают в чужие руки",
+        "type": "lesson",
+        "duration": 710,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 504,
+        "title": "Что можно публиковать, а что лучше не стоит",
+        "type": "lesson",
+        "duration": 760,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 505,
+        "title": "Как защитить себя в обычной переписке",
+        "type": "lesson",
+        "duration": 680,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 506,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Мои данные и мои границы",
+          "size": "173000",
+          "url": "/api/download/material/legal_m5_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m5"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 505,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "bezopasnost-v-internete-i-cifrovye-sledy",
+    "progress": {
+      "completed": 0,
+      "total": 4
+    },
+    "current": {
+      "id": 601,
+      "title": "Что интернет помнит о тебе",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m6/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m6/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Тема помогает ученику понять, что цифровой след формируется из обычных действий: лайков, комментариев, регистраций и переписок. Мы объясняем это простым языком и без занудства, насколько это вообще возможно.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 602
+      }
+    },
+    "lessons": [
+      {
+        "id": 601,
+        "title": "Что интернет помнит о тебе",
+        "type": "lesson",
+        "duration": 610,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 602,
+        "title": "Почему удаленное не всегда исчезает",
+        "type": "lesson",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 603,
+        "title": "Как вести себя в сети безопасно и спокойно",
+        "type": "lesson",
+        "duration": 730,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 604,
+        "title": "Когда пора звать взрослого на помощь",
+        "type": "lesson",
+        "duration": 640,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 605,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Мой цифровой след",
+          "size": "160000",
+          "url": "/api/download/material/legal_m6_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m6"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 506,
+      "questionsCount": 13,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "kak-raspoznat-obman-moshennichestvo-i-manipulyacii",
+    "progress": {
+      "completed": 0,
+      "total": 5
+    },
+    "current": {
+      "id": 701,
+      "title": "Почему нас можно обмануть даже не глупых",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m7/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m7/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Ученик знакомится с основами распознавания обмана, давления и манипуляций. Мы разбираем бытовые и онлайн-ситуации, где важно вовремя остановиться, подумать и не поддаваться.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 702
+      }
+    },
+    "lessons": [
+      {
+        "id": 701,
+        "title": "Почему нас можно обмануть даже не глупых",
+        "type": "lesson",
+        "duration": 620,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 702,
+        "title": "Какие фразы чаще всего используют мошенники",
+        "type": "lesson",
+        "duration": 700,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 703,
+        "title": "Как распознать давление и манипуляцию",
+        "type": "lesson",
+        "duration": 760,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 704,
+        "title": "Что делать, если тебя уже пытаются втянуть",
+        "type": "lesson",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 705,
+        "title": "Как спокойно сказать нет и выйти из ситуации",
+        "type": "lesson",
+        "duration": 650,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 706,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Разоблачи манипуляцию",
+          "size": "176000",
+          "url": "/api/download/material/legal_m7_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m7"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 507,
+      "questionsCount": 15,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "pokupki-dengi-i-prava-potrebitelya",
+    "progress": {
+      "completed": 0,
+      "total": 4
+    },
+    "current": {
+      "id": 801,
+      "title": "Что значит быть покупателем даже в детстве",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m8/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m8/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Тема показывает ученику, что мир покупок связан не только с деньгами, но и с правами. Мы разбираем чеки, возвраты, ошибки в заказах и базовые правила разумного потребителя.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 802
+      }
+    },
+    "lessons": [
+      {
+        "id": 801,
+        "title": "Что значит быть покупателем даже в детстве",
+        "type": "lesson",
+        "duration": 580,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 802,
+        "title": "Почему важно читать, что ты покупаешь",
+        "type": "lesson",
+        "duration": 660,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 803,
+        "title": "Что делать, если товар оказался не тем",
+        "type": "lesson",
+        "duration": 720,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 804,
+        "title": "Как не попасться на красивую, но пустую рекламу",
+        "type": "lesson",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 805,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Я как умный покупатель",
+          "size": "162000",
+          "url": "/api/download/material/legal_m8_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m8"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 508,
+      "questionsCount": 12,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "bulling-ugrozy-i-zaschita-svoih-granic",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 901,
+      "title": "Что такое буллинг и почему это не норма",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m9/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m9/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>В теме ученик учится распознавать травлю, давление и нарушение личных границ. Мы обсуждаем, что терпеть унижение не нужно и что просьба о помощи - это не слабость.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 902
+      }
+    },
+    "lessons": [
+      {
+        "id": 901,
+        "title": "Что такое буллинг и почему это не норма",
+        "type": "lesson",
+        "duration": 630,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 902,
+        "title": "Как понять, что твои границы нарушают",
+        "type": "lesson",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 903,
+        "title": "Что делать, если страшно, обидно или опасно",
+        "type": "lesson",
+        "duration": 710,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 904,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Мои границы и моя защита",
+          "size": "158000",
+          "url": "/api/download/material/legal_m9_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m9"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 509,
+      "questionsCount": 11,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "chto-delat-esli-tvoi-prava-narushili",
+    "progress": {
+      "completed": 0,
+      "total": 4
+    },
+    "current": {
+      "id": 1001,
+      "title": "Как понять, что твои права правда нарушены",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m10/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m10/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Ученик узнает, как распознать нарушение своих прав и что делать вместо паники. Мы показываем последовательность действий: заметить ситуацию, сохранить факты, обратиться за помощью и не оставаться одному.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 1002
+      }
+    },
+    "lessons": [
+      {
+        "id": 1001,
+        "title": "Как понять, что твои права правда нарушены",
+        "type": "lesson",
+        "duration": 600,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 1002,
+        "title": "Почему важно не молчать и не исчезать",
+        "type": "lesson",
+        "duration": 670,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 1003,
+        "title": "Какие факты стоит сохранить и запомнить",
+        "type": "lesson",
+        "duration": 720,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 1004,
+        "title": "Как обратиться за помощью без страха",
+        "type": "lesson",
+        "duration": 690,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 1005,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: План действий в сложной ситуации",
+          "size": "170000",
+          "url": "/api/download/material/legal_m10_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m10"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 510,
+      "questionsCount": 14,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "kuda-obraschatsya-za-pomoschyu-i-kak-govorit-uverenno",
+    "progress": {
+      "completed": 0,
+      "total": 3
+    },
+    "current": {
+      "id": 1101,
+      "title": "К кому можно обращаться, если нужна защита",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m11/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m11/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Тема учит не только искать помощь, но и ясно говорить о проблеме. Ученик узнает, к кому идти в школе, дома и за пределами привычной среды, и как формулировать свою просьбу спокойно и уверенно.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 1102
+      }
+    },
+    "lessons": [
+      {
+        "id": 1101,
+        "title": "К кому можно обращаться, если нужна защита",
+        "type": "lesson",
+        "duration": 580,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 1102,
+        "title": "Как объяснить ситуацию так, чтобы тебя поняли",
+        "type": "lesson",
+        "duration": 660,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 1103,
+        "title": "Почему уверенный разговор это тоже навык",
+        "type": "lesson",
+        "duration": 700,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 1104,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Попросить о помощи правильно",
+          "size": "154000",
+          "url": "/api/download/material/legal_m11_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m11"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 511,
+      "questionsCount": 10,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
+  },
+  {
+    "slug": "kak-orientirovatsya-v-mire-pravil-bez-straha",
+    "progress": {
+      "completed": 0,
+      "total": 2
+    },
+    "current": {
+      "id": 1201,
+      "title": "Почему право это не страшно и не только для взрослых",
+      "isViewed": false,
+      "video": {
+        "src": "/assets/media/videos/legal/m12/lesson1.mp4",
+        "poster": "/assets/media/posters/legal/m12/lesson1.jpg",
+        "mimeType": "video/mp4"
+      },
+      "description": "<h3>Конспект урока</h3><p>Финальная тема помогает ученику собрать все изученное в целостную картину. Право перестает быть пугающим набором запретов и становится понятным инструментом для защиты себя, других и своих решений.</p>",
+      "navigation": {
+        "prev": null,
+        "next": 1202
+      }
+    },
+    "lessons": [
+      {
+        "id": 1201,
+        "title": "Почему право это не страшно и не только для взрослых",
+        "type": "lesson",
+        "duration": 560,
+        "isViewed": false,
+        "isCurrent": true,
+        "isLocked": false
+      },
+      {
+        "id": 1202,
+        "title": "Как пользоваться знаниями о правах в жизни",
+        "type": "lesson",
+        "duration": 640,
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      },
+      {
+        "id": 1203,
+        "title": "Практика с AI ментором",
+        "type": "aimentor",
+        "isViewed": false,
+        "isCurrent": false,
+        "isLocked": true
+      }
+    ],
+    "attachments": {
+      "materials": [
+        {
+          "name": "Практическое задание: Моя правовая уверенность",
+          "size": "146000",
+          "url": "/api/download/material/legal_m12_hw"
+        }
+      ],
+      "links": [
+        {
+          "title": "Ссылка на дополнительные материалы",
+          "url": "https://example.com/legal/m12"
+        }
+      ]
+    },
+    "quiz": {
+      "id": 512,
+      "questionsCount": 10,
+      "userResult": {
+        "isCompleted": false,
+        "score": 0
+      }
+    },
+    "feedback": {
+      "isSubmitted": false,
+      "currentRating": 0,
+      "comment": ""
+    }
   }
 ]

@@ -1,5 +1,5 @@
 <script setup>
-import { get_answer } from "@/api/llm.js";
+import { get_answer } from "@/api/llmApi.js";
 import { ref, defineProps } from "vue";
 
 const props = defineProps({

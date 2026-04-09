@@ -1,5 +1,8 @@
 <script setup>
 import { ref, nextTick } from "vue";
+import MarkdownIt from 'markdown-it'
+import DOMPurify from 'dompurify'
+import {send_message} from "@/api/llmApi.js";
 
 const messagesContainer = ref(null);
 const messageText = ref("");
@@ -8,15 +11,37 @@ const textareaRef = ref(null);
 let messages = ref([
   {
     text: "Привет! Давай вместе по тренируемся на полученных знаниях. Я готов пройти вместе с тобой и помочь тебе в решении практического задания. Ты готов?",
-    sender: "mentor",
+    sender: "assistent",
   }
 ]);
 
-const send_message = async (message) => {
+const md = new MarkdownIt({
+  html: false,
+  linkify: true,
+  breaks: true,
+})
+
+const renderMarkdown = (text) => {
+  const rawHtml = md.render(text || "");
+  return DOMPurify.sanitize(rawHtml);
+};
+
+const send_new_message = async (message) => {
   if (!message.trim()) return;
+
   messages.value.push({
     text: message,
     sender: "user",
+  });
+  
+
+  const result = await send_message(message);
+
+  console.log(result);
+
+  messages.value.push({
+    text: result.message,
+    sender: "assistant",
   });
 
   messageText.value = "";
@@ -75,14 +100,14 @@ const autoResizeTextarea = (event) => {
           :class="['mentor__message', 'mentor__message_' + message.sender]"
           v-for="(message, index) in messages"
           :key="index"
+          v-html="renderMarkdown(message.text)"
         >
-          {{ message.text }}
         </li>
       </ul>
     </div>
     <form
       class="mentor__control"
-      @submit.prevent="send_message($event.target[1].value)"
+      @submit.prevent="send_new_message($event.target[1].value)"
     >
       <button class="mentor__attach"></button>
       <textarea
@@ -155,7 +180,7 @@ const autoResizeTextarea = (event) => {
       background-color: $color-card-blue;
     }
 
-    &_mentor {
+    &_assistent {
       align-self: flex-start;
     }
   }

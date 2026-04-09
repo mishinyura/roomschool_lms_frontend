@@ -13,14 +13,36 @@ export async function get_answer(message) {
         ],
         "stream": false
     }
-    const res = await fetch('http://llm.roomschool.ru/api/chat', { // ← без пробела!
+    const res = await fetch('http://llm.roomschool.ru/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }, // только его
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     });
 
     if (!res.ok) {
         // выведем текст ошибки, чтобы точно знать причинуф
+        const details = await res.text();
+        throw new Error(`HTTP ${res.status}: ${details}`);
+    }
+    return res.json();
+}
+
+export async function send_message(message) {
+    let body = {
+        "user": "test-user",
+        "chat": 1,
+        "message": message
+    }
+    const res = await fetch('http://localhost:8000/education/ai/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-Client-App': 'roomschool-web'
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
         const details = await res.text();
         throw new Error(`HTTP ${res.status}: ${details}`);
     }

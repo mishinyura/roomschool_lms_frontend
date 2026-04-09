@@ -1,26 +1,69 @@
 <script setup>
-import { computed } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-// import topicData from "@/mocks/topic.json";
-import topicList from "@/mocks/topics.json";
 import TheLessons from "../components/TheLessons.vue";
 import TheMaterials from "../components/TheMaterials.vue";
 import TheLinks from "../components/TheLinks.vue";
-// import PlayerSection from "../components/PlayerSection.vue";
+import PlayerSection from "../components/PlayerSection.vue";
 import MentorSection from "../components/MentorSection.vue";
+import { educationApi } from "@/api/educationApi.js";
 
-import { print } from "@/utils/globalUtils.js";
+// import { print } from "@/utils/globalUtils.js";
 
-const route = useRoute();
-const topics = topicList;
-const programSlug = route.params.program;
-const moduleSlug = route.params.module;
-const topicSlug = route.params.topic;
-print("programSlug", programSlug, moduleSlug, topicSlug);
+const router = useRoute();
 
-const getTopic = computed(() => {
-  return topics.find((topic) => topic.slug === topicSlug);
-});
+// Последнее
+const playbar = ref(null);
+const currentLesson = ref(null);
+
+const isPlaybarLoading = ref(false);
+const isLessonLoading = ref(false);
+
+const playbarError = ref(null);
+const lessonError = ref(null);
+
+const loadLesson = async (lessonSlug) => {
+  try {
+    isPlaybarLoading.value = true;
+    isLessonLoading.value = true;
+    lessonError.value = null;
+
+    const playbar_data = await educationApi.getTopicPlaybar(lessonSlug);
+    const lesson_data = await educationApi.getLesson(701);
+
+    console.log(playbar_data, lesson_data);
+    playbar.value = playbar_data;
+    currentLesson.value = lesson_data;
+  } catch (error) {
+    playbarError.value = error;
+    lessonError.value = error;
+    console.error(error);
+  } finally {
+    isPlaybarLoading.value = false;
+    isLessonLoading.value = false;
+  }
+};
+
+watch(
+  () => router.params.topic,
+  async (newTopicSlug) => {
+    if (!newTopicSlug) return;
+
+    currentLesson.value = null;
+    // currentLessonSlug.value = null
+
+    await loadLesson(newTopicSlug);
+  },
+  { immediate: true }
+);
+
+const handleSelectLesson = async (lesson) => {
+  const lesson_data = await educationApi.getLesson(703);
+
+  currentLesson.value = lesson_data;
+
+  console.log(lesson);
+};
 
 const autoResizeTextarea = (event) => {
   event.currentTarget.style.height = "auto";
@@ -28,21 +71,18 @@ const autoResizeTextarea = (event) => {
 };
 
 const sendReview = () => {
-  getTopic.value.feedback.isSubmitted = true;
+  currentLesson.value.feedback.isSubmitted = true;
 };
 
 const inputRating = (event) => {
-  getTopic.value.feedback.currentRating = event.target.dataset.score;
+  currentLesson.value.feedback.currentRating = event.target.dataset.score;
 };
 </script>
 
 <template>
   <div class="main__container">
     <div class="main__bullet breadcrumbs">
-      <button
-        class="breadcrumbs__btn"
-        @click="this.$router.push({ name: 'study' })"
-      >
+      <button class="breadcrumbs__btn" @click="router.push({ name: 'study' })">
         Назад
       </button>
       <ul class="breadcrumbs__list">
@@ -53,30 +93,51 @@ const inputRating = (event) => {
 
     <div class="main__progress progressbar">
       <h3 class="progressbar__title">Прогресс по теме</h3>
-      <span class="progressbar__count">
-        {{ getTopic.progress.completed }}/{{ getTopic.progress.total }}
+      <span class="progressbar__count" v-if="currentLesson">
+        {{ currentLesson.progress.completed }}/{{
+          currentLesson.progress.total
+        }}
       </span>
       <span class="progressbar__progress"></span>
     </div>
 
     <div class="main__window">
-      <!-- <PlayerSection :typeView="'lesson'" :data="getTopic.current" /> -->
-      <MentorSection />
+      <!-- <PlayerSection :typeView="'lesson'" :data="currentLesson.current" /> -->
+      <!-- <MentorSection /> -->
+      <PlayerSection
+        v-if="currentLesson?.type === 'lesson'"
+        :data="currentLesson"
+      />
+
+      <MentorSection
+        v-else-if="currentLesson?.type === 'aimentor'"
+        :lesson="currentLesson"
+      />
 
       <div class="playbar">
-        <TheLessons class="playbar__row" :lessons="getTopic.lessons" />
+        <TheLessons
+          class="playbar__row"
+          :lessons="playbar.lessons"
+          @selectLesson="handleSelectLesson"
+          v-if="playbar"
+        />
         <TheMaterials
           class="playbar__row"
-          :materials="getTopic.attachments.materials"
+          :materials="playbar.attachments.materials"
+          v-if="playbar"
         />
-        <TheLinks class="playbar__row" :links="getTopic.attachments.links" />
+        <TheLinks
+          class="playbar__row"
+          :links="playbar.attachments.links"
+          v-if="playbar"
+        />
 
-        <div class="playbar__row test">
+        <div class="playbar__row test" v-if="playbar">
           <span class="test__title"> Проверка знаний </span>
-          <div class="test__result" v-if="getTopic.quiz.userResult.isCompleted">
+          <div class="test__result" v-if="playbar.quiz.userResult.isCompleted">
             <span class="test__status"> Тестирование завершено </span>
             <span class="test__score">
-              Оценка: {{ getTopic.quiz.userResult.score }}
+              Оценка: {{ playbar.quiz.userResult.score }}
             </span>
             <button
               class="test__btn test__btn_repeat test__btn_mini"
@@ -88,7 +149,7 @@ const inputRating = (event) => {
           <div class="test__content" v-else>
             <span class="test__amount"> 10 вопросов </span>
             <p class="test__description">
-              Проверьте свои знания по теме: "{{ getTopic.current.title }}"
+              Проверьте свои знания по теме: "{{ currentLesson.title }}"
             </p>
             <button
               class="test__btn test__btn_start test__btn_mini"
@@ -98,7 +159,7 @@ const inputRating = (event) => {
             </button>
           </div>
         </div>
-        <div class="playbar__row callback">
+        <div class="playbar__row callback" v-if="playbar">
           <span class="callback__title"> Оцените урок </span>
           <form action="" method="post" @submit.prevent="sendReview">
             <div class="callback__stars">
@@ -107,8 +168,8 @@ const inputRating = (event) => {
                   'callback__star',
                   {
                     callback__star_filled:
-                      getTopic.feedback.isSubmitted &&
-                      index <= getTopic.feedback.currentRating,
+                      playbar.feedback.isSubmitted &&
+                      index <= playbar.feedback.currentRating,
                   },
                 ]"
                 type="button"
