@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from "vue";
+import { useRoute } from "vue-router";
 import { convertSecondsIntoTime } from "@/utils/dateUtils.js";
 
 const props = defineProps({
@@ -13,18 +14,21 @@ const props = defineProps({
   },
 });
 
+const route = useRoute();
+
 const emit = defineEmits(["selectLesson"]);
 
 const classItem = (lesson) => {
   const mainClass = "lessons__item";
   let classLst = [mainClass];
+  console.log(route.params)
   if (lesson.isViewed) {
     classLst.push("lessons__topic_end");
   }
   if (lesson.isLocked) {
     classLst.push("lessons__topic_block");
   }
-  if (lesson.isCurrent) {
+  if (lesson.slug === route.params.lesson) {
     classLst.push("active");
   }
   return classLst;

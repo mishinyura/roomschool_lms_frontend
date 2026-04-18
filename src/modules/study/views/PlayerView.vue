@@ -1,6 +1,6 @@
 <script setup>
-import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { ref, watch, provide } from "vue";
+import { useRoute, useRouter  } from "vue-router";
 import TheLessons from "../components/TheLessons.vue";
 import TheMaterials from "../components/TheMaterials.vue";
 import TheLinks from "../components/TheLinks.vue";
@@ -8,13 +8,15 @@ import PlayerSection from "../components/PlayerSection.vue";
 import MentorSection from "../components/MentorSection.vue";
 import { educationApi } from "@/api/educationApi.js";
 
-// import { print } from "@/utils/globalUtils.js";
+let isPractice = ref(false);
 
-const router = useRoute();
+const route = useRoute();
+const router = useRouter();
 
-// Последнее
 const playbar = ref(null);
 const currentLesson = ref(null);
+
+provide("currentLesson", currentLesson);
 
 const isPlaybarLoading = ref(false);
 const isLessonLoading = ref(false);
@@ -29,9 +31,8 @@ const loadLesson = async (lessonSlug) => {
     lessonError.value = null;
 
     const playbar_data = await educationApi.getTopicPlaybar(lessonSlug);
-    const lesson_data = await educationApi.getLesson(701);
+    const lesson_data = await educationApi.getLesson(lessonSlug);
 
-    console.log(playbar_data, lesson_data);
     playbar.value = playbar_data;
     currentLesson.value = lesson_data;
   } catch (error) {
@@ -45,7 +46,7 @@ const loadLesson = async (lessonSlug) => {
 };
 
 watch(
-  () => router.params.topic,
+  () => route.params.topic,
   async (newTopicSlug) => {
     if (!newTopicSlug) return;
 
@@ -58,11 +59,18 @@ watch(
 );
 
 const handleSelectLesson = async (lesson) => {
-  const lesson_data = await educationApi.getLesson(703);
+  router.push({ name: "player", params: { topic: route.params.topic, lesson: lesson.slug } });
+  const lesson_data = await educationApi.getLesson(lesson.slug);
 
-  currentLesson.value = lesson_data;
+  if (lesson.type === "aimentor") {
+    isPractice.value = true
+  } else {
+    isPractice.value = false
+  }
 
-  console.log(lesson);
+  // currentLesson.value = lesson_data;
+
+  console.log("playerview", lesson, lesson_data);
 };
 
 const autoResizeTextarea = (event) => {
@@ -81,15 +89,7 @@ const inputRating = (event) => {
 
 <template>
   <div class="main__container">
-    <div class="main__bullet breadcrumbs">
-      <button class="breadcrumbs__btn" @click="router.push({ name: 'study' })">
-        Назад
-      </button>
-      <ul class="breadcrumbs__list">
-        <li class="breadcrumbs__item">{{ programTitle }}</li>
-        <li class="breadcrumbs__item">{{ moduleTitle }}</li>
-      </ul>
-    </div>
+    <button class="main__btn" @click="router.back()">Назад</button>
 
     <div class="main__progress progressbar">
       <h3 class="progressbar__title">Прогресс по теме</h3>
@@ -102,15 +102,13 @@ const inputRating = (event) => {
     </div>
 
     <div class="main__window">
-      <!-- <PlayerSection :typeView="'lesson'" :data="currentLesson.current" /> -->
-      <!-- <MentorSection /> -->
       <PlayerSection
-        v-if="currentLesson?.type === 'lesson'"
+        v-if="!isPractice"
         :data="currentLesson"
       />
 
       <MentorSection
-        v-else-if="currentLesson?.type === 'aimentor'"
+        v-else
         :lesson="currentLesson"
       />
 
@@ -149,7 +147,7 @@ const inputRating = (event) => {
           <div class="test__content" v-else>
             <span class="test__amount"> 10 вопросов </span>
             <p class="test__description">
-              Проверьте свои знания по теме: "{{ currentLesson.title }}"
+              Проверьте свои знания по теме: "{{ currentLesson?.title }}"
             </p>
             <button
               class="test__btn test__btn_start test__btn_mini"
@@ -197,6 +195,12 @@ const inputRating = (event) => {
 </template>
 
 <style lang="scss" scoped>
+.main {
+  &__btn {
+    @include btn-blue-small;
+    margin-bottom: 10px;
+  }
+}
 .progressbar {
   display: flex;
   flex-wrap: wrap;

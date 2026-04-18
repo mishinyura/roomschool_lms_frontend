@@ -21,14 +21,14 @@ const amountTestsFormat = (amount) => {
   return pluralize(amount, "тест", "теста", "тестов");
 };
 
-const openPlayer = (slug) => {
+const openPlayer = (topic) => {
   router.push({
     name: "player",
     params: {
-      program: programContext?.programSlug, 
+      program: programContext?.programSlug,
       module: moduleContext?.moduleSlug,
-      topic: slug,
-      lesson: 1,
+      topic: topic.slug,
+      lesson: moduleContext.lastLesson,
     },
   });
 };
@@ -80,7 +80,7 @@ const modClassName = (prefix) => {
           },
         ]"
         v-if="!props.topic.isBlock"
-        @click="openPlayer(props.topic.slug)"
+        @click="openPlayer(props.topic)"
       >
         {{
           props.topic.progress === props.topic.videos + props.topic.tests

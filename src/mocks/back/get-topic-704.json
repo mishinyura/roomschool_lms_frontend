@@ -1,0 +1,20 @@
+{
+    "slug": "hierarchy-of-laws",
+    "type": "lesson",
+    "title": "Иерархия законов",
+    "isViewed": false,
+    "video": {
+        "src": "hierarchy-of-laws.mp4",
+        "poster": "/assets/media/posters/law/hierarchy-of-laws.jpg",
+        "mimeType": "video/mp4"
+    },
+    "description": "<h3>Конспект урока</h3><p>Изучаем, как устроена иерархия нормативных актов: от Конституции до подзаконных актов, и почему более низкие акты не могут противоречить более высоким.</p>",
+    "navigation": {
+        "prev": "law-as-main-source-of-law",
+        "next": "main-codes-of-russia"
+    },
+    "progress": {
+        "completed": 0,
+        "total": 6
+    }
+}

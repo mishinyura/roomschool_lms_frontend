@@ -1,20 +1,20 @@
 {
-    "id": 703,
-    "type": "aimentor",
-    "title": "",
-    "isViewed": false,
-    "video": {
-        "src": "/assets/media/videos/m7/lesson1.mp4",
-        "poster": "/assets/media/posters/m7/lesson1.jpg",
-        "mimeType": "video/mp4"
-    },
-    "description": "<h3>Конспект урока</h3><p>Самая эффективная система – это визуальная карта. Мы научимся делить дела на блоки (учеба, хобби, спорт), использовать цвета и определять Ключевой блок дня, вокруг которого строится всё остальное.</p>",
-    "navigation": {
-        "prev": null,
-        "next": 702
-    },
-    "progress": {
-      "completed": 0,
-      "total": 3
-    }
+  "slug": "law-as-main-source-of-law",
+  "type": "lesson",
+  "title": "Закон как основной источник права",
+  "isViewed": false,
+  "video": {
+    "src": "law-as-main-source-of-law.mp4",
+    "poster": "/assets/media/posters/law/law-as-main-source-of-law.jpg",
+    "mimeType": "video/mp4"
+  },
+  "description": "<h3>Конспект урока</h3><p>Обсуждаем, почему закон считается главным источником права и какое значение он имеет в правовой системе государства.</p>",
+  "navigation": {
+    "prev": "difference-from-morality",
+    "next": "hierarchy-of-laws"
+  },
+  "progress": {
+    "completed": 0,
+    "total": 6
+  }
 }

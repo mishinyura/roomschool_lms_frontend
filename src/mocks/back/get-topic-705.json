@@ -1,0 +1,20 @@
+{
+  "slug": "main-codes-of-russia",
+  "type": "lesson",
+  "title": "Основные кодексы РФ",
+  "isViewed": false,
+  "video": {
+    "src": "main-codes-of-russia.mp4",
+    "poster": "/assets/media/posters/law/main-codes-of-russia.jpg",
+    "mimeType": "video/mp4"
+  },
+  "description": "<h3>Конспект урока</h3><p>Разбираем, какие кодексы существуют в России, какие сферы они регулируют и зачем юристам и гражданам понимать их назначение.</p>",
+  "navigation": {
+    "prev": "hierarchy-of-laws",
+    "next": "practice-with-ai-mentor"
+  },
+  "progress": {
+    "completed": 0,
+    "total": 6
+  }
+}

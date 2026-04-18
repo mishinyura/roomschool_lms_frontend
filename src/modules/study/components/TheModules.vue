@@ -17,6 +17,7 @@ let topicHeight = ref(0);
 provide('moduleContext', {
   moduleSlug: props.module.slug,
   moduleTitle: props.module.title,
+  lastLesson: props.module.lastLesson
 });
 
 const progress = computed(() => {

@@ -126,7 +126,7 @@ const autoResizeTextarea = (event) => {
 .mentor {
   display: flex;
   flex-direction: column;
-  max-height: 70vh;
+  max-height: 75vh;
   border-radius: $radius-lg;
   background-color: $color-section-white;
 
@@ -135,6 +135,7 @@ const autoResizeTextarea = (event) => {
     padding: 1em;
     overflow-y: auto;
   }
+
 
   &__head {
     display: flex;

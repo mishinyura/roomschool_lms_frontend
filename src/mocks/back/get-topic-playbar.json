@@ -1,25 +1,55 @@
 {
     "lessons": [
         {
-            "id": 701,
-            "title": "Собираем мою систему времени",
-            "duration": 650,
-            "isViewed": false,
-            "isCurrent": true,
-            "isLocked": false
-        },
-        {
-            "id": 702,
-            "title": "Как адаптировать систему под школу, кружки и жизнь",
-            "duration": 720,
+            "slug": "what-is-law",
+            "type": "lesson",
+            "title": "Что такое право?",
+            "duration": 210,
             "isViewed": false,
             "isCurrent": false,
             "isLocked": false
         },
         {
-            "id": 703,
-            "title": "Практика с AI ментором",
-            "duration": 680,
+            "slug": "difference-from-morality",
+            "type": "lesson",
+            "title": "Отличие от морали",
+            "duration": 425,
+            "isViewed": false,
+            "isCurrent": true,
+            "isLocked": false
+        },
+        {
+            "slug": "law-as-main-source-of-law",
+            "type": "lesson",
+            "title": "Закон как основной источник права",
+            "duration": 380,
+            "isViewed": false,
+            "isCurrent": false,
+            "isLocked": false
+        },
+        {
+            "slug": "hierarchy-of-laws",
+            "type": "lesson",
+            "title": "Иерархия законов",
+            "duration": 540,
+            "isViewed": false,
+            "isCurrent": false,
+            "isLocked": false
+        },
+        {
+            "slug": "main-codes-of-russia",
+            "type": "lesson",
+            "title": "Основные кодексы РФ",
+            "duration": 720,
+            "isViewed": false,
+            "isCurrent": false,
+            "isLocked": true
+        },
+        {
+            "slug": "practice-with-ai-mentor",
+            "type": "aimentor",
+            "title": "Практическое задание с AI ментором",
+            "duration": 660,
             "isViewed": false,
             "isCurrent": false,
             "isLocked": false
@@ -28,7 +58,7 @@
     "attachments": {
         "materials": [
             {
-                "name": "Финальный проект: Моя система времени",
+                "name": "Дополнительные материалы к уроку",
                 "size": "250000",
                 "url": "/api/download/material/m7_final_project"
             }
@@ -39,8 +69,8 @@
         "id": 507,
         "questionsCount": 15,
         "userResult": {
-            "isCompleted": false,
-            "score": 0
+            "isCompleted": true,
+            "score": 10
         }
     },
     "feedback": {

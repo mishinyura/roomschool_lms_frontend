@@ -1,0 +1,124 @@
+[
+  {
+    "title": "Социальный",
+    "block": "Факультатив",
+    "slug": "social",
+    "completed": 0,
+    "total": 1,
+    "modules": [
+        {
+        "title": "Правовая грамотность",
+        "slug": "pravovaya-gramotnost",
+        "lastLesson": "what-is-law",
+        "completed": 0,
+        "total": 12,
+        "topics": [
+          {
+            "title": "Знакомство",
+            "slug": "zachem-lyudyam-voobsche-nuzhny-zakony",
+            "progress": 3,
+            "videos": 2,
+            "tests": 1,
+            "isBlock": false
+          },
+          {
+            "title": "Введение в право",
+            "slug": "pravila-doma-v-shkole-i-v-obschestve",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": false
+          },
+          {
+            "title": "Правоспособность и дееспособность",
+            "slug": "kakie-prava-est-u-rebenka-uzhe-seichas",
+            "progress": 0,
+            "videos": 4,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Административная ответственность",
+            "slug": "ne-tolko-prava-no-i-otvetstvennost",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Уголовная ответственность (УК РФ)",
+            "slug": "chto-takoe-lichnye-dannye-i-pochemu-ih-nuzhno-berech",
+            "progress": 0,
+            "videos": 5,
+            "tests": 1,
+            "isBlock": true
+          }
+        ]
+      },
+      {
+        "title": "Тайм-менеджмент",
+        "slug": "time-management",
+        "completed": 0,
+        "total": 7,
+        "topics": [
+          {
+            "title": "Время - это не часы",
+            "slug": "vremya-eto-ne-chasy",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": false
+          },
+          {
+            "title": "Почему я ничего не делаю (и это не лень)",
+            "slug": "pochemu-ya-nichego-ne-delayu",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Как концентрироваться в мире отвлечений",
+            "slug": "kak-koncentrirovatsya",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Дела, которые не бесят",
+            "slug": "dela-kotorye-ne-besyat",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Планирование без занудства",
+            "slug": "planirovanie-bez-zanudstva",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Ты и твой ритм жизни",
+            "slug": "ty-i-tvoj-ritm-zhizni",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          },
+          {
+            "title": "Я - хозяин своего времени",
+            "slug": "ya-hozyain-svoego-vremeni",
+            "progress": 0,
+            "videos": 3,
+            "tests": 1,
+            "isBlock": true
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,5 +1,7 @@
 <script setup>
 import { defineProps, ref } from "vue";
+// import { useRoute } from "vue-router";
+// import { educationApi } from "@/api/educationApi.js";
 
 let isActivePlayer = ref(false);
 
@@ -10,7 +12,10 @@ const props = defineProps({
   },
 });
 
-console.log(props.data);
+// const videoUrl = `${process.env.BASE_URL}media/` + props.data.video.src;
+const videoUrl = `/media/`;
+
+console.log("videoUrl", videoUrl);
 
 const handlePlay = (event) => {
   isActivePlayer.value = true;
@@ -29,25 +34,25 @@ const handlePause = () => {
 
 <template>
   <section class="player">
-    <div :class="['player__video', isActiveview ? 'play' : '']">
+    <div :class="['player__video', isActivePlayer ? 'play' : '']">
       <video
         controls
         poster="@/assets/media/poster.png"
         @play="handlePlay"
         @pause="handlePause"
       >
-        <source src="@/assets/media/video.mp4" type="video/mp4" />
+        <source :src="videoUrl" :type="props.data.video.mimeType" v-if="props.data"/>
         Ваш браузер не поддерживает видео.
       </video>
     </div>
     <div class="player__info">
       <div class="player__head">
-        <h2 class="player__title">{{ props.data.title }}</h2>
+        <h2 class="player__title">{{ props.data?.title }}</h2>
         <span class="player__status"> Завершено </span>
       </div>
       <div
         class="player__description description_md"
-        v-html="props.data.description"
+        v-html="props.data?.description"
       ></div>
     </div>
     <div class="player__btns">
@@ -94,7 +99,7 @@ const handlePause = () => {
     }
 
     &.play::before {
-      background: none;
+      display: none;
     }
 
     video {

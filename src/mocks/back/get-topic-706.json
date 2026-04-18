@@ -1,0 +1,15 @@
+{
+  "slug": "practice-with-ai-mentor",
+  "type": "aimentor",
+  "title": "Практическое задание с AI ментором",
+  "isViewed": false,
+  "description": "<h3>Практика</h3><p>В этом блоке ученик применяет знания по теме на практике, разбирает жизненные ситуации и решает задания в диалоге с AI ментором.</p>",
+  "navigation": {
+    "prev": "main-codes-of-russia",
+    "next": null
+  },
+  "progress": {
+    "completed": 0,
+    "total": 6
+  }
+}

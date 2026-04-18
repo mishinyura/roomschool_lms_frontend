@@ -1,0 +1,20 @@
+{
+    "slug": "difference-from-morality",
+    "type": "lesson",
+    "title": "Отличие от морали",
+    "isViewed": false,
+    "video": {
+        "src": "difference-from-morality.mp4",
+        "poster": "/assets/media/posters/law/difference-from-morality.jpg",
+        "mimeType": "video/mp4"
+    },
+    "description": "<h3>Конспект урока</h3><p>Рассматриваем различия между правом и моралью: кто устанавливает нормы, как они исполняются и что происходит при их нарушении.</p>",
+    "navigation": {
+        "prev": "what-is-law",
+        "next": "law-as-main-source-of-law"
+    },
+    "progress": {
+        "completed": 0,
+        "total": 6
+    }
+}

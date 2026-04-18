@@ -1,8 +1,17 @@
 <script setup>
-import programsJson from "@/mocks/programs.json";
+import { ref, onMounted } from "vue";
 import ThePrograms from "./ThePrograms.vue";
+import { educationApi } from "@/api/educationApi.js";
 
-const programs = programsJson;
+const programs = ref([]);
+
+const loadPrograms = async () => {
+  programs.value = await educationApi.getPrograms();
+};
+
+onMounted(() => {
+  loadPrograms();
+});
 </script>
 
 <template>
@@ -24,7 +33,7 @@ const programs = programsJson;
         {{ programs.length }}
       </p>
       <a href="https://roomschool.ru/courses" class="programs__link">
-        Посмотреть программы 
+        Посмотреть программы
       </a>
     </div>
   </section>
