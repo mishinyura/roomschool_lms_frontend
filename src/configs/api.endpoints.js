@@ -20,6 +20,9 @@ export const API_ENDPOINTS = {
     LIST: '/study/',
     GET_BY_ID: (program, module, topic, lesson) => `/player/${program}/${module}/${topic}/${lesson}/`
   },
+  COMMUNICATION: {
+    LIST: '/messages/'
+  },
   TASKS: {
     LIST: '/tasks',
     GET_BY_ID: (id) => `/tasks/${id}/`,

@@ -1,8 +1,9 @@
 <script setup>
-import { ref, nextTick } from "vue";
-import MarkdownIt from 'markdown-it'
-import DOMPurify from 'dompurify'
-import {send_message} from "@/api/llmApi.js";
+import { ref, nextTick, onMounted } from "vue";
+import MarkdownIt from "markdown-it";
+import DOMPurify from "dompurify";
+import { send_message } from "@/api/llmApi.js";
+import {communicationApi} from "@/api/communicationApi.js";
 
 const messagesContainer = ref(null);
 const messageText = ref("");
@@ -15,11 +16,17 @@ let messages = ref([
   }
 ]);
 
+let isTyping = ref(false);
+let isLoadMessages = ref(true);
+
 const md = new MarkdownIt({
   html: false,
   linkify: true,
   breaks: true,
-})
+});
+
+const socrateImage = require("@/assets/media/images/socrate.jpg");
+const userImage = require("" || "@/assets/media/images/no-user-photo.webp");
 
 const renderMarkdown = (text) => {
   const rawHtml = md.render(text || "");
@@ -29,22 +36,24 @@ const renderMarkdown = (text) => {
 const send_new_message = async (message) => {
   if (!message.trim()) return;
 
+  isTyping.value = true;
+
+  messageText.value = "";
+
   messages.value.push({
     text: message,
     sender: "user",
   });
-  
+  await scrollToBottom();
 
   const result = await send_message(message);
 
-  console.log(result);
+  isTyping.value = false;
 
   messages.value.push({
     text: result.message,
     sender: "assistant",
   });
-
-  messageText.value = "";
 
   resetTextareaHeight();
 
@@ -84,24 +93,38 @@ const autoResizeTextarea = (event) => {
     el.style.overflowY = "hidden";
   }
 };
+
+const loadHistoryMessages = async () => {
+  const historyMessages = await communicationApi.getHistoryMessages();
+  messages.value.push(...historyMessages);
+  isLoadMessages.value = false;
+};
+
+onMounted(async () => {
+  await loadHistoryMessages();
+  await scrollToBottom();
+});
 </script>
 
 <template>
   <section class="mentor">
-    <div class="mentor__messenger" ref="messagesContainer">
-      <div class="mentor__head">
-        <div class="mentor__image">
-          <img src="@/assets/media/images/no-user-photo.webp" alt="" />
-        </div>
-        <span> Mentor </span>
+    <div class="mentor__head">
+        <span class="mentor__name">AI Ментор</span>
+        <span class="mentor__typing" v-if="isTyping">
+          Печатает...
+        </span>
       </div>
-      <ul class="mentor__messages">
+    <div class="mentor__messenger" ref="messagesContainer">
+      <ul class="mentor__messages" v-if="!isLoadMessages">
         <li
           :class="['mentor__message', 'mentor__message_' + message.sender]"
           v-for="(message, index) in messages"
           :key="index"
-          v-html="renderMarkdown(message.text)"
         >
+          <div class="mentor__avatar">
+            <img :src="message.sender === 'user' ? userImage : socrateImage" alt="">
+          </div>
+          <div class="mentor__text" v-html="renderMarkdown(message.text)"></div>
         </li>
       </ul>
     </div>
@@ -123,6 +146,14 @@ const autoResizeTextarea = (event) => {
 </template>
 
 <style lang="scss" scoped>
+@keyframes typing {
+  from {
+    width: 67px;
+  }
+  to {
+    width: 75px;
+  }
+}
 .mentor {
   display: flex;
   flex-direction: column;
@@ -131,27 +162,83 @@ const autoResizeTextarea = (event) => {
   background-color: $color-section-white;
 
   &__messenger {
-    flex-grow: 1;
-    padding: 1em;
     overflow-y: auto;
+    flex-grow: 1;
   }
 
-
   &__head {
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
     display: flex;
     align-items: center;
     gap: 10px;
+    min-height: 60px;
     margin-bottom: 20px;
+    padding: 0.2em 1em;
+    border-radius: $radius-lg;
     font-family: $font-family-montserrat;
     font-size: $font-size-title-xs;
     font-weight: 500;
+    background-color: $color-section-white;
+    box-shadow: $shadow-podium;
   }
 
-  &__image {
-    width: 30px;
-    height: 30px;
+  &__name {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-title-xs;
+    font-weight: 500;
+    color: $color-text-black;
+  }
+
+  &__typing {
+    width: 67px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+    color: $color-text-grey;
     overflow: hidden;
+    animation: typing 1s infinite;
+  }
+
+  &__messages {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 1em;
+  }
+
+  &__message {
+    display: flex;
+    gap: 10px;
+    
+
+    &_user {
+      flex-direction: row-reverse;
+      align-self: flex-end;
+
+      & .mentor__text {
+        background-color: $color-card-blue;
+      }
+    }
+
+    &_assistent {
+      align-self: flex-start;
+    }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: $border-grey;
     border-radius: 50%;
+    background-image: url('@/assets/media/images/no-user-photo.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
     img {
       width: 100%;
@@ -160,13 +247,7 @@ const autoResizeTextarea = (event) => {
     }
   }
 
-  &__messages {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  &__message {
+  &__text {
     padding: 0.5em 1em;
     border: $border-grey;
     border-radius: $radius-lg;
@@ -175,15 +256,6 @@ const autoResizeTextarea = (event) => {
     font-family: $font-family-montserrat;
     font-size: $font-size-text-md;
     font-weight: 400;
-
-    &_user {
-      align-self: flex-end;
-      background-color: $color-card-blue;
-    }
-
-    &_assistent {
-      align-self: flex-start;
-    }
   }
 
   &__control {
