@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, provide } from "vue";
-import { useRoute, useRouter  } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import TheLessons from "../components/TheLessons.vue";
 import TheMaterials from "../components/TheMaterials.vue";
 import TheLinks from "../components/TheLinks.vue";
@@ -8,7 +8,7 @@ import PlayerSection from "../components/PlayerSection.vue";
 import MentorSection from "../components/MentorSection.vue";
 import { educationApi } from "@/api/educationApi.js";
 
-let isPractice = ref(false);
+const isPractice = ref(false);
 
 const route = useRoute();
 const router = useRouter();
@@ -24,23 +24,57 @@ const isLessonLoading = ref(false);
 const playbarError = ref(null);
 const lessonError = ref(null);
 
-const loadLesson = async (lessonSlug) => {
+const setLessonMode = (lesson) => {
+  isPractice.value = lesson?.type === "aimentor";
+};
+
+const loadPlaybar = async (topicSlug) => {
+  if (!topicSlug) return;
+
   try {
     isPlaybarLoading.value = true;
-    isLessonLoading.value = true;
-    lessonError.value = null;
+    playbarError.value = null;
 
-    const playbar_data = await educationApi.getTopicPlaybar(lessonSlug);
-    const lesson_data = await educationApi.getLesson(lessonSlug);
+    const playbarData = await educationApi.getTopicPlaybar(topicSlug);
+    playbar.value = playbarData;
 
-    playbar.value = playbar_data;
-    currentLesson.value = lesson_data;
+    if (!route.params.lesson && playbarData?.lessons?.length) {
+      const fallbackLessonSlug =
+        playbarData.lessons.find((lesson) => lesson.isCurrent)?.slug ||
+        playbarData.lessons[0]?.slug;
+
+      if (fallbackLessonSlug) {
+        await router.replace({
+          name: "player",
+          params: {
+            ...route.params,
+            lesson: fallbackLessonSlug,
+          },
+        });
+      }
+    }
   } catch (error) {
     playbarError.value = error;
-    lessonError.value = error;
     console.error(error);
   } finally {
     isPlaybarLoading.value = false;
+  }
+};
+
+const loadLesson = async (lessonSlug) => {
+  if (!lessonSlug) return;
+
+  try {
+    isLessonLoading.value = true;
+    lessonError.value = null;
+
+    const lessonData = await educationApi.getLesson(lessonSlug);
+    currentLesson.value = lessonData;
+    setLessonMode(lessonData);
+  } catch (error) {
+    lessonError.value = error;
+    console.error(error);
+  } finally {
     isLessonLoading.value = false;
   }
 };
@@ -48,29 +82,30 @@ const loadLesson = async (lessonSlug) => {
 watch(
   () => route.params.topic,
   async (newTopicSlug) => {
-    if (!newTopicSlug) return;
-
     currentLesson.value = null;
-    // currentLessonSlug.value = null
+    await loadPlaybar(newTopicSlug);
+  },
+  { immediate: true }
+);
 
-    await loadLesson(newTopicSlug);
+watch(
+  () => route.params.lesson,
+  async (newLessonSlug) => {
+    await loadLesson(newLessonSlug);
   },
   { immediate: true }
 );
 
 const handleSelectLesson = async (lesson) => {
-  router.push({ name: "player", params: { topic: route.params.topic, lesson: lesson.slug } });
-  const lesson_data = await educationApi.getLesson(lesson.slug);
-
-  if (lesson.type === "aimentor") {
-    isPractice.value = true
-  } else {
-    isPractice.value = false
-  }
-
-  // currentLesson.value = lesson_data;
-
-  console.log("playerview", lesson, lesson_data);
+  await router.push({
+    name: "player",
+    params: {
+      program: route.params.program,
+      module: route.params.module,
+      topic: route.params.topic,
+      lesson: lesson.slug,
+    },
+  });
 };
 
 const autoResizeTextarea = (event) => {
@@ -94,23 +129,15 @@ const inputRating = (event) => {
     <div class="main__progress progressbar">
       <h3 class="progressbar__title">Прогресс по теме</h3>
       <span class="progressbar__count" v-if="currentLesson">
-        {{ currentLesson.progress.completed }}/{{
-          currentLesson.progress.total
-        }}
+        {{ currentLesson.progress.completed }}/{{ currentLesson.progress.total }}
       </span>
       <span class="progressbar__progress"></span>
     </div>
 
     <div class="main__window">
-      <PlayerSection
-        v-if="!isPractice"
-        :data="currentLesson"
-      />
+      <PlayerSection v-if="!isPractice" :data="currentLesson" />
 
-      <MentorSection
-        v-else
-        :lesson="currentLesson"
-      />
+      <MentorSection v-else :lesson="currentLesson" />
 
       <div class="playbar">
         <TheLessons
@@ -149,10 +176,7 @@ const inputRating = (event) => {
             <p class="test__description">
               Проверьте свои знания по теме: "{{ currentLesson?.title }}"
             </p>
-            <button
-              class="test__btn test__btn_start test__btn_mini"
-              tabindex="0"
-            >
+            <button class="test__btn test__btn_start test__btn_mini" tabindex="0">
               Пройти тест
             </button>
           </div>
@@ -258,190 +282,4 @@ const inputRating = (event) => {
 }
 
 // --- Right Sidebar Sections ---
-.playbar__row {
-  height: fit-content;
-  border-radius: $radius-lg;
-  background-color: $color-section-white;
-
-  &:not(:last-child) {
-    margin-bottom: $margin-item;
-  }
-}
-
-// --- Test Section ---
-.test {
-  padding: 1em;
-
-  &__title {
-    @include player-title("@/assets/media/icons/tests.svg");
-  }
-
-  &__result {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-    padding: 0.5em 1em;
-    margin-bottom: 10px;
-    border-radius: $radius-lg;
-    background-color: $color-label-light-green;
-  }
-
-  &__status,
-  &__score {
-    font-family: $font-family-montserrat;
-    font-size: $font-size-text-xs;
-    font-weight: 400;
-    color: $color-text-green;
-  }
-
-  &__status {
-    flex-basis: 100%;
-  }
-
-  &__btn {
-    @include btn-blue-small;
-
-    &_repeat {
-      color: $color-text-black;
-      background-color: $color-btn-grey;
-
-      &:hover,
-      &:focus-visible {
-        color: $color-text-white;
-        background-color: $color-action-dark-grey;
-      }
-
-      &:active {
-        color: $color-action-white;
-        background-color: $color-action-dark-grey;
-      }
-    }
-  }
-
-  &__amount {
-    display: inline-block;
-    padding: 0.2em 0.4em;
-    margin-bottom: 10px;
-    border: $border-blue;
-    border-radius: $radius-lg;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-text-min;
-    font-weight: 400;
-  }
-
-  &__description {
-    margin-bottom: 10px;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-text-min;
-    font-weight: 400;
-    color: $color-text-grey;
-  }
-}
-
-// --- Callback Section ---
-.callback {
-  padding: 1em;
-
-  &__title {
-    @include player-title("@/assets/media/icons/tests.svg");
-    // Note: mask shorthand was used in CSS, replaced with mixin logic
-  }
-
-  &__stars {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    margin-bottom: 20px;
-  }
-
-  &__star {
-    position: relative;
-    width: 25px;
-    height: 25px;
-    transition: transform 0.2s ease;
-
-    &::before,
-    &::after {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      mask: url("@/assets/media/icons/star-callback.svg") no-repeat
-        center/contain;
-      background-color: $color-icon-blue;
-    }
-
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    &_filled::after {
-      mask: url("@/assets/media/icons/star-callback-full.svg") no-repeat
-        center/contain;
-    }
-
-    &:hover,
-    &:focus-visible {
-      transform: scale(1.2);
-    }
-
-    &:active {
-      transform: scale(1.2);
-      background-color: $color-icon-blue;
-    }
-  }
-
-  &__textarea {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 60px;
-    padding: 0.5em;
-    margin-bottom: 10px;
-    overflow: hidden;
-    resize: none;
-    border: none;
-    border-radius: $radius-sm;
-    outline: $border-blue; // Using variable for outline-color if applicable, or fallback
-    font-family: $font-family-montserrat;
-    font-size: $font-size-text-min;
-    font-weight: 400;
-    transition: outline-color 0.1s ease;
-
-    &::placeholder {
-      color: $color-text-blue;
-    }
-
-    &:hover,
-    &:focus-visible {
-      outline-color: $color-btn-dark-blue;
-    }
-  }
-
-  &__btn {
-    padding: 0.5em 1em;
-    border-radius: $radius-max;
-    font-family: $font-family-montserrat;
-    font-size: $font-size-text-min;
-    font-weight: 400;
-    color: $color-text-black;
-    background-color: $color-btn-blue;
-    transition: background-color 0.1s ease, color 0.1s ease;
-
-    &:hover,
-    &:focus-visible {
-      color: $color-text-white;
-      background-color: $color-action-blue;
-    }
-
-    &:active {
-      color: $color-text-white;
-      background-color: $color-action-dark-blue;
-    }
-  }
-}
 </style>
