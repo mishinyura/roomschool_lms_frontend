@@ -129,7 +129,9 @@ const inputRating = (event) => {
     <div class="main__progress progressbar">
       <h3 class="progressbar__title">Прогресс по теме</h3>
       <span class="progressbar__count" v-if="currentLesson">
-        {{ currentLesson.progress.completed }}/{{ currentLesson.progress.total }}
+        {{ currentLesson.progress.completed }}/{{
+          currentLesson.progress.total
+        }}
       </span>
       <span class="progressbar__progress"></span>
     </div>
@@ -176,7 +178,10 @@ const inputRating = (event) => {
             <p class="test__description">
               Проверьте свои знания по теме: "{{ currentLesson?.title }}"
             </p>
-            <button class="test__btn test__btn_start test__btn_mini" tabindex="0">
+            <button
+              class="test__btn test__btn_start test__btn_mini"
+              tabindex="0"
+            >
               Пройти тест
             </button>
           </div>
@@ -281,5 +286,189 @@ const inputRating = (event) => {
   transition: grid-template-columns 0.3s ease;
 }
 
-// --- Right Sidebar Sections ---
+.playbar__row {
+  height: fit-content;
+  border-radius: $radius-lg;
+  background-color: $color-section-white;
+
+  &:not(:last-child) {
+    margin-bottom: $margin-item;
+  }
+}
+
+// --- Test Section ---
+.test {
+  padding: 1em;
+
+  &__title {
+    @include player-title("@/assets/media/icons/tests.svg");
+  }
+
+  &__result {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0.5em 1em;
+    margin-bottom: 10px;
+    border-radius: $radius-lg;
+    background-color: $color-label-light-green;
+  }
+
+  &__status,
+  &__score {
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-xs;
+    font-weight: 400;
+    color: $color-text-green;
+  }
+
+  &__status {
+    flex-basis: 100%;
+  }
+
+  &__btn {
+    @include btn-blue-small;
+
+    &_repeat {
+      color: $color-text-black;
+      background-color: $color-btn-grey;
+
+      &:hover,
+      &:focus-visible {
+        color: $color-text-white;
+        background-color: $color-action-dark-grey;
+      }
+
+      &:active {
+        color: $color-action-white;
+        background-color: $color-action-dark-grey;
+      }
+    }
+  }
+
+  &__amount {
+    display: inline-block;
+    padding: 0.2em 0.4em;
+    margin-bottom: 10px;
+    border: $border-blue;
+    border-radius: $radius-lg;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+  }
+
+  &__description {
+    margin-bottom: 10px;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    color: $color-text-grey;
+  }
+}
+
+// --- Callback Section ---
+.callback {
+  padding: 1em;
+
+  &__title {
+    @include player-title("@/assets/media/icons/tests.svg");
+  }
+
+  &__stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 20px;
+  }
+
+  &__star {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.2s ease;
+
+    &::before,
+    &::after {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      mask: url("@/assets/media/icons/star-callback.svg") no-repeat
+        center/contain;
+      background-color: $color-icon-blue;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &_filled::after {
+      mask: url("@/assets/media/icons/star-callback-full.svg") no-repeat
+        center/contain;
+    }
+
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(1.2);
+      background-color: $color-icon-blue;
+    }
+  }
+
+  &__textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 60px;
+    padding: 0.5em;
+    margin-bottom: 10px;
+    overflow: hidden;
+    resize: none;
+    border: none;
+    border-radius: $radius-sm;
+    outline: $border-blue;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    transition: outline-color 0.1s ease;
+
+    &::placeholder {
+      color: $color-text-blue;
+    }
+
+    &:hover,
+    &:focus-visible {
+      outline-color: $color-btn-dark-blue;
+    }
+  }
+
+  &__btn {
+    padding: 0.5em 1em;
+    border-radius: $radius-max;
+    font-family: $font-family-montserrat;
+    font-size: $font-size-text-min;
+    font-weight: 400;
+    color: $color-text-black;
+    background-color: $color-btn-blue;
+    transition: background-color 0.1s ease, color 0.1s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $color-text-white;
+      background-color: $color-action-blue;
+    }
+
+    &:active {
+      color: $color-text-white;
+      background-color: $color-action-dark-blue;
+    }
+  }
+}
 </style>
