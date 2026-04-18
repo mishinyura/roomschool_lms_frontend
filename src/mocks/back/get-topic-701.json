@@ -2,7 +2,7 @@
     "slug": "what-is-law",
     "type": "lesson",
     "title": "Что такое право?",
-    "isViewed": false,
+    "isViewed": true,
     "video": {
       "src": "0416.mp4",
       "poster": "/assets/media/posters/m7/lesson1.jpg",

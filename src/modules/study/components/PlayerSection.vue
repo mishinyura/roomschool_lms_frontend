@@ -1,9 +1,14 @@
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref, computed } from "vue";
+
+import MarkdownIt from "markdown-it";
+import DOMPurify from "dompurify";
+
 // import { useRoute } from "vue-router";
 // import { educationApi } from "@/api/educationApi.js";
 
 let isActivePlayer = ref(false);
+const md = new MarkdownIt();
 
 const props = defineProps({
   data: {
@@ -16,6 +21,11 @@ const props = defineProps({
 const videoUrl = `/media/`;
 
 console.log("videoUrl", videoUrl);
+
+const renderedHtml = computed(() => {
+  const rawHtml = md.render(props.data?.description || "");
+  return DOMPurify.sanitize(rawHtml);
+});
 
 const handlePlay = (event) => {
   isActivePlayer.value = true;
@@ -41,18 +51,29 @@ const handlePause = () => {
         @play="handlePlay"
         @pause="handlePause"
       >
-        <source :src="videoUrl" :type="props.data.video.mimeType" v-if="props.data"/>
+        <source
+          :src="videoUrl"
+          :type="props.data.video.mimeType"
+          v-if="props.data"
+        />
         Ваш браузер не поддерживает видео.
       </video>
     </div>
     <div class="player__info">
       <div class="player__head">
         <h2 class="player__title">{{ props.data?.title }}</h2>
-        <span class="player__status"> Завершено </span>
+        <span
+          :class="[
+            'player__status',
+            'player__status' + (props.data?.isViewed ? '_end' : '_process'),
+          ]"
+        >
+          {{ props.data?.isViewed ? "Завершено" : "В процессе" }}
+        </span>
       </div>
       <div
         class="player__description description_md"
-        v-html="props.data?.description"
+        v-html="renderedHtml"
       ></div>
     </div>
     <div class="player__btns">
@@ -137,7 +158,14 @@ const handlePause = () => {
     font-size: $font-size-title-xs;
     font-weight: 500;
     color: $color-text-white;
-    background-color: $color-label-dark-green;
+
+    &_end {
+      background-color: $color-label-dark-green;
+    }
+
+    &_process {
+      background-color: $color-label-dark-blue;
+    }
   }
 
   &__description {

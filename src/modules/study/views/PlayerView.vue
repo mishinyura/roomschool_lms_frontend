@@ -1,6 +1,8 @@
 <script setup>
 import { ref, watch, provide } from "vue";
 import { useRoute, useRouter } from "vue-router";
+
+
 import TheLessons from "../components/TheLessons.vue";
 import TheMaterials from "../components/TheMaterials.vue";
 import TheLinks from "../components/TheLinks.vue";
@@ -9,6 +11,7 @@ import MentorSection from "../components/MentorSection.vue";
 import { educationApi } from "@/api/educationApi.js";
 
 const isPractice = ref(false);
+
 
 const route = useRoute();
 const router = useRouter();
@@ -23,6 +26,8 @@ const isLessonLoading = ref(false);
 
 const playbarError = ref(null);
 const lessonError = ref(null);
+
+
 
 const setLessonMode = (lesson) => {
   isPractice.value = lesson?.type === "aimentor";

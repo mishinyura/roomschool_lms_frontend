@@ -5,7 +5,7 @@
             "type": "lesson",
             "title": "Что такое право?",
             "duration": 210,
-            "isViewed": false,
+            "isViewed": true,
             "isCurrent": false,
             "isLocked": false
         },
@@ -14,7 +14,7 @@
             "type": "lesson",
             "title": "Отличие от морали",
             "duration": 425,
-            "isViewed": false,
+            "isViewed": true,
             "isCurrent": true,
             "isLocked": false
         },
@@ -23,7 +23,7 @@
             "type": "lesson",
             "title": "Закон как основной источник права",
             "duration": 380,
-            "isViewed": false,
+            "isViewed": true,
             "isCurrent": false,
             "isLocked": false
         },
@@ -33,7 +33,7 @@
             "title": "Иерархия законов",
             "duration": 540,
             "isViewed": false,
-            "isCurrent": false,
+            "isCurrent": true,
             "isLocked": false
         },
         {
