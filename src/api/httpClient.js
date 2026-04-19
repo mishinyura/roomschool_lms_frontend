@@ -1,12 +1,13 @@
 // Базовый axios-клиент с настройками перехватчиклв
+import axios from 'axios';
 
+import { API_URL } from '@/configs/api.endpoints';
 import router from '@/router';
 import { useAuthStore } from '@/stores/authStore.js';
-import axios from 'axios';
 
 
 const apiClient = axios.create({
-  baseURL: process.env.VUE_APP_API_URL || 'http://api.roomschool.ru',
+  baseURL: API_URL || 'https://api.roomschool.ru',
   withCredentials: true,
   headers: {
     "Accept": "application/json",

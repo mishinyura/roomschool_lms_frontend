@@ -51,7 +51,7 @@ const openTopics = (event) => {
         </span>
       </div>
       <div class="module__control">
-        <span class="module__amount-videos"> 4/6 </span>
+        <span class="module__amount-videos"> {{props.module.completed}}/{{props.module.total}} </span>
         <span class="module__progress" :style="{ background: progress }"></span>
       </div>
     </div>

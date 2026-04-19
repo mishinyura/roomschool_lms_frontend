@@ -2,8 +2,8 @@
 import { ref, nextTick, onMounted } from "vue";
 import MarkdownIt from "markdown-it";
 import DOMPurify from "dompurify";
-import { send_message } from "@/api/llmApi.js";
-import {communicationApi} from "@/api/communicationApi.js";
+import { communicationApi } from "@/api/communicationApi.js";
+import { HistoryMessagesSchema } from "@/schemas/communicationSchema.js";
 
 const messagesContainer = ref(null);
 const messageText = ref("");
@@ -13,7 +13,7 @@ let messages = ref([
   {
     text: "Привет! Давай вместе по тренируемся на полученных знаниях. Я готов пройти вместе с тобой и помочь тебе в решении практического задания. Ты готов?",
     sender: "assistent",
-  }
+  },
 ]);
 
 let isTyping = ref(false);
@@ -46,7 +46,7 @@ const send_new_message = async (message) => {
   });
   await scrollToBottom();
 
-  const result = await send_message(message);
+  const result = await communicationApi.sendMessage(message);
 
   isTyping.value = false;
 
@@ -96,7 +96,10 @@ const autoResizeTextarea = (event) => {
 
 const loadHistoryMessages = async () => {
   const historyMessages = await communicationApi.getHistoryMessages();
-  messages.value.push(...historyMessages);
+  const parsed = HistoryMessagesSchema.parse(historyMessages);
+
+  console.log("historyMessages", parsed.messages);
+  messages.value.push(...parsed.messages);
   isLoadMessages.value = false;
 };
 
@@ -109,11 +112,9 @@ onMounted(async () => {
 <template>
   <section class="mentor">
     <div class="mentor__head">
-        <span class="mentor__name">AI Ментор</span>
-        <span class="mentor__typing" v-if="isTyping">
-          Печатает...
-        </span>
-      </div>
+      <span class="mentor__name">AI Ментор</span>
+      <span class="mentor__typing" v-if="isTyping"> Печатает... </span>
+    </div>
     <div class="mentor__messenger" ref="messagesContainer">
       <ul class="mentor__messages" v-if="!isLoadMessages">
         <li
@@ -122,7 +123,10 @@ onMounted(async () => {
           :key="index"
         >
           <div class="mentor__avatar">
-            <img :src="message.sender === 'user' ? userImage : socrateImage" alt="">
+            <img
+              :src="message.sender === 'user' ? userImage : socrateImage"
+              alt=""
+            />
           </div>
           <div class="mentor__text" v-html="renderMarkdown(message.text)"></div>
         </li>
@@ -212,7 +216,6 @@ onMounted(async () => {
   &__message {
     display: flex;
     gap: 10px;
-    
 
     &_user {
       flex-direction: row-reverse;
@@ -235,7 +238,7 @@ onMounted(async () => {
     overflow: hidden;
     border: $border-grey;
     border-radius: 50%;
-    background-image: url('@/assets/media/images/no-user-photo.webp');
+    background-image: url("@/assets/media/images/no-user-photo.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

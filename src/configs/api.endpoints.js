@@ -21,7 +21,8 @@ export const API_ENDPOINTS = {
     GET_BY_ID: (program, module, topic, lesson) => `/player/${program}/${module}/${topic}/${lesson}/`
   },
   COMMUNICATION: {
-    LIST: '/messages/'
+    SEND_MESSSAGE: '/communication/ai/chat',
+    HISTOPRY_MESSAGES: '/communication/ai/messages'
   },
   TASKS: {
     LIST: '/tasks',
@@ -35,3 +36,6 @@ export const API_ENDPOINTS = {
     JOIN: (slug) => `/webinars/${slug}/join/`,
   },
 };
+
+// export const API_URL = 'https://api.roomschool.ru';
+export const API_URL = 'http://localhost:8000';

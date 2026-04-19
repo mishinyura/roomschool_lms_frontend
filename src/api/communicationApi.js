@@ -1,21 +1,30 @@
-
+import { API_ENDPOINTS, API_URL } from '@/configs/api.endpoints';
+import apiClient from './httpClient.js';
 
 export const communicationApi = {
 
     async getHistoryMessages() {
-        
-        const res = await fetch('http://localhost:8000/education/ai/messages', {
-            method: 'GET',
+        const url = API_URL + API_ENDPOINTS.COMMUNICATION.HISTOPRY_MESSAGES;
+        const { data } = await apiClient.get(url, {
             headers: {
-                'Content-Type': 'application/json',
-                'X-Client-App': 'roomschool-web'
+                'Authorization': 'test'
             }
         });
+        return data;
+    },
 
-        if (!res.ok) {
-            const details = await res.text();
-            throw new Error(`HTTP ${res.status}: ${details}`);
+    async sendMessage(message) {
+        const url = API_URL + API_ENDPOINTS.COMMUNICATION.SEND_MESSSAGE;
+        const body = {
+            "user": "test-user",
+            "chat": 1,
+            "message": message
         }
-        return res.json();
+        const {data} = await apiClient.post(url, body, {
+            headers: {
+                'Content-Type': 'application/json', 
+            }
+        });
+        return data;
     }
 };

@@ -6,26 +6,18 @@
     "completed": 0,
     "total": 1,
     "modules": [
-        {
+      {
         "title": "Правовая грамотность",
         "slug": "pravovaya-gramotnost",
         "lastLesson": "what-is-law",
         "completed": 0,
-        "total": 12,
+        "total": 4,
         "topics": [
-          {
-            "title": "Знакомство",
-            "slug": "zachem-lyudyam-voobsche-nuzhny-zakony",
-            "progress": 3,
-            "videos": 2,
-            "tests": 1,
-            "isBlock": false
-          },
           {
             "title": "Введение в право",
             "slug": "pravila-doma-v-shkole-i-v-obschestve",
-            "progress": 0,
-            "videos": 3,
+            "progress": 3,
+            "videos": 5,
             "tests": 1,
             "isBlock": false
           },
@@ -67,7 +59,7 @@
             "progress": 0,
             "videos": 3,
             "tests": 1,
-            "isBlock": false
+            "isBlock": true
           },
           {
             "title": "Почему я ничего не делаю (и это не лень)",
